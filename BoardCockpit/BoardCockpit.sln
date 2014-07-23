@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardCockpit", "BoardCockpi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardCockpit.Tests", "BoardCockpit.Tests\BoardCockpit.Tests.csproj", "{E8B6A3D0-B651-413E-9F9B-927C9D7DC4C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeffFerguson.Gepsio", "..\..\..\..\Desktop\Board Cockpits\gepsio-73657\JeffFerguson.Gepsio\JeffFerguson.Gepsio.csproj", "{A567264B-3053-4DAA-B601-AAC3DFC94FBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeffFerguson.Gepsio", "JeffFerguson.Gepsio\JeffFerguson.Gepsio.csproj", "{A567264B-3053-4DAA-B601-AAC3DFC94FBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
