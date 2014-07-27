@@ -48,6 +48,14 @@ namespace JeffFerguson.Gepsio
         private string thisFilename;
         private string thisPath;
 
+        // JIW Start
+        public string DefinitionDirectory
+        {
+            private get;
+            set;
+        }
+        // JIW Stop
+
         /// <summary>
         /// The name of the XML document used to contain the XBRL data.
         /// </summary>
@@ -151,7 +159,7 @@ namespace JeffFerguson.Gepsio
             NewNamespaceManager.AddNamespace("instance", XbrlNamespaceUri);
             XmlNodeList XbrlNodes = SchemaValidXbrl.SelectNodes("//instance:xbrl", NewNamespaceManager);
             foreach (XmlNode XbrlNode in XbrlNodes)
-                thisXbrlFragments.Add(new XbrlFragment(this, XbrlNode));
+                thisXbrlFragments.Add(new XbrlFragment(this, XbrlNode, DefinitionDirectory));
         }
     }
 }

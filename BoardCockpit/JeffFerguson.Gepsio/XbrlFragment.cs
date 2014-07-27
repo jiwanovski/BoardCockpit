@@ -89,6 +89,14 @@ namespace JeffFerguson.Gepsio
 
         #region Properties
 
+        // JIW Start
+        public string DefinitionDirectory
+        {
+            private get;
+            set;
+        }
+        // JIW Stop
+
         /// <summary>
         /// A reference to the <see cref="XbrlDocument"/> instance in which the fragment
         /// was contained.
@@ -199,8 +207,11 @@ namespace JeffFerguson.Gepsio
 
         //-------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------
-        internal XbrlFragment(XbrlDocument ParentDocument, XmlNode XbrlRootNode)
+        // JIW Start
+        // internal XbrlFragment(XbrlDocument ParentDocument, XmlNode XbrlRootNode)
+        internal XbrlFragment(XbrlDocument ParentDocument, XmlNode XbrlRootNode, string definitionDirectory)
         {
+            DefinitionDirectory = definitionDirectory;
             this.Document = ParentDocument;
             thisXbrlRootNode = XbrlRootNode;
             thisValidationErrors = new List<ValidationError>();
@@ -378,7 +389,7 @@ namespace JeffFerguson.Gepsio
         {
             string HrefAttributeValue = XmlUtilities.GetAttributeValue(SchemaRefNode, "http://www.w3.org/1999/xlink", "href");
             string Base = XmlUtilities.GetAttributeValue(SchemaRefNode, "http://www.w3.org/XML/1998/namespace", "base");
-            thisSchemas.Add(new XbrlSchema(this, HrefAttributeValue, Base));
+            thisSchemas.Add(new XbrlSchema(this, HrefAttributeValue, Base,DefinitionDirectory));
         }
 
         //-------------------------------------------------------------------------------

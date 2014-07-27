@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Net;
 using System.Linq;
+using System.IO;
 
 namespace JeffFerguson.Gepsio
 {
@@ -18,6 +19,14 @@ namespace JeffFerguson.Gepsio
         private XmlSchema thisXmlSchema;
         private XmlSchemaSet thisXmlSchemaSet;
         private ILookup<string, Element> thisLookupElements;
+
+        // JIW Start
+        public string SchemaDirectory
+        {
+            private get;
+            set;
+        }
+        // JIW Stop
 
         /// <summary>
         /// The full path to the XBRL schema file.
@@ -111,8 +120,11 @@ namespace JeffFerguson.Gepsio
 
         //-------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------
-        internal XbrlSchema(XbrlFragment ContainingXbrlFragment, string SchemaFilename, string BaseDirectory)
+        internal XbrlSchema(XbrlFragment ContainingXbrlFragment, string SchemaFilename, string BaseDirectory, string schemaDirectory)
         {
+            // JIW Start
+            SchemaDirectory = schemaDirectory;
+            // JIW Stop
             this.Fragment = ContainingXbrlFragment;
             this.Path = GetFullSchemaPath(SchemaFilename, BaseDirectory);
 
@@ -190,17 +202,22 @@ namespace JeffFerguson.Gepsio
             // At this point, we're confident that we have an actual filename.
 
             string FullPath;
+            FullPath = "";
             int FirstPathSeparator = SchemaFilename.IndexOf(System.IO.Path.DirectorySeparatorChar);
             if (FirstPathSeparator == -1)
             {
-                string DocumentUri = this.Fragment.XbrlRootNode.BaseURI;
-                int LastPathSeparator = DocumentUri.LastIndexOf(System.IO.Path.DirectorySeparatorChar);
-                if (LastPathSeparator == -1)
-                    LastPathSeparator = DocumentUri.LastIndexOf('/');
-                string DocumentPath = DocumentUri.Substring(0, LastPathSeparator + 1);
-                if (BaseDirectory.Length > 0)
-                    DocumentPath = DocumentPath + BaseDirectory;
-                FullPath = DocumentPath + SchemaFilename;
+                string[] files = Directory.GetFiles(SchemaDirectory, SchemaFilename, SearchOption.AllDirectories);
+                // JIW Start
+                // string DocumentUri = this.Fragment.XbrlRootNode.BaseURI;
+                // int LastPathSeparator = DocumentUri.LastIndexOf(System.IO.Path.DirectorySeparatorChar);
+                // if (LastPathSeparator == -1)
+                //     LastPathSeparator = DocumentUri.LastIndexOf('/');
+                // string DocumentPath = DocumentUri.Substring(0, LastPathSeparator + 1);
+                // if (BaseDirectory.Length > 0)
+                //     DocumentPath = DocumentPath + BaseDirectory;
+                // FullPath = DocumentPath + SchemaFilename;
+                FullPath = files.First();
+                // JIW Stop
             }
             else
             {

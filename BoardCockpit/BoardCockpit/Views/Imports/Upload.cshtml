@@ -1,0 +1,27 @@
+﻿@using MvcFileUploader.HtmlHelper
+@using MvcFileUploader.Models
+@{
+    ViewBag.Title = "Upload";
+    var ui = "jquery".Equals(Request.Params["ui"]) ? UploadUI.JQueryUI : UploadUI.Bootstrap;
+    var toggleUi = ui == UploadUI.Bootstrap ? "jquery" : "bootstrap";
+}
+
+<h2>Upload</h2>
+
+<div class="well">
+    <legend>Upload Dialog with return url on closing</legend>
+    <p class="help-block">jpg/png size max 5 MB</p>
+    @(
+ Html.MvcFileUpload()
+            .UploadAt(Url.Action("UploadFile"))
+            .UIStyle(ui)            
+            .WithFileTypes(@"/(\.|\/)(xbrl)$/i")
+            .WithMaxFileSize(5000000)
+            .AddFormField("entityId", "1234")
+            .RenderInline("_MvcFileupload")
+        //.RenderPopup("Upload Button Label", "#dlgFileUpload", new { @class = "btn btn-large btn-primary" })
+    )
+</div>
+
+
+

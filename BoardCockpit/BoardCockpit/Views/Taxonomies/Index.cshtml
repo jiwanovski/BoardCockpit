@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BoardCockpit.Models.Taxonomy>
+﻿@*@model IEnumerable<BoardCockpit.Models.Taxonomy>*@
+@model BoardCockpit.ViewModels.TaxonomyIndexData
 
 @{
     ViewBag.Title = "Index";
@@ -12,28 +13,59 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Name
+            @*@Html.DisplayNameFor(model => model.Name)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Path)
+            Verzeichnis
+            @*@Html.DisplayNameFor(model => model.Path)*@
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Path)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TaxonomyID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TaxonomyID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TaxonomyID })
-        </td>
-    </tr>
+    @foreach (var item in Model.Taxonomies)
+    {
+        string selectedRow = "";
+        if (item.TaxonomyID == ViewBag.TaxonomyID)
+        {
+            selectedRow = "success";
+        }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Path)
+            </td>
+            <td>
+                @Html.ActionLink("Select", "Index", new { id = item.TaxonomyID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.TaxonomyID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TaxonomyID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TaxonomyID })
+            </td>
+        </tr>
+    }
+</table>
+
+@if (Model.TaxonomyFiles != null)
+{
+    <h3>Dateien der Taxonomie:</h3>
+    <table class="table">
+        <tr>
+            <th>Dateiname</th>
+        </tr>
+        @foreach (var item in Model.TaxonomyFiles)
+        {
+            string selectedRow = "";
+            if (item.TaxonomyFileID == ViewBag.TaxonomyFileID)
+            {
+                selectedRow = "success";
+            }
+            <tr>
+                <td>@item.Name</td>
+            </tr>
+        }      
+    </table>
 }
 
-</table>
+

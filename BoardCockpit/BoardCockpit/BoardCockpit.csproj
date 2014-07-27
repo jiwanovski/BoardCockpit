@@ -162,6 +162,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImportNodesController.cs" />
+    <Compile Include="Controllers\ImportsController.cs" />
     <Compile Include="Controllers\TaxonomiesController.cs" />
     <Compile Include="Controllers\TaxonomyFilesController.cs" />
     <Compile Include="DAL\BoardCockpitContext.cs" />
@@ -173,10 +175,13 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Import.cs" />
+    <Compile Include="Models\ImportNode.cs" />
     <Compile Include="Models\Taxonomy.cs" />
     <Compile Include="Models\TaxonomyFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\TaxonomyIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -281,6 +286,17 @@
     <Content Include="Views\TaxonomyFiles\Index.cshtml" />
     <Content Include="Views\Taxonomies\Upload.cshtml" />
     <Content Include="Views\Shared\_MvcFileUpload.cshtml" />
+    <Content Include="Views\Imports\Create.cshtml" />
+    <Content Include="Views\Imports\Delete.cshtml" />
+    <Content Include="Views\Imports\Details.cshtml" />
+    <Content Include="Views\Imports\Edit.cshtml" />
+    <Content Include="Views\Imports\Index.cshtml" />
+    <Content Include="Views\Imports\Upload.cshtml" />
+    <Content Include="Views\ImportNodes\Create.cshtml" />
+    <Content Include="Views\ImportNodes\Delete.cshtml" />
+    <Content Include="Views\ImportNodes\Details.cshtml" />
+    <Content Include="Views\ImportNodes\Edit.cshtml" />
+    <Content Include="Views\ImportNodes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

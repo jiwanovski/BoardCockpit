@@ -61,6 +61,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kontextreferenz ähnelt.
+        /// </summary>
+        public static string ContextRef {
+            get {
+                return ResourceManager.GetString("ContextRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Datum ähnelt.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Verzeichnis ähnelt.
+        /// </summary>
+        public static string Directory {
+            get {
+                return ResourceManager.GetString("Directory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fehler ähnelt.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Dateiname ähnelt.
         /// </summary>
         public static string FileName {
@@ -70,11 +106,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Dateipfad ähnelt.
+        /// </summary>
+        public static string FilePath {
+            get {
+                return ResourceManager.GetString("FilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Kompletter Dateipfad ähnelt.
         /// </summary>
         public static string FullFilePath {
             get {
                 return ResourceManager.GetString("FullFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Import ID ähnelt.
+        /// </summary>
+        public static string ImportID {
+            get {
+                return ResourceManager.GetString("ImportID", resourceCulture);
             }
         }
         
@@ -97,11 +151,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Precision ähnelt.
+        /// </summary>
+        public static string Precision {
+            get {
+                return ResourceManager.GetString("Precision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Taxonomie ID ähnelt.
         /// </summary>
         public static string TaxonomyID {
             get {
                 return ResourceManager.GetString("TaxonomyID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Einheitenreferenz ähnelt.
+        /// </summary>
+        public static string UnitRef {
+            get {
+                return ResourceManager.GetString("UnitRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wert ähnelt.
+        /// </summary>
+        public static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
     }

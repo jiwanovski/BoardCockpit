@@ -10,8 +10,10 @@ namespace JeffFerguson.Gepsio
     public class Fact
     {
         internal XbrlFragment thisParentFragment;
-        internal XmlNode thisFactNode; // was protected
-
+        // JIW Start
+        // internal XmlNode thisFactNode; // was protected
+        public XmlNode thisFactNode { get; set; }
+        // JIW Stop
 		/// <summary>
 		/// The name of the fact.
 		/// </summary>

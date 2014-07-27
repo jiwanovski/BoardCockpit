@@ -10,124 +10,111 @@ using BoardCockpit.DAL;
 using BoardCockpit.Models;
 using MvcFileUploader.Models;
 using MvcFileUploader;
-using System.IO;
-using BoardCockpit.ViewModels;
+using BoardCockpit.Helpers;
 
 namespace BoardCockpit.Controllers
 {
-    public class TaxonomiesController : Controller
+    public class ImportsController : Controller
     {
         private BoardCockpitContext db = new BoardCockpitContext();
 
-        // GET: Taxonomies
-        public ActionResult Index(int? id)
+        // GET: Imports
+        public ActionResult Index()
         {
-            var viewModel = new TaxonomyIndexData();
-            viewModel.Taxonomies = db.Taxonomies;
-
-            if (id != null) 
-            {
-                ViewBag.TaxonomyID = id.Value;
-                // Lazy Loading
-                viewModel.TaxonomyFiles = viewModel.Taxonomies.Where(
-                    i => i.TaxonomyID == id.Value).Single().Files;                
-            }
-            
-            return View(viewModel);
+            return View(db.Imports.ToList());
         }
 
-        // GET: Taxonomies/Details/5
+        // GET: Imports/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Taxonomy taxonomy = db.Taxonomies.Find(id);
-            if (taxonomy == null)
+            Import import = db.Imports.Find(id);
+            if (import == null)
             {
                 return HttpNotFound();
             }
-            return View(taxonomy);
+            return View(import);
         }
 
-        // GET: Taxonomies/Create
+        // GET: Imports/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Taxonomies/Create
+        // POST: Imports/Create
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TaxonomyID,Name,Path")] Taxonomy taxonomy)
+        public ActionResult Create([Bind(Include = "ImportID,FileName,Date,Directory,Error")] Import import)
         {
             if (ModelState.IsValid)
             {
-                db.Taxonomies.Add(taxonomy);
+                db.Imports.Add(import);
                 db.SaveChanges();
-                // return RedirectToAction("Index");
-                return RedirectToAction("Upload", new { TaxonomyID = taxonomy.TaxonomyID });
+                return RedirectToAction("Index");
             }
 
-            return View(taxonomy);
+            return View(import);
         }
 
-        // GET: Taxonomies/Edit/5
+        // GET: Imports/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Taxonomy taxonomy = db.Taxonomies.Find(id);
-            if (taxonomy == null)
+            Import import = db.Imports.Find(id);
+            if (import == null)
             {
                 return HttpNotFound();
             }
-            return View(taxonomy);
+            return View(import);
         }
 
-        // POST: Taxonomies/Edit/5
+        // POST: Imports/Edit/5
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TaxonomyID,Name,Path")] Taxonomy taxonomy)
+        public ActionResult Edit([Bind(Include = "ImportID,FileName,Date,Directory,Error")] Import import)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(taxonomy).State = EntityState.Modified;
+                db.Entry(import).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(taxonomy);
+            return View(import);
         }
 
-        // GET: Taxonomies/Delete/5
+        // GET: Imports/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Taxonomy taxonomy = db.Taxonomies.Find(id);
-            if (taxonomy == null)
+            Import import = db.Imports.Find(id);
+            if (import == null)
             {
                 return HttpNotFound();
             }
-            return View(taxonomy);
+            return View(import);
         }
 
-        // POST: Taxonomies/Delete/5
+        // POST: Imports/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Taxonomy taxonomy = db.Taxonomies.Find(id);
-            db.Taxonomies.Remove(taxonomy);
+            Import import = db.Imports.Find(id);
+            db.Imports.Remove(import);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -142,30 +129,14 @@ namespace BoardCockpit.Controllers
         }
 
         // FileUpload
-        public ActionResult Upload(int taxonomyID)
-        {
-            ViewBag.TaxonomyID = taxonomyID;
+        public ActionResult Upload()
+        {            
             return View();
         }
 
-        public ActionResult UploadFile(int? entityId, int taxonomyId) // optionally receive values specified with Html helper
+        public ActionResult UploadFile(int? entityId) // optionally receive values specified with Html helper
         {
-            Taxonomy taxonomy = db.Taxonomies.Find(taxonomyId);
-            if (taxonomy == null)
-            {
-                return HttpNotFound();
-            }
-
-            string path = Server.MapPath("~/Content/ImportedFiles/Taxonomy/" + taxonomy.Name);
-
-            if (Directory.Exists(path))
-            {
-                // TODO JIW Dateipfad existiert schon
-            }
-            else 
-            {
-                DirectoryInfo di = Directory.CreateDirectory(path);
-            }
+            string path = Server.MapPath("~/Content/ImportedFiles/XBRL");            
 
             // here we can send in some extra info to be included with the delete url 
             var statuses = new List<ViewDataUploadFileResult>();
@@ -180,7 +151,7 @@ namespace BoardCockpit.Controllers
                         // and giving it the same value posted with upload
                         x.DeleteUrl = Url.Action("DeleteFile", new { entityId = entityId });
                         x.StorageDirectory = path;
-                        x.UrlPrefix = "/Content/ImportedFiles/Taxonomy/" + taxonomy.Name;// this is used to generate the relative url of the file
+                        x.UrlPrefix = "/Content/ImportedFiles/Taxonomy";// this is used to generate the relative url of the file
 
                         //overriding defaults
                         x.FileName = Request.Files[i].FileName;// default is filename suffixed with filetimestamp
@@ -229,34 +200,43 @@ namespace BoardCockpit.Controllers
                 //}
 
                 // List<TaxonomyFile> taxonomyFiles = new List<TaxonomyFile>;
+                List<ImportNode> nodes = new List<ImportNode>();
                 foreach (ViewDataUploadFileResult file in statuses)
                 {
-                    TaxonomyFile taxonomyFile = new TaxonomyFile
-                                                {
-                                                    TaxonomyID = taxonomyId,
-                                                    Name = file.SavedFileName,
-                                                    Path = path,
-                                                    FullFilePath = file.FullPath,
-                                                    FileName = file.SavedFileName,
-                                                    Taxonomy = taxonomy
-                                                };
-                    
+                    // Make Entry in Import
+                    Import import = new Import
+                    {                        
+                        FileName = file.SavedFileName,
+                        Directory = path,
+                        Date = DateTime.Now                        
+                    };
+
                     if (ModelState.IsValid)
                     {
-                        db.TaxonomyFiles.Add(taxonomyFile);
+                        db.Imports.Add(import);
                         db.SaveChanges();
                     }
-                    
-                    taxonomy.Files.Add(taxonomyFile);
-                }                
 
-                if (ModelState.IsValid)
-                {
-                    taxonomy.Path = path;
-                    db.Entry(taxonomy).State = EntityState.Modified;
-                    db.SaveChanges();
-                    //return RedirectToAction("Index");
-                }
+                    // Make Entry in Import Nodes --> GEPSIO   
+                    ImportXBRL importXBRL = new ImportXBRL();
+                    importXBRL.Import(import, ref nodes, file.FullPath, Server.MapPath("~/Content/ImportedFiles/Taxonomy"));
+
+                    foreach (ImportNode node in nodes)
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            db.ImportNodes.Add(node);
+                            db.SaveChanges();
+                        }
+                        import.Nodes.Add(node);
+                    }
+
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(import).State = EntityState.Modified;
+                        db.SaveChanges();                        
+                    }
+                }                
 
                 return viewresult;
             }

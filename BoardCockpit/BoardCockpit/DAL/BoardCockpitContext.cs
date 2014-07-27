@@ -16,11 +16,15 @@ namespace BoardCockpit.DAL
         }
 
         public DbSet<Taxonomy> Taxonomies { get; set; }
-        public DbSet<TaxonomyFile> TaxonomyFiles { get; set; }        
+        public DbSet<TaxonomyFile> TaxonomyFiles { get; set; }
+        public DbSet<Import> Imports { get; set; }
+        public DbSet<ImportNode> ImportNodes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        
     }
 }
