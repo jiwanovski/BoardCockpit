@@ -81,6 +81,7 @@
     <Compile Include="Boolean.cs" />
     <Compile Include="CalculationArc.cs" />
     <Compile Include="CalculationLink.cs" />
+    <Compile Include="Company.cs" />
     <Compile Include="ComplexType.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="ContextValidationError.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="DefinitionArc.cs" />
     <Compile Include="DefinitionArcValidationError.cs" />
     <Compile Include="DefinitionLink.cs" />
+    <Compile Include="Document.cs" />
     <Compile Include="Double.cs" />
     <Compile Include="Duration.cs" />
     <Compile Include="Element.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="HyperlinkReferenceValidationError.cs" />
     <Compile Include="ID.cs" />
     <Compile Include="IDREF.cs" />
+    <Compile Include="Industry.cs" />
     <Compile Include="Integer.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemAttributes.cs" />
@@ -164,6 +167,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="QualifiedName.cs" />
+    <Compile Include="Report.cs" />
     <Compile Include="RestrictedSimpleType.cs" />
     <Compile Include="RoleType.cs" />
     <Compile Include="SchemaValidationError.cs" />

@@ -11,6 +11,7 @@ using BoardCockpit.Models;
 using MvcFileUploader.Models;
 using MvcFileUploader;
 using BoardCockpit.Helpers;
+using BoardCockpit.ViewModels;
 
 namespace BoardCockpit.Controllers
 {
@@ -31,12 +32,21 @@ namespace BoardCockpit.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Import import = db.Imports.Find(id);
-            if (import == null)
+            var viewModel = new ImportIndexData();
+
+            viewModel.Import = db.Imports.Find(id);
+            if (viewModel.Import == null)
             {
                 return HttpNotFound();
             }
-            return View(import);
+            // return View(import);
+            
+            // Lazy Loading
+            // viewModel.ImportNodes = viewModel.ImportNodes.Where(
+            //    i => i.ImportID == id.Value);
+            viewModel.ImportNodes = viewModel.Import.Nodes.Where(
+                i => i.ImportID == id.Value);
+            return View(viewModel);
         }
 
         // GET: Imports/Create
@@ -192,14 +202,6 @@ namespace BoardCockpit.Controllers
                 if (Request.Headers["Accept"] != null && !Request.Headers["Accept"].Contains("application/json"))
                     viewresult.ContentType = "text/plain";
 
-                //foreach (ViewDataUploadFileResult fileResult in statuses)
-                //{
-                //    ImportXBRL importXBRL = new ImportXBRL();
-                //    importXBRL.Import(1, fileResult.FullPath);
-
-                //}
-
-                // List<TaxonomyFile> taxonomyFiles = new List<TaxonomyFile>;
                 List<ImportNode> nodes = new List<ImportNode>();
                 foreach (ViewDataUploadFileResult file in statuses)
                 {

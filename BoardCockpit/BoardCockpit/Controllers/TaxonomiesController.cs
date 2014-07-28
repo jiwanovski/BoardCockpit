@@ -43,12 +43,14 @@ namespace BoardCockpit.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Taxonomy taxonomy = db.Taxonomies.Find(id);
             if (taxonomy == null)
             {
                 return HttpNotFound();
             }
             return View(taxonomy);
+            
         }
 
         // GET: Taxonomies/Create

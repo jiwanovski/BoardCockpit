@@ -1,5 +1,12 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Xml;
 using System.Xml.Schema;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Linq;
+
 
 namespace JeffFerguson.Gepsio
 {
@@ -99,5 +106,16 @@ namespace JeffFerguson.Gepsio
         //====================================================================================
         #endregion
         //====================================================================================
+        // JIW Start
+        #region XmlSchemaType Extension Methods
+        public static IEnumerable<XmlElement> DescendantsAndSelf(this XmlElement node)
+        {
+            
+            return new[] { node }.Concat(node.ChildNodes
+                                             .OfType<XmlElement>()
+                                             .SelectMany(x => x.DescendantsAndSelf()));
+        }
+        #endregion
+        // JIW Stop
     }
 }

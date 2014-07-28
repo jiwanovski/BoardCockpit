@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Linq;
+using JeffFerguson.Gepsio;
 
 namespace JeffFerguson.Gepsio
 {
@@ -84,6 +85,11 @@ namespace JeffFerguson.Gepsio
         private List<Unit> thisUnits;
         private List<FootnoteLink> thisFootnoteLinks;
         private List<ValidationError> thisValidationErrors;
+        // JIW Start
+        private Company thisCompany;
+        private Report thisReport;
+        private Document thisDocument;
+        // JIW Stop
 
         #endregion
 
@@ -128,6 +134,32 @@ namespace JeffFerguson.Gepsio
                 return thisContexts;
             }
         }
+
+        // JIW Start
+        public Company Company
+        {
+            get 
+            {
+                return thisCompany;
+            }
+        }
+
+        public Report Report
+        {
+            get
+            {
+                return thisReport;
+            }
+        }
+
+        public Document GenInfoDocument
+        {
+            get 
+            {
+                return thisDocument;
+            }
+        }
+        // JIW Stop
 
         /// <summary>
         /// A collection of <see cref="XbrlSchema"/> objects representing all schemas found in the fragment.
@@ -222,6 +254,11 @@ namespace JeffFerguson.Gepsio
             ReadTaxonomySchemaRefs();
             ReadContexts();
             ReadUnits();
+            // JIW Start
+            ReadCompanyData();
+            ReadReportData();
+            ReadDocumentData();
+            // JIW Stop
             ReadFacts();
             ReadFootnoteLinks();
             if (Loaded != null)
@@ -525,6 +562,32 @@ namespace JeffFerguson.Gepsio
             foreach (XmlNode ContextNode in ContextNodes)
                 thisContexts.Add(new Context(this, ContextNode));
         }
+
+        // JIW Start
+        private void ReadCompanyData()
+        {            
+            IEnumerable<XmlElement> CompanyNodes = thisXbrlRootNode.OwnerDocument.DocumentElement.DescendantsAndSelf()
+                .Where(x => x.LocalName.StartsWith("genInfo.company"));
+
+            thisCompany = new Company(this, CompanyNodes);            
+        }
+
+        private void ReadReportData()
+        {
+            IEnumerable<XmlElement> ReportNodes = thisXbrlRootNode.OwnerDocument.DocumentElement.DescendantsAndSelf()
+                .Where(x => x.LocalName.StartsWith("genInfo.report"));
+
+            thisReport = new Report(this, ReportNodes);
+        }
+
+        private void ReadDocumentData()
+        {
+            IEnumerable<XmlElement> DocumentNodes = thisXbrlRootNode.OwnerDocument.DocumentElement.DescendantsAndSelf()
+                .Where(x => x.LocalName.StartsWith("genInfo.doc"));
+
+            thisDocument = new Document(this, DocumentNodes);
+        }
+        // JIW Stop
 
         /// <summary>
         /// Reads all of the facts in the XBRL fragment and creates an object for each.
