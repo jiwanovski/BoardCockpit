@@ -174,11 +174,16 @@
     <Compile Include="Helpers\ImportXBRL.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\FinancialData.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Import.cs" />
     <Compile Include="Models\ImportNode.cs" />
+    <Compile Include="Models\Industry.cs" />
     <Compile Include="Models\Taxonomy.cs" />
     <Compile Include="Models\TaxonomyFile.cs" />
+    <Compile Include="Models\Unit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ImportIndexData.cs" />

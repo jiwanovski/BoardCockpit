@@ -19,6 +19,11 @@ namespace BoardCockpit.DAL
         public DbSet<TaxonomyFile> TaxonomyFiles { get; set; }
         public DbSet<Import> Imports { get; set; }
         public DbSet<ImportNode> ImportNodes { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Industry> Industries { get; set; }
+        public DbSet<Context> Contexts { get; set; }
+        public DbSet<FinancialData> FinancialDatas { get; set; }
+        public DbSet<Unit> Units { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

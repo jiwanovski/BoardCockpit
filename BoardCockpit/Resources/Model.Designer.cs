@@ -61,11 +61,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Stadt ähnelt.
+        /// </summary>
+        public static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Unternehmens ID ähnelt.
+        /// </summary>
+        public static string CompanyID {
+            get {
+                return ResourceManager.GetString("CompanyID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kontext ID ähnelt.
+        /// </summary>
+        public static string ContextID {
+            get {
+                return ResourceManager.GetString("ContextID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Kontextreferenz ähnelt.
         /// </summary>
         public static string ContextRef {
             get {
                 return ResourceManager.GetString("ContextRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Land ähnelt.
+        /// </summary>
+        public static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
             }
         }
         
@@ -84,6 +120,15 @@ namespace Resources {
         public static string Directory {
             get {
                 return ResourceManager.GetString("Directory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enddatum ähnelt.
+        /// </summary>
+        public static string EndDate {
+            get {
+                return ResourceManager.GetString("EndDate", resourceCulture);
             }
         }
         
@@ -133,6 +178,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Instant ähnelt.
+        /// </summary>
+        public static string Instant {
+            get {
+                return ResourceManager.GetString("Instant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Standort ähnelt.
+        /// </summary>
+        public static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Name ähnelt.
         /// </summary>
         public static string Name {
@@ -160,11 +223,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Firmengröße ähnelt.
+        /// </summary>
+        public static string SizeClass {
+            get {
+                return ResourceManager.GetString("SizeClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Startdatum ähnelt.
+        /// </summary>
+        public static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Straße ähnelt.
+        /// </summary>
+        public static string Street {
+            get {
+                return ResourceManager.GetString("Street", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Taxonomie ID ähnelt.
         /// </summary>
         public static string TaxonomyID {
             get {
                 return ResourceManager.GetString("TaxonomyID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Einheiten ID ähnelt.
+        /// </summary>
+        public static string UnitID {
+            get {
+                return ResourceManager.GetString("UnitID", resourceCulture);
             }
         }
         
@@ -183,6 +282,42 @@ namespace Resources {
         public static string Value {
             get {
                 return ResourceManager.GetString("Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die XBRL Kontext ID ähnelt.
+        /// </summary>
+        public static string XbrlContextID {
+            get {
+                return ResourceManager.GetString("XbrlContextID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die XBRL Name ähnelt.
+        /// </summary>
+        public static string XbrlName {
+            get {
+                return ResourceManager.GetString("XbrlName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die XBRL Einheiten ID ähnelt.
+        /// </summary>
+        public static string XbrlUnitID {
+            get {
+                return ResourceManager.GetString("XbrlUnitID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PLZ ähnelt.
+        /// </summary>
+        public static string ZipCode {
+            get {
+                return ResourceManager.GetString("ZipCode", resourceCulture);
             }
         }
     }
