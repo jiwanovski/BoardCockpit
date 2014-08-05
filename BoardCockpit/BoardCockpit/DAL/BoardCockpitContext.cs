@@ -24,6 +24,8 @@ namespace BoardCockpit.DAL
         public DbSet<Context> Contexts { get; set; }
         public DbSet<FinancialData> FinancialDatas { get; set; }
         public DbSet<Unit> Units { get; set; }
+        public DbSet<Report> Reports { get; set; }
+        public DbSet<GenInfoDocument> GenInfoDocuments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

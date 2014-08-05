@@ -8,7 +8,7 @@ namespace BoardCockpit.Models
 {
     public class Company
     {
-        public int CompanyID { get; set; }
+        public Int64 CompanyID { get; set; }
 
         [Display(Name = "SizeClass", ResourceType = typeof(Resources.Model))]
         public int SizeClass { get; set; }
@@ -23,7 +23,7 @@ namespace BoardCockpit.Models
         public string Street { get; set; }
 
         [Display(Name = "ZipCode", ResourceType = typeof(Resources.Model))]
-        public string ZipCode { get; set; }
+        public int ZipCode { get; set; }
 
         [Display(Name = "City", ResourceType = typeof(Resources.Model))]
         public string City { get; set; }

@@ -30,13 +30,37 @@ namespace BoardCockpit.Helpers
             
         }
 
-        public Report Report
+        public JeffFerguson.Gepsio.Report Report
         {
             get
             {
                 return Doc.XbrlFragments.First().Report;//Doc.XbrlFragment[1].Company;
             }
             
+        }
+
+        public ICollection<JeffFerguson.Gepsio.Context> Contexts
+        {
+            get
+            {
+                return Doc.XbrlFragments.First().Contexts;
+            }
+        }
+
+        public ICollection<JeffFerguson.Gepsio.Unit> Units
+        {
+            get
+            {
+                return Doc.XbrlFragments.First().Units;
+            }
+        }
+
+        public ICollection<JeffFerguson.Gepsio.Fact> FinancialFacts
+        {
+            get
+            {
+                return Doc.XbrlFragments.First().FinancialFacts;
+            }
         }
 
         public ImportXBRL()

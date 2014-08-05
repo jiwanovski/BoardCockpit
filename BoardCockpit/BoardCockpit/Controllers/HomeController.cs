@@ -26,5 +26,10 @@ namespace BoardCockpit.Controllers
 
             return View();
         }
+
+        public ActionResult SetupView()
+        {
+            return View();
+        }
     }
 }
