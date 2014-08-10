@@ -20,13 +20,38 @@ namespace BoardCockpit
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+            // Bootstrap metro
+            // bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //           "~/Scripts/bootstrap.js",
+            //           "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(                      
+                      "~/Scripts/respond.js",
+                      "~/Scipts/metro/metro.min.js",
+                      "~/Scripts/metro/jquery/jquery.min.js",
+                      "~/Scripts/metro/jquery/jquery.widget.min.js",
+                      "~/Scripts/metro/jquery/jquery.mousewheel.js",
+                      "~/Scripts/metro/prettify/prettify.js",
+                      "~/Scripts/metro/load-metro.js",
+                      "~/Scripts/metro/docs.js",
+                      "~/Scripts/metro/github.info.js"));
+            
 
+            // Bootstrap Metro
+            // bundles.Add(new StyleBundle("~/Content/css").Include(
+            //           "~/Content/bootstrap.css",
+            //           "~/Content/site.css"));
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/metro/metro-bootstrap.css",
+                      "~/Content/metro/metro-bootstrap-responsive.css",
+                      "~/Content/metro/iconFont.css",
+                      "~/Content/metro/docs.css",
+                      "~/Content/metro/jquery.min.css",
+                      "~/Content/metro/jquery.widget.min.css"));
+
+            // Bootstrap Metro
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrapMetro").Include(
+            //    "~/Scripts/Metro/"));
 
             // FileUpload
             // bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -42,7 +67,7 @@ namespace BoardCockpit
             // bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
             //             "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            // bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
