@@ -161,24 +161,42 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\ContextsController.cs" />
+    <Compile Include="Controllers\FinancialDatasController.cs" />
+    <Compile Include="Controllers\GenInfoDocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportNodesController.cs" />
     <Compile Include="Controllers\ImportsController.cs" />
+    <Compile Include="Controllers\IndustriesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\TaxonomiesController.cs" />
     <Compile Include="Controllers\TaxonomyFilesController.cs" />
+    <Compile Include="Controllers\UnitsController.cs" />
     <Compile Include="DAL\BoardCockpitContext.cs" />
     <Compile Include="DAL\BoardCockpitInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ImportXBRL.cs" />
+    <Compile Include="Migrations\201407292200576_InitialCreate.cs" />
+    <Compile Include="Migrations\201407292200576_InitialCreate.Designer.cs">
+      <DependentUpon>201407292200576_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\FinancialData.cs" />
+    <Compile Include="Models\GenInfoDocument.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Import.cs" />
     <Compile Include="Models\ImportNode.cs" />
+    <Compile Include="Models\Industry.cs" />
+    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Taxonomy.cs" />
     <Compile Include="Models\TaxonomyFile.cs" />
+    <Compile Include="Models\Unit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ImportIndexData.cs" />
@@ -220,7 +238,7 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="Images\twitter.png" />
     <Content Include="Images\windowsLive.png" />
-    <Content Include="Images\XBRL_Icon.jpg" />
+    <Content Include="Images\XBRL_Icon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.eot" />
@@ -298,6 +316,42 @@
     <Content Include="Views\ImportNodes\Details.cshtml" />
     <Content Include="Views\ImportNodes\Edit.cshtml" />
     <Content Include="Views\ImportNodes\Index.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Delete.cshtml" />
+    <Content Include="Views\Companies\Details.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Industries\Create.cshtml" />
+    <Content Include="Views\Industries\Delete.cshtml" />
+    <Content Include="Views\Industries\Details.cshtml" />
+    <Content Include="Views\Industries\Edit.cshtml" />
+    <Content Include="Views\Industries\Index.cshtml" />
+    <Content Include="Views\Contexts\Create.cshtml" />
+    <Content Include="Views\Contexts\Delete.cshtml" />
+    <Content Include="Views\Contexts\Details.cshtml" />
+    <Content Include="Views\Contexts\Edit.cshtml" />
+    <Content Include="Views\Contexts\Index.cshtml" />
+    <Content Include="Views\FinancialDatas\Create.cshtml" />
+    <Content Include="Views\FinancialDatas\Delete.cshtml" />
+    <Content Include="Views\FinancialDatas\Details.cshtml" />
+    <Content Include="Views\FinancialDatas\Edit.cshtml" />
+    <Content Include="Views\FinancialDatas\Index.cshtml" />
+    <Content Include="Views\Units\Create.cshtml" />
+    <Content Include="Views\Units\Delete.cshtml" />
+    <Content Include="Views\Units\Details.cshtml" />
+    <Content Include="Views\Units\Edit.cshtml" />
+    <Content Include="Views\Units\Index.cshtml" />
+    <Content Include="Views\Reports\Create.cshtml" />
+    <Content Include="Views\Reports\Delete.cshtml" />
+    <Content Include="Views\Reports\Details.cshtml" />
+    <Content Include="Views\Reports\Edit.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\GenInfoDocuments\Create.cshtml" />
+    <Content Include="Views\GenInfoDocuments\Delete.cshtml" />
+    <Content Include="Views\GenInfoDocuments\Details.cshtml" />
+    <Content Include="Views\GenInfoDocuments\Edit.cshtml" />
+    <Content Include="Views\GenInfoDocuments\Index.cshtml" />
+    <Content Include="Views\Home\SetupView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -324,6 +378,11 @@
       <Project>{18750860-8423-4cc1-b4a8-e645cb11ccf2}</Project>
       <Name>Resources</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201407292200576_InitialCreate.resx">
+      <DependentUpon>201407292200576_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

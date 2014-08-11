@@ -10,7 +10,58 @@ namespace BoardCockpit.Helpers
 {
     public class ImportXBRL
     {
-        XbrlDocument Doc;
+        private XbrlDocument Doc;
+
+        public JeffFerguson.Gepsio.Company Company
+        {
+            get
+            {
+                return Doc.XbrlFragments.First().Company;//Doc.XbrlFragment[1].Company;
+            }
+            
+        }
+
+        public Document Document
+        {
+            get
+            {
+                return Doc.XbrlFragments.First().GenInfoDocument;//Doc.XbrlFragment[1].Company;
+            }
+            
+        }
+
+        public JeffFerguson.Gepsio.Report Report
+        {
+            get
+            {
+                return Doc.XbrlFragments.First().Report;//Doc.XbrlFragment[1].Company;
+            }
+            
+        }
+
+        public ICollection<JeffFerguson.Gepsio.Context> Contexts
+        {
+            get
+            {
+                return Doc.XbrlFragments.First().Contexts;
+            }
+        }
+
+        public ICollection<JeffFerguson.Gepsio.Unit> Units
+        {
+            get
+            {
+                return Doc.XbrlFragments.First().Units;
+            }
+        }
+
+        public ICollection<JeffFerguson.Gepsio.Fact> FinancialFacts
+        {
+            get
+            {
+                return Doc.XbrlFragments.First().FinancialFacts;
+            }
+        }
 
         public ImportXBRL()
         {
@@ -57,6 +108,7 @@ namespace BoardCockpit.Helpers
 
                     nodes.Add(node);
 
+                    // set data
                     // TODO In Tabelle ImportNode speichern --> Methode in ImportNodesController
                 }
             }

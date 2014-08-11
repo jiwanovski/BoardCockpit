@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BoardCockpit.Models.Report>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AccordingToYearEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReportType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.XbrlContextRef)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccordingToYearEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReportType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.XbrlContextRef)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReportID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReportID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReportID })
+        </td>
+    </tr>
+}
+
+</table>

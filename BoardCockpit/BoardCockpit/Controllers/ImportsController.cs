@@ -178,7 +178,7 @@ namespace BoardCockpit.Controllers
 
                 //adding thumbnail url for jquery file upload javascript plugin
                 // TODO: JIW: Change Image
-                statuses.ForEach(x => x.thumbnailUrl = "/Images/XBRL_Icon.jpg"); // uses ImageResizer httpmodule to resize images from this url
+                statuses.ForEach(x => x.thumbnailUrl = "/Images/XBRL_Icon.png"); // uses ImageResizer httpmodule to resize images from this url
 
                 //setting custom download url instead of direct url to file which is default
                 statuses.ForEach(x => x.url = Url.Action("DownloadFile", new { fileUrl = x.url }));
@@ -237,6 +237,195 @@ namespace BoardCockpit.Controllers
                     {
                         db.Entry(import).State = EntityState.Modified;
                         db.SaveChanges();                        
+                    }
+
+                    // Import in Puffer abgeschlossen... 
+                    // Nun in die richtigen Tabellen...
+
+
+                    // ----- COMPANY -------
+                    Company company = new Company
+                    {
+                        CompanyID = importXBRL.Company.CompanyID,
+                        Name = importXBRL.Company.Name,
+                        Location = importXBRL.Company.Location,
+                        Street = importXBRL.Company.Street,
+                        ZipCode = importXBRL.Company.ZIPCode,
+                        City = importXBRL.Company.City,
+                        Country = importXBRL.Company.Country,
+                        SizeClass = importXBRL.Company.SizeClass
+                    };
+                    company.Industies = new List<Industry>();
+                    foreach (JeffFerguson.Gepsio.Industry industry in importXBRL.Company.Industires)
+                    {
+                        Industry industry2 = new Industry { IndustryID = industry.ID };
+                        industry2.Companies = new List<Company>();
+                        industry2.Companies.Add(company);
+
+                        company.Industies.Add(industry2);
+                    }
+
+                    // ----- REPORT -------
+                    Report report = new Report();
+                    if (importXBRL.Report.AccordingToYearEnd == DateTime.MinValue)
+                        report.AccordingToYearEnd = new DateTime(1753, 1, 1);
+                    else
+                        report.AccordingToYearEnd = importXBRL.Report.AccordingToYearEnd;
+                    report.ReportType = importXBRL.Report.ReportType;
+                    report.ReportID = importXBRL.Report.ReportID;
+
+                    // ----- GENINFO -------
+                    GenInfoDocument genInfoDocument = new GenInfoDocument();
+                    if (importXBRL.Document.GenerationDate == DateTime.MinValue)
+                        genInfoDocument.GenerationDate = new DateTime(1753, 1, 1);
+                    else
+                        genInfoDocument.GenerationDate = importXBRL.Document.GenerationDate;
+                    //{
+                    //    GenerationDate = importXBRL.Document.GenerationDate
+                    //};
+
+                    if (ModelState.IsValid)
+                    {                        
+                        db.Companies.Add(company);                    
+                        db.Reports.Add(report);
+                        db.GenInfoDocuments.Add(genInfoDocument);                        
+                        db.SaveChanges();
+                    }
+                    
+                    // ----- CONTEXT -------
+                    ICollection<Context> contexts = new List<Context>();
+                    foreach (JeffFerguson.Gepsio.Context context in importXBRL.Contexts)
+                    {
+                        Context context2 = new Context();
+                        context2.XbrlContextID = context.Id;
+                        if (context.PeriodStartDate == DateTime.MinValue)
+                            context2.StartDate = new DateTime(1753, 1, 1);
+                        else
+                            context2.StartDate = context.PeriodStartDate;
+                        if (context.PeriodEndDate == DateTime.MinValue)
+                            context2.EndDate = new DateTime(1753, 1, 1);
+                        else
+                            context2.EndDate = context.PeriodEndDate;
+                        if (context.InstantDate == DateTime.MinValue)
+                            context2.Instant = new DateTime(1753, 1, 1);
+                        else
+                            context2.Instant = context.InstantDate;
+                        context2.CompanyID = company.CompanyID;
+                        context2.Company = company;
+                        context2.ReportID = report.ReportID;
+                        context2.Report = report;
+                        context2.GenInfoDocumentID = genInfoDocument.GenInfoDocumentID;
+                        context2.GenInfoDocument = genInfoDocument;
+                        contexts.Add(context2);
+                    }
+
+                    if (ModelState.IsValid)
+                    {
+                        foreach (Context context in contexts)
+                        {
+                            db.Contexts.Add(context);
+                        }
+                        db.SaveChanges();
+                    }                                                          
+
+                    // ----- Company -------
+                    company.Contexts = contexts;
+
+                    // ----- Report -------
+                    report.Contexts = contexts;
+
+                    // ----- GenInfo -------
+                    genInfoDocument.Contexts = contexts;
+
+                    if (ModelState.IsValid)
+                    {                        
+                        db.Entry(company).State = EntityState.Modified;
+                        db.Entry(report).State = EntityState.Modified;
+                        db.Entry(genInfoDocument).State = EntityState.Modified;
+                        
+                        db.SaveChanges();
+                    }
+
+                    // ----- UNITS -------
+                    ICollection<Unit> units = new List<Unit>();
+                    foreach (JeffFerguson.Gepsio.Unit unit in importXBRL.Units)
+                    {
+                        Unit unit2 = new Unit
+                                        {
+                                            XbrlUnitID = unit.Id,
+                                        };
+                        units.Add(unit2);
+                    }
+
+                    if (ModelState.IsValid)
+                    {
+                        foreach (Unit unit in units)
+                        {
+                            db.Units.Add(unit);
+                        }
+                        db.SaveChanges();
+                    }
+
+                    // ----- FINANCIAL DATA -------
+                    ICollection<FinancialData> financialDatas = new List<FinancialData>();
+                    foreach (JeffFerguson.Gepsio.Fact fact in importXBRL.FinancialFacts)
+	                {
+                        FinancialData financialData = new FinancialData
+                                        {
+                                            ContextID = contexts.Where(i => i.XbrlContextID == ((JeffFerguson.Gepsio.Item)(fact)).ContextRefName).Single().ContextID,
+                                            Context = contexts.Where(i => i.XbrlContextID == ((JeffFerguson.Gepsio.Item)(fact)).ContextRefName).Single(),
+                                            UnitID = units.Where(i => i.XbrlUnitID == ((JeffFerguson.Gepsio.Item)(fact)).UnitRefName).Single().UnitId,
+                                            Unit = units.Where(i => i.XbrlUnitID == ((JeffFerguson.Gepsio.Item)(fact)).UnitRefName).Single(),
+                                            XbrlName = fact.Name,
+                                            Precision = ((JeffFerguson.Gepsio.Item)(fact)).Precision,
+                                            Value = ((JeffFerguson.Gepsio.Item)(fact)).Value
+                                        };
+                        financialDatas.Add(financialData);
+	                }
+
+                    if (ModelState.IsValid)
+                    {
+                        foreach (FinancialData data in financialDatas)
+                        {
+                            db.FinancialDatas.Add(data);
+                        }
+                        db.SaveChanges();
+                    }
+
+                    // ----- CONTEXT -------
+                    foreach (Context context in contexts)
+                    {
+                        context.FinancialDatas = new List<FinancialData>();
+                        
+                        foreach (FinancialData data in financialDatas.Where(i => i.ContextID == context.ContextID))
+	                    {
+		                    context.FinancialDatas.Add(data);
+	                    };                          
+                    }
+
+                    // ----- UNIT -------
+                    foreach (Unit unit in units)
+                    {
+                        foreach (FinancialData data in financialDatas.Where(i => i.UnitID == unit.UnitId))
+                        {
+                            unit.FinancialDatas.Add(data);
+                        };                        
+                    }
+
+                    
+                    if (ModelState.IsValid)
+                    {
+                        foreach (Context context in contexts)
+                        {
+                            db.Entry(context).State = EntityState.Modified;
+                        }                                                
+                        
+                        foreach (Unit unit in units)
+                        {
+                            db.Entry(unit).State = EntityState.Modified;
+                        }
+                        
+                        db.SaveChanges();
                     }
                 }                
 

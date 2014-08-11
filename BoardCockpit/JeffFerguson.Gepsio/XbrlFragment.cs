@@ -89,6 +89,7 @@ namespace JeffFerguson.Gepsio
         private Company thisCompany;
         private Report thisReport;
         private Document thisDocument;
+        private List<Fact> thisFinancialFacts;
         // JIW Stop
 
         #endregion
@@ -157,6 +158,14 @@ namespace JeffFerguson.Gepsio
             get 
             {
                 return thisDocument;
+            }
+        }
+
+        public List<Fact> FinancialFacts
+        {
+            get
+            {
+                return thisFinancialFacts;
             }
         }
         // JIW Stop
@@ -258,6 +267,7 @@ namespace JeffFerguson.Gepsio
             ReadCompanyData();
             ReadReportData();
             ReadDocumentData();
+            ReadFinancialFacts();
             // JIW Stop
             ReadFacts();
             ReadFootnoteLinks();
@@ -586,6 +596,25 @@ namespace JeffFerguson.Gepsio
                 .Where(x => x.LocalName.StartsWith("genInfo.doc"));
 
             thisDocument = new Document(this, DocumentNodes);
+        }
+        //thisFacts = new List<Fact>();
+        //    foreach (XmlNode CurrentChild in thisXbrlRootNode.ChildNodes)
+        //    {
+        //        var CurrentFact = Fact.Create(this, CurrentChild);
+        //        if (CurrentFact != null)
+        //            thisFacts.Add(CurrentFact);
+        //    }
+        private void ReadFinancialFacts() 
+        {
+            thisFinancialFacts = new List<Fact>();
+            IEnumerable<XmlElement> DocumentNodes = thisXbrlRootNode.OwnerDocument.DocumentElement.DescendantsAndSelf()
+                .Where(x => x.Name.StartsWith("de-gaap-ci"));
+            foreach (XmlNode CurrentChild in DocumentNodes)
+            {
+                var CurrentFact = Fact.Create(this, CurrentChild);
+                if (CurrentFact != null)
+                    thisFinancialFacts.Add(CurrentFact);
+            }
         }
         // JIW Stop
 
