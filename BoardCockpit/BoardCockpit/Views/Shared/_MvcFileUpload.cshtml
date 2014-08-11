@@ -88,29 +88,31 @@ else //inline
         <div class="row fileupload-buttonbar">                    
             <div class="col-lg-7">
                 <!-- The fileinput-button span is used to style the file input field as button -->
-                <span class="btn btn-success fileinput-button">
-                    <i class="glyphicon glyphicon-plus"></i>
+                <span class="image-button primary fileinput-button image-left large">
+                    <!---class="btn btn-success fileinput-button">-->
+                    <i class="icon-plus-2 bg-cobalt"></i>
                     <span>Add files...</span>
+                    
                     @if (Model.MaxNumberOfFiles == 1)
                     {
-                        <input type="file" name="files[]"/>
+                        <input type="file" name="files[]" />
                     }
                     else
                     {
-                        <input type="file" name="files[]" multiple/>
-                    }                                
+                        <input type="file" name="files[]" multiple />
+                    }
                 </span>
-                <button type="submit" class="btn btn-primary start">
-                    <i class="glyphicon glyphicon-upload"></i>
+                <button type="submit" class="image-button bg-darkGreen start image-left large">
                     <span>Start upload</span>
+                    <i class="icon-upload-3 bg-green"></i>
                 </button>
-                <button type="reset" class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
+                <button type="reset" class="image-button warning cancel image-left large">
                     <span>Cancel upload</span>
+                    <i class="icon-cancel-2 bg-amber"></i>
                 </button>
-                <button type="button" class="btn btn-danger delete">
-                    <i class="glyphicon glyphicon-trash"></i>
+                <button type="button" class="image-button danger delete image-left large">
                     <span>Delete</span>
+                    <i class="icon-remove bg-red"></i>
                 </button>                    
                 <input type="checkbox" class="toggle"> 
             </div>
@@ -149,6 +151,25 @@ else //inline
     {
         <!-- The template to display files available for upload for jquery ui -->
         <script id="template-upload" type="text/x-tmpl">
+            {% for (var i=0, file; file=o.files[i]; i++) { %}
+                <tr class="template-upload fade">
+                    <td>
+                        <span class="preview"></span>
+                    </td>
+                    <td>
+                        <p class="name">{%=file.name%}</p>
+                        <strong class="error"></strong>
+                    </td>
+                    <td>
+                        <p class="size">Processing...</p>
+                        <div class="progress"></div>
+                    </td>
+                    <td>
+                        {% if (!i && !o.options.autoUpload) { %}
+                            <button class="start">Start</button>
+        
+        <!-- The template to display files available for upload -->
+        <script id="template-upload" type="text/x-tmpl">
         {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-upload fade">
                 <td>
@@ -156,60 +177,42 @@ else //inline
                 </td>
                 <td>
                     <p class="name">{%=file.name%}</p>
-                    <strong class="error"></strong>
+                    <strong class="error text-danger"></strong>
                 </td>
                 <td>
                     <p class="size">Processing...</p>
-                    <div class="progress"></div>
+                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
                 </td>
                 <td>
                     {% if (!i && !o.options.autoUpload) { %}
-                        <button class="start">Start</button>
-
-    <!-- The template to display files available for upload -->
-    <script id="template-upload" type="text/x-tmpl">
-    {% for (var i=0, file; file=o.files[i]; i++) { %}
-        <tr class="template-upload fade">
-            <td>
-                <span class="preview"></span>
-            </td>
-            <td>
-                <p class="name">{%=file.name%}</p>
-                <strong class="error text-danger"></strong>
-            </td>
-            <td>
-                <p class="size">Processing...</p>
-                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-            </td>
-            <td>
-                {% if (!i && !o.options.autoUpload) { %}
-                    <button class="btn btn-primary start">
-                        <i class="glyphicon glyphicon-upload"></i>
-                        <span>Start</span>
-                    </button>
-                {% } %}
-                {% if (!i) { %}
-                    <button class="btn btn-warning cancel">
-                        <i class="glyphicon glyphicon-ban-circle"></i>
-                        <span>Cancel</span>
-                    </button>
-                {% } %}
-            </td>
-        </tr>
-    {% } %}
-    </script>
-    <!-- The template to display files available for download -->
-    <script id="template-download" type="text/x-tmpl">
-    {% for (var i=0, file; file=o.files[i]; i++) { %}
-        <tr class="template-download fade">
-            <td>
-                <span class="preview">
-                    {% if (file.thumbnailUrl) { %}
-                        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                        <button class="btn btn-primary start">
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>Start</span>
+                        </button>
                     {% } %}
                     {% if (!i) { %}
-                        <button class="cancel">Cancel</button>
+                        <button class="btn btn-warning cancel">
+                            <i class="glyphicon glyphicon-ban-circle"></i>
+                            <span>Cancel</span>
+                        </button>
                     {% } %}
+                </td>
+            </tr>
+        {% } %}
+        </script>
+        <!-- The template to display files available for download -->
+        <script id="template-download" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+            <tr class="template-download fade">
+                <td>
+                    <span class="preview">
+                        {% if (file.thumbnailUrl) { %}
+                            <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                        {% } %}
+                        {% if (!i) { %}
+                            <button class="cancel">Cancel</button>
+                        {% } %}
+                    </span>
                 </td>
             </tr>
         {% } %}
@@ -248,7 +251,7 @@ else //inline
     {
         <!-- The template to display files available for upload -->
         <script id="template-upload" type="text/x-tmpl">
-        {% for (var i=0, file; file=o.files[i]; i++) { %}
+            {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-upload fade">
                 <td>
                     <span class="preview"></span>
@@ -259,46 +262,56 @@ else //inline
                 </td>
                 <td>
                     <p class="size">Processing...</p>
-                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-                </td>
+                    @*<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>*@
+                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar" data-role="progress-bar" data-color="bg-green"></div></div>
+</td>
                 <td>
                     {% if (!i && !o.options.autoUpload) { %}
-                        <button class="btn btn-primary start" disabled>
-                            <i class="glyphicon glyphicon-upload"></i>
-                            <span>Start</span>
-                        </button>
+                    @*<button class="btn btn-primary start" disabled>
+                        <i class="glyphicon glyphicon-upload"></i>
+                        <span>Start</span>
+                    </button>*@
+                    <button class="image-button bg-darkGreen image-left start" disabled>
+                        <span>Start</span>
+                        <i class="icon-upload-3 bg-green"></i>
+                    </button>
                     {% } %}
                     {% if (!i) { %}
-                        <button class="btn btn-warning cancel">
-                            <i class="glyphicon glyphicon-ban-circle"></i>
-                            <span>Cancel</span>
-                        </button>
+                    @*<button class="btn btn-warning cancel">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        <span>Cancel</span>
+                    </button>*@
+                    <button class="image-button warning image-left cancel">
+                        <span>Cancel</span>
+                        <i class="icon-cancel-2 bg-amber"></i>
+                    </button>
                     {% } %}
                 </td>
             </tr>
-        {% } %}
+            {% } %}
         </script>
+
         <!-- The template to display files available for download -->
         <script id="template-download" type="text/x-tmpl">
-        {% for (var i=0, file; file=o.files[i]; i++) { %}
+            {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-download fade">
                 <td>
                     <span class="preview">
                         {% if (file.thumbnailUrl) { %}
-                            <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
                         {% } %}
                     </span>
                 </td>
                 <td>
                     <p class="name">
                         {% if (file.url) { %}
-                            <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
                         {% } else { %}
-                            <span>{%=file.name%}</span>
+                        <span>{%=file.name%}</span>
                         {% } %}
                     </p>
                     {% if (file.error) { %}
-                        <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                    <div><span class="label label-danger">Error</span> {%=file.error%}</div>
                     {% } %}
                 </td>
                 <td>
@@ -306,21 +319,31 @@ else //inline
                 </td>
                 <td>
                     {% if (file.deleteUrl) { %}
-                        <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                            <i class="glyphicon glyphicon-trash"></i>
-                            <span>Delete</span>
-                        </button>
-                        <input type="checkbox" name="delete" value="1" class="toggle">
+                    @*<button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <span>Delete</span>
+                    </button>*@
+                    <input type="checkbox" name="delete" value="1" class="toggle">
+                    <button class="image-button danger image-left delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                        <span>Delete</span>
+                        <i class="icon-remove bg-red"></i>
+                    </button>
                     {% } else { %}
-                        <button class="btn btn-warning cancel">
-                            <i class="glyphicon glyphicon-ban-circle"></i>
-                            <span>Cancel</span>
-                        </button>
+                    @*<button class="btn btn-warning cancel">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        <span>Cancel</span>
+                    </button>*@
+                    <button class="image-button warning image-left cancel">
+                        <span>Cancel</span>
+                        <i class="icon-cancel-2 bg-amber"></i>
+                    </button>
                     {% } %}
                 </td>
             </tr>
-        {% } %}
+            {% } %}
         </script>
+
+
     }
 
 
@@ -348,6 +371,9 @@ else //inline
     {
        <script type="text/javascript" src="~/Scripts/mvcfileupload/blueimp/jquery.fileupload-jquery-ui.js"></script>
     }
+    <!-- Metro -->
+    <script type="text/javascript" src="~/Scripts/metro/metro/metro-progressbar.js"></script>
+    
 }
 <!--template and scripts end-->
 

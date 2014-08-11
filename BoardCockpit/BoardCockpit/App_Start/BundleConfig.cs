@@ -21,15 +21,18 @@ namespace BoardCockpit
                         "~/Scripts/modernizr-*"));
 
             // Bootstrap metro
-            // bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-            //           "~/Scripts/bootstrap.js",
-            //           "~/Scripts/respond.js"));
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(                      
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //          "~/Scripts/bootstrap.js",
+            //          "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/respond.js",
                       "~/Scipts/metro/metro.min.js",
-                      "~/Scripts/metro/jquery/jquery.min.js",
-                      "~/Scripts/metro/jquery/jquery.widget.min.js",
-                      "~/Scripts/metro/jquery/jquery.mousewheel.js",
+                 "~/Scripts/metro/jquery/jquery.min.js",
+                 "~/Scripts/metro/jquery/jquery.widget.min.js",
+                 "~/Scripts/metro/jquery/jquery.mousewheel.js",
+                //      "~/Scripts/mvcfileupload/blueimp/jquery.min.js",
+                //      "~/Scripts/mvcfileupload/blueimp/jquery.widget.min.js",
+                //      "~/Scripts/mvcfileupload/blueimp/jquery.mousewheel.js",
                       "~/Scripts/metro/prettify/prettify.js",
                       "~/Scripts/metro/load-metro.js",
                       "~/Scripts/metro/docs.js",
