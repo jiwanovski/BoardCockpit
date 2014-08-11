@@ -10,7 +10,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
     <!-- Bootstrap styles -->
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    @*<link rel="stylesheet" href="~/Content/bootstrap.min.css">*@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -21,41 +21,87 @@
         }
     </style>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Anwendungsname", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Info", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Einrichtung", "SetupView", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+<body class="metro">
+    <div class="navigation-bar light fixed-top">
+        <div class="navigation-bar-content">
+            <a href="/" class="element"><span class="icon-grid-view"></span> Board Cockpit <sup>0.2</sup></a>
+            <span class="element-divider"></span>
+
+            <a class="pull-menu" href="#"></a>
+            <ul class="element-menu drop-up">
+                <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
+                <li>@Html.ActionLink("Info", "About", "Home")</li>
+                <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                <li>@Html.ActionLink("Einrichtung", "SetupView", "Home")</li>
+            </ul>
+            <div class="no-tablet-portrait no-phone">
+                <div class="element place-right">
+                    <a href="@Url.Action("SetupView", "Home")">
+                        <span class="icon-cog"></span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Board Cockpit</p>
-        </footer>
+    <div class="grid fluid">
+        <div class="row">
+            @if (ViewBag.Sidebar == true)
+            {
+                <div class="span2">
+                    @RenderPage("Sidebar.cshtml")
+                </div>
+                <div class="span1" />
+                <div class="span6">
+                    <div class="container body-content">
+                        @RenderBody()
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="container body-content">
+                    @RenderBody()
+                </div>
+            }
+        </div>
+    
+
+            @*@if (IsSectionDefined("Sidebar"))
+            {
+
+
+                <div class="span2">
+                    @RenderSection("Sidebar")
+                </div>
+                <div class="span1" />
+                <div class="span6">
+                    <div class="container body-content">
+                        @RenderBody()
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="container body-content">
+                    @RenderBody()
+                </div>
+            }*@
+        
+        <div class="row">
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Board Cockpit</p>
+            </footer>
+        </div>
     </div>
 
+
     <!-- For bootstrap modal dialog-->
-    <script type="text/javascript" src="/Scripts/bootstrap.min.js"></script>   
+    @*<script type="text/javascript" src="/Scripts/bootstrap.min.js"></script>*@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

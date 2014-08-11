@@ -29,6 +29,7 @@ namespace BoardCockpit.Controllers
 
         public ActionResult SetupView()
         {
+            ViewBag.Sidebar = true;
             return View();
         }
     }
