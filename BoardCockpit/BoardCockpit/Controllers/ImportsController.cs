@@ -178,7 +178,7 @@ namespace BoardCockpit.Controllers
 
                 //adding thumbnail url for jquery file upload javascript plugin
                 // TODO: JIW: Change Image
-                statuses.ForEach(x => x.thumbnailUrl = "/Images/XBRL_Icon.jpg"); // uses ImageResizer httpmodule to resize images from this url
+                statuses.ForEach(x => x.thumbnailUrl = "/Images/XBRL_Icon.png"); // uses ImageResizer httpmodule to resize images from this url
 
                 //setting custom download url instead of direct url to file which is default
                 statuses.ForEach(x => x.url = Url.Action("DownloadFile", new { fileUrl = x.url }));
