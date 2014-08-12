@@ -22,6 +22,7 @@ namespace BoardCockpit.Controllers
         // GET: Taxonomies
         public ActionResult Index(int? id)
         {
+            ViewBag.Sidebar = true;
             var viewModel = new TaxonomyIndexData();
             viewModel.Taxonomies = db.Taxonomies;
 
@@ -32,13 +33,14 @@ namespace BoardCockpit.Controllers
                 viewModel.TaxonomyFiles = viewModel.Taxonomies.Where(
                     i => i.TaxonomyID == id.Value).Single().Files;                
             }
-            
+
             return View(viewModel);
         }
 
         // GET: Taxonomies/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -49,13 +51,14 @@ namespace BoardCockpit.Controllers
             {
                 return HttpNotFound();
             }
-            return View(taxonomy);
-            
+
+            return View(taxonomy);            
         }
 
         // GET: Taxonomies/Create
         public ActionResult Create()
         {
+            ViewBag.Sidebar = true;
             return View();
         }
 
@@ -66,13 +69,15 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TaxonomyID,Name,Path")] Taxonomy taxonomy)
         {
+            ViewBag.Sidebar = true;
+
             if (ModelState.IsValid)
             {
                 db.Taxonomies.Add(taxonomy);
                 db.SaveChanges();
                 // return RedirectToAction("Index");
                 return RedirectToAction("Upload", new { TaxonomyID = taxonomy.TaxonomyID });
-            }
+            }           
 
             return View(taxonomy);
         }
@@ -80,6 +85,8 @@ namespace BoardCockpit.Controllers
         // GET: Taxonomies/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Sidebar = true;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -88,7 +95,8 @@ namespace BoardCockpit.Controllers
             if (taxonomy == null)
             {
                 return HttpNotFound();
-            }
+            }            
+
             return View(taxonomy);
         }
 
@@ -99,18 +107,23 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TaxonomyID,Name,Path")] Taxonomy taxonomy)
         {
+            ViewBag.Sidebar = true;
+
             if (ModelState.IsValid)
             {
                 db.Entry(taxonomy).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
+            }            
+
             return View(taxonomy);
         }
 
         // GET: Taxonomies/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Sidebar = true;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -119,7 +132,8 @@ namespace BoardCockpit.Controllers
             if (taxonomy == null)
             {
                 return HttpNotFound();
-            }
+            }            
+
             return View(taxonomy);
         }
 
@@ -128,6 +142,8 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Sidebar = true;
+
             Taxonomy taxonomy = db.Taxonomies.Find(id);
             db.Taxonomies.Remove(taxonomy);
             db.SaveChanges();
@@ -147,11 +163,15 @@ namespace BoardCockpit.Controllers
         public ActionResult Upload(int taxonomyID)
         {
             ViewBag.TaxonomyID = taxonomyID;
+            ViewBag.Sidebar = true;
+
             return View();
         }
 
         public ActionResult UploadFile(int? entityId, int taxonomyId) // optionally receive values specified with Html helper
         {
+            ViewBag.Sidebar = true;
+
             Taxonomy taxonomy = db.Taxonomies.Find(taxonomyId);
             if (taxonomy == null)
             {
@@ -270,6 +290,7 @@ namespace BoardCockpit.Controllers
         [HttpPost] // should accept only post
         public ActionResult DeleteFile(int? entityId, string fileUrl)
         {
+            ViewBag.Sidebar = true;
             var filePath = Server.MapPath("~" + fileUrl);
 
             if (System.IO.File.Exists(filePath))
@@ -278,7 +299,7 @@ namespace BoardCockpit.Controllers
             var viewresult = Json(new { error = String.Empty });
             //for IE8 which does not accept application/json
             if (Request.Headers["Accept"] != null && !Request.Headers["Accept"].Contains("application/json"))
-                viewresult.ContentType = "text/plain";
+                viewresult.ContentType = "text/plain";          
 
             return viewresult; // trigger success
         }

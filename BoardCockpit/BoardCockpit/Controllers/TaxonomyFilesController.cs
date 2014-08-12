@@ -19,6 +19,8 @@ namespace BoardCockpit.Controllers
         public ActionResult Index()
         {
             var taxonomyFiles = db.TaxonomyFiles.Include(t => t.Taxonomy);
+            ViewBag.Sidebar = true;
+
             return View(taxonomyFiles.ToList());
         }
 
@@ -34,6 +36,8 @@ namespace BoardCockpit.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Sidebar = true;
+
             return View(taxonomyFile);
         }
 
@@ -41,6 +45,8 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.TaxonomyID = new SelectList(db.Taxonomies, "TaxonomyID", "Name");
+            ViewBag.Sidebar = true;
+
             return View();
         }
 
@@ -59,12 +65,15 @@ namespace BoardCockpit.Controllers
             }
 
             ViewBag.TaxonomyID = new SelectList(db.Taxonomies, "TaxonomyID", "Name", taxonomyFile.TaxonomyID);
+            ViewBag.Sidebar = true;
+
             return View(taxonomyFile);
         }
 
         // GET: TaxonomyFiles/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -85,6 +94,8 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TaxonomyFileID,Name,FileName,TaxonomyID,Path,FullFilePath")] TaxonomyFile taxonomyFile)
         {
+            ViewBag.Sidebar = true;
+
             if (ModelState.IsValid)
             {
                 db.Entry(taxonomyFile).State = EntityState.Modified;
@@ -98,6 +109,8 @@ namespace BoardCockpit.Controllers
         // GET: TaxonomyFiles/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Sidebar = true;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -115,6 +128,8 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Sidebar = true;
+
             TaxonomyFile taxonomyFile = db.TaxonomyFiles.Find(id);
             db.TaxonomyFiles.Remove(taxonomyFile);
             db.SaveChanges();

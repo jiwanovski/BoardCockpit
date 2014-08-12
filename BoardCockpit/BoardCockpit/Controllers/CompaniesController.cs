@@ -18,12 +18,14 @@ namespace BoardCockpit.Controllers
         // GET: Companies
         public ActionResult Index()
         {
+            ViewBag.Sidebar = true;
             return View(db.Companies.ToList());
         }
 
         // GET: Companies/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +41,7 @@ namespace BoardCockpit.Controllers
         // GET: Companies/Create
         public ActionResult Create()
         {
+            ViewBag.Sidebar = true;
             return View();
         }
 
@@ -49,6 +52,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CompanyID,SizeClass,Name,Location,Street,ZipCode,City,Country")] Company company)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Companies.Add(company);
@@ -62,6 +66,7 @@ namespace BoardCockpit.Controllers
         // GET: Companies/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -81,6 +86,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CompanyID,SizeClass,Name,Location,Street,ZipCode,City,Country")] Company company)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Entry(company).State = EntityState.Modified;
@@ -93,6 +99,7 @@ namespace BoardCockpit.Controllers
         // GET: Companies/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -110,6 +117,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Sidebar = true;
             Company company = db.Companies.Find(id);
             db.Companies.Remove(company);
             db.SaveChanges();

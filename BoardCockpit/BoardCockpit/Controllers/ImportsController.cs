@@ -22,12 +22,14 @@ namespace BoardCockpit.Controllers
         // GET: Imports
         public ActionResult Index()
         {
+            ViewBag.Sidebar = true;
             return View(db.Imports.ToList());
         }
 
         // GET: Imports/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -52,6 +54,7 @@ namespace BoardCockpit.Controllers
         // GET: Imports/Create
         public ActionResult Create()
         {
+            ViewBag.Sidebar = true;
             return View();
         }
 
@@ -62,6 +65,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ImportID,FileName,Date,Directory,Error")] Import import)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Imports.Add(import);
@@ -75,6 +79,7 @@ namespace BoardCockpit.Controllers
         // GET: Imports/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -94,6 +99,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ImportID,FileName,Date,Directory,Error")] Import import)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Entry(import).State = EntityState.Modified;
@@ -106,6 +112,7 @@ namespace BoardCockpit.Controllers
         // GET: Imports/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -123,6 +130,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Sidebar = true;
             Import import = db.Imports.Find(id);
             db.Imports.Remove(import);
             db.SaveChanges();
@@ -146,6 +154,7 @@ namespace BoardCockpit.Controllers
 
         public ActionResult UploadFile(int? entityId) // optionally receive values specified with Html helper
         {
+            ViewBag.Sidebar = true;
             string path = Server.MapPath("~/Content/ImportedFiles/XBRL");            
 
             // here we can send in some extra info to be included with the delete url 
@@ -439,6 +448,7 @@ namespace BoardCockpit.Controllers
         [HttpPost] // should accept only post
         public ActionResult DeleteFile(int? entityId, string fileUrl)
         {
+            ViewBag.Sidebar = true;
             var filePath = Server.MapPath("~" + fileUrl);
 
             if (System.IO.File.Exists(filePath))
@@ -454,6 +464,7 @@ namespace BoardCockpit.Controllers
 
         public ActionResult DownloadFile(string fileUrl, string mimetype)
         {
+            ViewBag.Sidebar = true;
             var filePath = Server.MapPath("~" + fileUrl);
 
             if (System.IO.File.Exists(filePath))

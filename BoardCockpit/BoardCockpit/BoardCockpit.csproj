@@ -226,6 +226,8 @@
     <Content Include="fonts\metroSysIcons.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\2014_08_12_18_42_39_Highcharts_Basic_line.png" />
+    <Content Include="Images\2014_08_12_18_44_02_Highcharts_Column_with_negative_values.png" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\aspNetHome.png" />
     <Content Include="Images\bullet.png" />

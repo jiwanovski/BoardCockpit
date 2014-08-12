@@ -18,6 +18,7 @@ namespace BoardCockpit.Controllers
         // GET: Contexts
         public ActionResult Index()
         {
+            ViewBag.Sidebar = true;
             var contexts = db.Contexts.Include(c => c.Company);
             return View(contexts.ToList());
         }
@@ -25,6 +26,7 @@ namespace BoardCockpit.Controllers
         // GET: Contexts/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -40,6 +42,7 @@ namespace BoardCockpit.Controllers
         // GET: Contexts/Create
         public ActionResult Create()
         {
+            ViewBag.Sidebar = true;
             ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name");
             return View();
         }
@@ -51,6 +54,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ContextID,XbrlContextID,StartDate,EndDate,Instant,CompanyID")] Context context)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Contexts.Add(context);
@@ -65,6 +69,7 @@ namespace BoardCockpit.Controllers
         // GET: Contexts/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -85,6 +90,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ContextID,XbrlContextID,StartDate,EndDate,Instant,CompanyID")] Context context)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Entry(context).State = EntityState.Modified;
@@ -98,6 +104,7 @@ namespace BoardCockpit.Controllers
         // GET: Contexts/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -115,6 +122,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Sidebar = true;
             Context context = db.Contexts.Find(id);
             db.Contexts.Remove(context);
             db.SaveChanges();

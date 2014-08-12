@@ -18,6 +18,7 @@ namespace BoardCockpit.Controllers
         // GET: ImportNodes
         public ActionResult Index()
         {
+            ViewBag.Sidebar = true;
             var importNodes = db.ImportNodes.Include(i => i.Import);
             return View(importNodes.ToList());
         }
@@ -25,6 +26,7 @@ namespace BoardCockpit.Controllers
         // GET: ImportNodes/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -40,6 +42,7 @@ namespace BoardCockpit.Controllers
         // GET: ImportNodes/Create
         public ActionResult Create()
         {
+            ViewBag.Sidebar = true;
             ViewBag.ImportID = new SelectList(db.Imports, "ImportID", "FileName");
             return View();
         }
@@ -51,6 +54,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ImportNodeID,ImportID,ContextRef,UnitRef,Precision,Name,Value")] ImportNode importNode)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.ImportNodes.Add(importNode);
@@ -65,6 +69,7 @@ namespace BoardCockpit.Controllers
         // GET: ImportNodes/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -85,6 +90,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ImportNodeID,ImportID,ContextRef,UnitRef,Precision,Name,Value")] ImportNode importNode)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Entry(importNode).State = EntityState.Modified;
@@ -98,6 +104,7 @@ namespace BoardCockpit.Controllers
         // GET: ImportNodes/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -115,6 +122,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Sidebar = true;
             ImportNode importNode = db.ImportNodes.Find(id);
             db.ImportNodes.Remove(importNode);
             db.SaveChanges();

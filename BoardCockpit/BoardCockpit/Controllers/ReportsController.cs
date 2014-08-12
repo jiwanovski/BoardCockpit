@@ -18,12 +18,14 @@ namespace BoardCockpit.Controllers
         // GET: Reports
         public ActionResult Index()
         {
+            ViewBag.Sidebar = true;
             return View(db.Reports.ToList());
         }
 
         // GET: Reports/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +41,7 @@ namespace BoardCockpit.Controllers
         // GET: Reports/Create
         public ActionResult Create()
         {
+            ViewBag.Sidebar = true;
             return View();
         }
 
@@ -49,6 +52,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ReportID,AccordingToYearEnd,ReportType,XbrlContextRef")] Report report)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Reports.Add(report);
@@ -62,6 +66,7 @@ namespace BoardCockpit.Controllers
         // GET: Reports/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -81,6 +86,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ReportID,AccordingToYearEnd,ReportType,XbrlContextRef")] Report report)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Entry(report).State = EntityState.Modified;
@@ -93,6 +99,7 @@ namespace BoardCockpit.Controllers
         // GET: Reports/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -110,6 +117,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Sidebar = true;
             Report report = db.Reports.Find(id);
             db.Reports.Remove(report);
             db.SaveChanges();

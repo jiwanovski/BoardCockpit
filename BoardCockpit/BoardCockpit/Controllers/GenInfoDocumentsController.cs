@@ -18,12 +18,14 @@ namespace BoardCockpit.Controllers
         // GET: GenInfoDocuments
         public ActionResult Index()
         {
+            ViewBag.Sidebar = true;
             return View(db.GenInfoDocuments.ToList());
         }
 
         // GET: GenInfoDocuments/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +41,7 @@ namespace BoardCockpit.Controllers
         // GET: GenInfoDocuments/Create
         public ActionResult Create()
         {
+            ViewBag.Sidebar = true;
             return View();
         }
 
@@ -49,6 +52,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "GenInfoDocumentID,GenerationDate")] GenInfoDocument genInfoDocument)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.GenInfoDocuments.Add(genInfoDocument);
@@ -62,6 +66,7 @@ namespace BoardCockpit.Controllers
         // GET: GenInfoDocuments/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -81,6 +86,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "GenInfoDocumentID,GenerationDate")] GenInfoDocument genInfoDocument)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Entry(genInfoDocument).State = EntityState.Modified;
@@ -93,6 +99,7 @@ namespace BoardCockpit.Controllers
         // GET: GenInfoDocuments/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -110,6 +117,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Sidebar = true;
             GenInfoDocument genInfoDocument = db.GenInfoDocuments.Find(id);
             db.GenInfoDocuments.Remove(genInfoDocument);
             db.SaveChanges();

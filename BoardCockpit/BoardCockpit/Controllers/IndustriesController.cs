@@ -18,12 +18,15 @@ namespace BoardCockpit.Controllers
         // GET: Industries
         public ActionResult Index()
         {
+            ViewBag.Sidebar = true;
             return View(db.Industries.ToList());
         }
 
         // GET: Industries/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.Sidebar = true;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +42,7 @@ namespace BoardCockpit.Controllers
         // GET: Industries/Create
         public ActionResult Create()
         {
+            ViewBag.Sidebar = true;
             return View();
         }
 
@@ -49,6 +53,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IndustryID,Name")] Industry industry)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Industries.Add(industry);
@@ -62,6 +67,7 @@ namespace BoardCockpit.Controllers
         // GET: Industries/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -81,6 +87,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IndustryID,Name")] Industry industry)
         {
+            ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.Entry(industry).State = EntityState.Modified;
@@ -93,6 +100,7 @@ namespace BoardCockpit.Controllers
         // GET: Industries/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Sidebar = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -110,6 +118,7 @@ namespace BoardCockpit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Sidebar = true;
             Industry industry = db.Industries.Find(id);
             db.Industries.Remove(industry);
             db.SaveChanges();
