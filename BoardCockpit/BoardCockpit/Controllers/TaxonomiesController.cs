@@ -26,12 +26,12 @@ namespace BoardCockpit.Controllers
             var viewModel = new TaxonomyIndexData();
             viewModel.Taxonomies = db.Taxonomies;
 
-            if (id != null) 
+            if (id != null)
             {
                 ViewBag.TaxonomyID = id.Value;
                 // Lazy Loading
                 viewModel.TaxonomyFiles = viewModel.Taxonomies.Where(
-                    i => i.TaxonomyID == id.Value).Single().Files;                
+                    i => i.TaxonomyID == id.Value).Single().Files;
             }
 
             return View(viewModel);
@@ -52,7 +52,7 @@ namespace BoardCockpit.Controllers
                 return HttpNotFound();
             }
 
-            return View(taxonomy);            
+            return View(taxonomy);
         }
 
         // GET: Taxonomies/Create
@@ -77,7 +77,7 @@ namespace BoardCockpit.Controllers
                 db.SaveChanges();
                 // return RedirectToAction("Index");
                 return RedirectToAction("Upload", new { TaxonomyID = taxonomy.TaxonomyID });
-            }           
+            }
 
             return View(taxonomy);
         }
@@ -95,7 +95,7 @@ namespace BoardCockpit.Controllers
             if (taxonomy == null)
             {
                 return HttpNotFound();
-            }            
+            }
 
             return View(taxonomy);
         }
@@ -114,7 +114,7 @@ namespace BoardCockpit.Controllers
                 db.Entry(taxonomy).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }            
+            }
 
             return View(taxonomy);
         }
@@ -132,7 +132,7 @@ namespace BoardCockpit.Controllers
             if (taxonomy == null)
             {
                 return HttpNotFound();
-            }            
+            }
 
             return View(taxonomy);
         }
@@ -184,7 +184,7 @@ namespace BoardCockpit.Controllers
             {
                 // TODO JIW Dateipfad existiert schon
             }
-            else 
+            else
             {
                 DirectoryInfo di = Directory.CreateDirectory(path);
             }
@@ -219,7 +219,18 @@ namespace BoardCockpit.Controllers
 
                 //adding thumbnail url for jquery file upload javascript plugin
                 // TODO: JIW: Change Image
-                statuses.ForEach(x => x.thumbnailUrl = "/Images/XBRL_Icon.jpg"); // uses ImageResizer httpmodule to resize images from this url
+                statuses.ForEach(x =>
+                {
+                    if (x.type == "application/xml")
+                    {
+                        x.thumbnailUrl = "/Images/XSD_Icon.png";
+                    }
+                    if (x.type == "text/xml")
+                    {
+                        x.thumbnailUrl = "/Images/XML_Icon.png";
+                    }
+                    //x.thumbnailUrl = "/Images/XBRL_Icon.jpg" 
+                }); // uses ImageResizer httpmodule to resize images from this url
 
                 //setting custom download url instead of direct url to file which is default
                 statuses.ForEach(x => x.url = Url.Action("DownloadFile", new { fileUrl = x.url }));
@@ -262,15 +273,15 @@ namespace BoardCockpit.Controllers
                                                     FileName = file.SavedFileName,
                                                     Taxonomy = taxonomy
                                                 };
-                    
+
                     if (ModelState.IsValid)
                     {
                         db.TaxonomyFiles.Add(taxonomyFile);
                         db.SaveChanges();
                     }
-                    
+
                     taxonomy.Files.Add(taxonomyFile);
-                }                
+                }
 
                 if (ModelState.IsValid)
                 {
@@ -299,7 +310,7 @@ namespace BoardCockpit.Controllers
             var viewresult = Json(new { error = String.Empty });
             //for IE8 which does not accept application/json
             if (Request.Headers["Accept"] != null && !Request.Headers["Accept"].Contains("application/json"))
-                viewresult.ContentType = "text/plain";          
+                viewresult.ContentType = "text/plain";
 
             return viewresult; // trigger success
         }

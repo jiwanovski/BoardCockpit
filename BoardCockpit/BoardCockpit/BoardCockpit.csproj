@@ -248,6 +248,8 @@
     <Content Include="Images\twitter.png" />
     <Content Include="Images\windowsLive.png" />
     <Content Include="Images\XBRL_Icon.png" />
+    <Content Include="Images\XML_Icon.png" />
+    <Content Include="Images\XSD_Icon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.eot" />
