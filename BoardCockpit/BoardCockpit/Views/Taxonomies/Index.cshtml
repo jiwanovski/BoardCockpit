@@ -12,15 +12,13 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th style="text-align:left">
             Name
             @*@Html.DisplayNameFor(model => model.Name)*@
         </th>
-        <th>
-            Verzeichnis
-            @*@Html.DisplayNameFor(model => model.Path)*@
+        <th style="text-align:left">
+            Aktionen
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model.Taxonomies)
@@ -32,14 +30,10 @@
         }
         <tr class="@selectedRow">
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                <strong>@item.Name</strong>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Path)
-            </td>
-            <td>
-                @Html.ActionLink("Select", "Index", new { id = item.TaxonomyID })
-                @Html.ActionLink("Edit", "Edit", new { id = item.TaxonomyID }) |
+                @Html.ActionLink("Select", "Index", new { id = item.TaxonomyID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.TaxonomyID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.TaxonomyID })
             </td>
@@ -51,9 +45,7 @@
 {
     <h3>Dateien der Taxonomie:</h3>
     <table class="table">
-        <tr>
-            <th>Dateiname</th>
-        </tr>
+        
         @foreach (var item in Model.TaxonomyFiles)
         {
             string selectedRow = "";
@@ -61,10 +53,22 @@
             {
                 selectedRow = "success";
             }
+
+
+
             <tr>
+                @if (item.Name.Contains(".xsd"))
+                {
+                    <td><img src="/Images/XSD_Icon.png"></td>
+                }
+                @if (item.Name.Contains(".xml"))
+                {
+                    <td><img src="/Images/XML_Icon.png"></td>
+                }
                 <td>@item.Name</td>
             </tr>
-        }      
+
+        }
     </table>
 }
 

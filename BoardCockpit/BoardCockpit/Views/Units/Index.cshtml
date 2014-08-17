@@ -11,13 +11,15 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.XbrlUnitID)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Value)
         </th>
-        <th></th>
+        <th style="text-align:left">
+            Aktionen
+        </th>
     </tr>
 
 @foreach (var item in Model) {

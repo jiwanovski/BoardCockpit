@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>    
+<h2>
     Index
 </h2>
 
@@ -13,41 +13,38 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.FileName)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Directory)
-        </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Error)
         </th>
-        <th></th>
+        <th style="text-align:left">
+            Aktionen
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Directory)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Error)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ImportID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ImportID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ImportID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Error)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ImportID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ImportID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ImportID })
+            </td>
+        </tr>
+    }
 
 </table>

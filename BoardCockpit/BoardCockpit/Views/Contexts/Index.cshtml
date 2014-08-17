@@ -11,22 +11,24 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Company.Name)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.XbrlContextID)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.StartDate)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Instant)
         </th>
-        <th></th>
+        <th style="text-align:left">
+            Aktionen
+        </th>
     </tr>
 
 @foreach (var item in Model) {
