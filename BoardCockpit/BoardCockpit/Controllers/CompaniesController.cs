@@ -53,12 +53,14 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "CompanyID,SizeClass,Name,Location,Street,ZipCode,City,Country")] Company company)
         {
             ViewBag.Sidebar = true;
+             
             if (ModelState.IsValid)
             {
                 db.Companies.Add(company);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            
 
             return View(company);
         }

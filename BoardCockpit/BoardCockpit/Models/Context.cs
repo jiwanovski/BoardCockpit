@@ -14,6 +14,8 @@ namespace BoardCockpit.Models
 
         public int ContextID { get; set; }
 
+        
+
         [Display(Name = "XbrlContextID", ResourceType = typeof(Resources.Model))]
         public string XbrlContextID { get; set; }
 

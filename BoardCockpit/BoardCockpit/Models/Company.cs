@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,7 +9,10 @@ namespace BoardCockpit.Models
 {
     public class Company
     {
+        
         public Int64 CompanyID { get; set; }
+
+        public Int64 CompanyIDXbrl { get; set; }
 
         [Display(Name = "SizeClass", ResourceType = typeof(Resources.Model))]
         public int SizeClass { get; set; }

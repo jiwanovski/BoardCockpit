@@ -10,6 +10,8 @@ namespace BoardCockpit.Models
     {
         public Int64 ReportID { get; set; }
 
+        public Int64 ReportIDXbrl { get; set; }
+
         [Display(Name = "AccordingToYearEnd", ResourceType = typeof(Resources.Model))]
         public DateTime AccordingToYearEnd { get; set; }
 

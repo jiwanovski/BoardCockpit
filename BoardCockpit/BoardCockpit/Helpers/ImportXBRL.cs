@@ -5,11 +5,14 @@ using System.Linq;
 using System.Web;
 using BoardCockpit.Models;
 using System.Web.Mvc;
+using BoardCockpit.DAL;
 
 namespace BoardCockpit.Helpers
 {
     public class ImportXBRL
     {
+        private BoardCockpitContext db = new BoardCockpitContext();
+
         private XbrlDocument Doc;
 
         public JeffFerguson.Gepsio.Company Company
@@ -62,6 +65,53 @@ namespace BoardCockpit.Helpers
                 return Doc.XbrlFragments.First().FinancialFacts;
             }
         }
+
+        public BoardCockpit.Models.Company DbCompanyUpdate(BoardCockpit.Models.Company existingCompany, ref bool companyExists)
+        {            
+            // ----- COMPANY -------             
+            BoardCockpit.Models.Company company;
+
+            if (existingCompany != null)
+            {
+                companyExists = true;
+
+                existingCompany.City = Company.City;
+                existingCompany.Country = Company.Country;
+                existingCompany.Location = Company.Location;
+                existingCompany.Name = Company.Name;
+                existingCompany.SizeClass = Company.SizeClass;
+                existingCompany.Street = Company.Street;
+                existingCompany.ZipCode = Company.ZIPCode;
+                company = existingCompany;
+            }
+            else
+            {
+                company = new BoardCockpit.Models.Company
+                {
+                    CompanyIDXbrl = Company.CompanyID,
+                    Name = Company.Name,
+                    Location = Company.Location,
+                    Street = Company.Street,
+                    ZipCode = Company.ZIPCode,
+                    City = Company.City,
+                    Country = Company.Country,
+                    SizeClass = Company.SizeClass
+                };
+
+                company.Industies = new List<BoardCockpit.Models.Industry>();
+            };
+
+            foreach (JeffFerguson.Gepsio.Industry industry in Company.Industires)
+            {
+                BoardCockpit.Models.Industry industry2 = new BoardCockpit.Models.Industry { IndustryID = industry.ID };
+                industry2.Companies = new List<BoardCockpit.Models.Company>();
+                industry2.Companies.Add(company);
+
+                company.Industies.Add(industry2);
+            }
+
+            return company;
+        }        
 
         public ImportXBRL()
         {
@@ -124,5 +174,7 @@ namespace BoardCockpit.Helpers
             }
             return returnValue;
         }
+
+
     }
 }
