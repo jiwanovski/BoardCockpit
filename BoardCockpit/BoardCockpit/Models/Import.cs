@@ -32,6 +32,8 @@ namespace BoardCockpit.Models
         [Display(Name = "Error", ResourceType = typeof(Resources.Model))]
         public bool Error { get; set; }
 
+        public int ImportContainerID { get; set; }
+
         // public virtual ApplicationUser User { get; set; }
         public virtual ICollection<ImportNode> Nodes { get; set; }
     }

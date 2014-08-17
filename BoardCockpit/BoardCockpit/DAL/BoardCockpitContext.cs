@@ -19,6 +19,7 @@ namespace BoardCockpit.DAL
         public DbSet<TaxonomyFile> TaxonomyFiles { get; set; }
         public DbSet<Import> Imports { get; set; }
         public DbSet<ImportNode> ImportNodes { get; set; }
+        public DbSet<ImportContainer> ImportContainers { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Industry> Industries { get; set; }
         public DbSet<Context> Contexts { get; set; }

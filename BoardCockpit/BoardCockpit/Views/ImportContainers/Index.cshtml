@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BoardCockpit.Models.ImportContainer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th style="text-align:left">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th style="text-align:left">
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th style="text-align:left">
+            Anzahl Dateien
+        </th>
+        <th style="text-align:left">
+            Aktionen
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imports.Count)
+        </td>
+        <td>           
+            @Html.ActionLink("Details", "IndexForContainer", "Imports", new { importContainerId = item.ImportContainerID }, null)
+            
+        </td>
+    </tr>
+}
+
+</table>

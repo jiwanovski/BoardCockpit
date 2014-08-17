@@ -11,22 +11,21 @@ using BoardCockpit.Models;
 using MvcFileUploader.Models;
 using MvcFileUploader;
 using BoardCockpit.Helpers;
-using BoardCockpit.ViewModels;
 
 namespace BoardCockpit.Controllers
 {
-    public class ImportsController : Controller
+    public class ImportContainersController : Controller
     {
         private BoardCockpitContext db = new BoardCockpitContext();
 
-        // GET: Imports
+        // GET: ImportContainers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
-            return View(db.Imports.ToList());
+            return View(db.ImportContainers.ToList());
         }
-       
-        // GET: Imports/Details/5
+
+        // GET: ImportContainers/Details/5
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
@@ -34,49 +33,41 @@ namespace BoardCockpit.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var viewModel = new ImportIndexData();
-
-            viewModel.Import = db.Imports.Find(id);
-            if (viewModel.Import == null)
+            ImportContainer importContainer = db.ImportContainers.Find(id);
+            if (importContainer == null)
             {
                 return HttpNotFound();
             }
-            // return View(import);
-
-            // Lazy Loading
-            // viewModel.ImportNodes = viewModel.ImportNodes.Where(
-            //    i => i.ImportID == id.Value);
-            viewModel.ImportNodes = viewModel.Import.Nodes.Where(
-                i => i.ImportID == id.Value);
-            return View(viewModel);
+            return View(importContainer);
         }
 
-        // GET: Imports/Create
+        // GET: ImportContainers/Create
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
             return View();
         }
 
-        // POST: Imports/Create
+        // POST: ImportContainers/Create
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ImportID,FileName,Date,Directory,Error")] Import import)
+        public ActionResult Create([Bind(Include = "ImportContainerID,Name,Date")] ImportContainer importContainer)
         {
             ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
-                db.Imports.Add(import);
+                db.ImportContainers.Add(importContainer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Upload", new { ImportContainerID = importContainer.ImportContainerID });
             }
 
-            return View(import);
+            return View(importContainer);
         }
 
-        // GET: Imports/Edit/5
+        // GET: ImportContainers/Edit/5
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
@@ -84,32 +75,32 @@ namespace BoardCockpit.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Import import = db.Imports.Find(id);
-            if (import == null)
+            ImportContainer importContainer = db.ImportContainers.Find(id);
+            if (importContainer == null)
             {
                 return HttpNotFound();
             }
-            return View(import);
+            return View(importContainer);
         }
 
-        // POST: Imports/Edit/5
+        // POST: ImportContainers/Edit/5
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ImportID,FileName,Date,Directory,Error")] Import import)
+        public ActionResult Edit([Bind(Include = "ImportContainerID,Name,Date")] ImportContainer importContainer)
         {
             ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
-                db.Entry(import).State = EntityState.Modified;
+                db.Entry(importContainer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(import);
+            return View(importContainer);
         }
 
-        // GET: Imports/Delete/5
+        // GET: ImportContainers/Delete/5
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
@@ -117,22 +108,22 @@ namespace BoardCockpit.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Import import = db.Imports.Find(id);
-            if (import == null)
+            ImportContainer importContainer = db.ImportContainers.Find(id);
+            if (importContainer == null)
             {
                 return HttpNotFound();
             }
-            return View(import);
+            return View(importContainer);
         }
 
-        // POST: Imports/Delete/5
+        // POST: ImportContainers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
-            Import import = db.Imports.Find(id);
-            db.Imports.Remove(import);
+            ImportContainer importContainer = db.ImportContainers.Find(id);
+            db.ImportContainers.Remove(importContainer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -146,22 +137,17 @@ namespace BoardCockpit.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult IndexForContainer(int importContainerId)
-        {
-            ViewBag.Sidebar = true;
-            
-            return View("Index", db.Imports.Where(n => n.ImportContainerID == importContainerId).ToList());
-            
-        }
-
         // FileUpload
-        public ActionResult Upload()
+        public ActionResult Upload(int importContainerID)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ImportContainerID = importContainerID;
+            ViewBag.Sidebar = true;
+
             return View();
         }
 
-        public ActionResult UploadFile(int? entityId) // optionally receive values specified with Html helper
+        public ActionResult UploadFile(int? entityId, int importContainerId) // optionally receive values specified with Html helper
         {
             ViewBag.Sidebar = true;
             string path = Server.MapPath("~/Content/ImportedFiles/XBRL");
@@ -182,15 +168,16 @@ namespace BoardCockpit.Controllers
                         x.DeleteUrl = Url.Action("DeleteFile", new { entityId = entityId });
                         x.StorageDirectory = path;
                         x.UrlPrefix = "/Content/ImportedFiles/Taxonomy";// this is used to generate the relative url of the file
-                       
+
                         //overriding defaults
                         x.FileName = Request.Files[i].FileName;// default is filename suffixed with filetimestamp
                         x.ThrowExceptions = true;//default is false, if false exception message is set in error property
                     });
 
-                    if (db.Imports.Where(a => a.FileName == st.SavedFileName).Count() > 0) {
+                    if (db.Imports.Where(a => a.FileName == st.SavedFileName).Count() > 0)
+                    {
                         st.error = String.Format("Die Datei {0} wurde bereits am {1} hochgeladen.", st.SavedFileName, db.Imports.Where(a => a.FileName == st.SavedFileName).Single().Date);
-                        }
+                    }
                     statuses.Add(st);
                 }
             }
@@ -208,7 +195,7 @@ namespace BoardCockpit.Controllers
                 statuses.ForEach(x => x.url = Url.Action("DownloadFile", new { fileUrl = x.url }));
 
                 //server side error generation, generate some random error if entity id is 13
-                
+
                 //if (entityId == 13)
                 //{
                 //    var rnd = new Random();
@@ -244,7 +231,8 @@ namespace BoardCockpit.Controllers
                     {
                         FileName = file.SavedFileName,
                         Directory = path,
-                        Date = DateTime.Now
+                        Date = DateTime.Now,
+                        ImportContainerID = importContainerId
                     };
 
                     if (ModelState.IsValid)
@@ -397,9 +385,9 @@ namespace BoardCockpit.Controllers
                         foreach (JeffFerguson.Gepsio.Unit unit in importXBRL.Units)
                         {
                             Unit unit2 = new Unit
-                                            {
-                                                XbrlUnitID = unit.Id,
-                                            };
+                            {
+                                XbrlUnitID = unit.Id,
+                            };
                             units.Add(unit2);
                         }
 
@@ -417,15 +405,15 @@ namespace BoardCockpit.Controllers
                         foreach (JeffFerguson.Gepsio.Fact fact in importXBRL.FinancialFacts)
                         {
                             FinancialData financialData = new FinancialData
-                                            {
-                                                ContextID = contexts.Where(i => i.XbrlContextID == ((JeffFerguson.Gepsio.Item)(fact)).ContextRefName).Single().ContextID,
-                                                Context = contexts.Where(i => i.XbrlContextID == ((JeffFerguson.Gepsio.Item)(fact)).ContextRefName).Single(),
-                                                UnitID = units.Where(i => i.XbrlUnitID == ((JeffFerguson.Gepsio.Item)(fact)).UnitRefName).Single().UnitId,
-                                                Unit = units.Where(i => i.XbrlUnitID == ((JeffFerguson.Gepsio.Item)(fact)).UnitRefName).Single(),
-                                                XbrlName = fact.Name,
-                                                Precision = ((JeffFerguson.Gepsio.Item)(fact)).Precision,
-                                                Value = ((JeffFerguson.Gepsio.Item)(fact)).Value
-                                            };
+                            {
+                                ContextID = contexts.Where(i => i.XbrlContextID == ((JeffFerguson.Gepsio.Item)(fact)).ContextRefName).Single().ContextID,
+                                Context = contexts.Where(i => i.XbrlContextID == ((JeffFerguson.Gepsio.Item)(fact)).ContextRefName).Single(),
+                                UnitID = units.Where(i => i.XbrlUnitID == ((JeffFerguson.Gepsio.Item)(fact)).UnitRefName).Single().UnitId,
+                                Unit = units.Where(i => i.XbrlUnitID == ((JeffFerguson.Gepsio.Item)(fact)).UnitRefName).Single(),
+                                XbrlName = fact.Name,
+                                Precision = ((JeffFerguson.Gepsio.Item)(fact)).Precision,
+                                Value = ((JeffFerguson.Gepsio.Item)(fact)).Value
+                            };
                             financialDatas.Add(financialData);
                         }
 

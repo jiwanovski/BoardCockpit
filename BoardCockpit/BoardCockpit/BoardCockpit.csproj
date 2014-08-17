@@ -166,6 +166,7 @@
     <Compile Include="Controllers\FinancialDatasController.cs" />
     <Compile Include="Controllers\GenInfoDocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImportContainersController.cs" />
     <Compile Include="Controllers\ImportNodesController.cs" />
     <Compile Include="Controllers\ImportsController.cs" />
     <Compile Include="Controllers\IndustriesController.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Models\GenInfoDocument.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Import.cs" />
+    <Compile Include="Models\ImportContainer.cs" />
     <Compile Include="Models\ImportNode.cs" />
     <Compile Include="Models\Industry.cs" />
     <Compile Include="Models\Report.cs" />
@@ -503,6 +505,12 @@
     <Content Include="Views\Home\SetupView.cshtml" />
     <Content Include="Scripts\metro\metro\README.md" />
     <Content Include="Views\Shared\Sidebar.cshtml" />
+    <Content Include="Views\ImportContainers\Create.cshtml" />
+    <Content Include="Views\ImportContainers\Delete.cshtml" />
+    <Content Include="Views\ImportContainers\Details.cshtml" />
+    <Content Include="Views\ImportContainers\Edit.cshtml" />
+    <Content Include="Views\ImportContainers\Index.cshtml" />
+    <Content Include="Views\ImportContainers\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
