@@ -149,6 +149,7 @@ namespace BoardCockpit.Controllers
         // FileUpload
         public ActionResult Upload()
         {
+            ViewBag.Sidebar = true;
             return View();
         }
 
@@ -179,8 +180,9 @@ namespace BoardCockpit.Controllers
                         x.ThrowExceptions = true;//default is false, if false exception message is set in error property
                     });
 
-                    if (db.Imports.Where(a => a.FileName == st.SavedFileName).Count() > 0)
-                        st.error = "Datei existiert bereits";
+                    if (db.Imports.Where(a => a.FileName == st.SavedFileName).Count() > 0) {
+                        st.error = String.Format("Die Datei {0} wurde bereits am {1} hochgeladen.", st.SavedFileName, db.Imports.Where(a => a.FileName == st.SavedFileName).Single().Date);
+                        }
                     statuses.Add(st);
                 }
             }
