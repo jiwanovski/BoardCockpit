@@ -11,25 +11,27 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Import.FileName)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.ContextRef)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.UnitRef)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Precision)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Value)
         </th>
-        <th></th>
+        <th style="text-align:left">
+            Aktionen
+        </th>
     </tr>
 
 @foreach (var item in Model) {

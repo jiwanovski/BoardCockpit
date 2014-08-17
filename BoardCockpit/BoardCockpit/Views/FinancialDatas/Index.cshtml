@@ -11,22 +11,24 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Context.XbrlContextID)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Unit.XbrlUnitID)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Precision)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.Value)
         </th>
-        <th>
+        <th style="text-align:left">
             @Html.DisplayNameFor(model => model.XbrlName)
         </th>
-        <th></th>
+        <th style="text-align:left">
+            Aktionen
+        </th>
     </tr>
 
 @foreach (var item in Model) {
