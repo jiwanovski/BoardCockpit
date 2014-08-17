@@ -52,7 +52,13 @@
                                 <i class="glyphicon glyphicon-trash"></i>
                                 <span>Delete</span>
                             </button>                    
-                            <input type="checkbox" class="toggle">
+                            @*<input type="checkbox" class="toggle">*@
+                            <div class="input-control switch">
+                                <label>
+                                    <input type="checkbox" />
+                                    <span class="check"></span>
+                                </label>
+                            </div>
                         </div>
 
                         <!-- The global file processing state -->
@@ -114,7 +120,13 @@ else //inline
                     <span>Delete</span>
                     <i class="icon-remove bg-red"></i>
                 </button>                    
-                <input type="checkbox" class="toggle"> 
+                @*<input type="checkbox" class="toggle">*@ 
+                <div class="input-control switch">
+                    <label>
+                        <input type="checkbox" class="toggle" />
+                        <span class="check"></span>
+                    </label>
+                </div>
             </div>
 
             <!-- The global file processing state -->
@@ -323,7 +335,13 @@ else //inline
                         <i class="glyphicon glyphicon-trash"></i>
                         <span>Delete</span>
                     </button>*@
-                    <input type="checkbox" name="delete" value="1" class="toggle">
+                    @*<input type="checkbox" name="delete" value="1" class="toggle">*@
+                    <div class="input-control switch">
+                        <label>
+                            <input type="checkbox" name="delete" value="1" class="toggle" />
+                            <span class="check"></span>
+                        </label>
+                    </div>
                     <button class="image-button danger image-left delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
                         <span>Delete</span>
                         <i class="icon-remove bg-red"></i>
