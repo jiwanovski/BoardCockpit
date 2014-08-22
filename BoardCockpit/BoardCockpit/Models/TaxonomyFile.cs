@@ -25,5 +25,6 @@ namespace BoardCockpit.Models
         [Display(Name = "FullFilePath", ResourceType = typeof(Resources.Model))]
         public string FullFilePath { get; set; }
         public virtual Taxonomy Taxonomy { get; set; }
+        public virtual ICollection<TaxonomyFileNode> TaxonomyFileNodes { get; set; }
     }
 }

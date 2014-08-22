@@ -1,0 +1,138 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Search";
+}
+<head>
+    <link href="~/Content/autocomplete/jquery-ui.css" rel="stylesheet" type="text/css" />
+    @*<script src="~/Scripts/jquery-1.10.2.js" type="text/javascript"></script>*@
+    <script src="~/Scripts/autocomplete/jquery.js" type="text/javascript"></script>
+    <script src="~/Scripts/autocomplete/jquery-ui.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+    $(function () {
+        $('#customers').autocomplete({
+            source: '@Url.Action("GetCustomers")'
+        });
+    });
+
+        $(function () {
+            var availableTags;
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/Home/GetCustomers",
+                success: function (data) {
+                    availableTags = data;
+                }
+            })
+            function getAvailableTags() {
+                var availableTags2;
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "/Home/GetCustomers",
+                    success: function (data) {
+                        availableTags2 = data;
+                    }
+                })
+                return availableTags2;
+            }
+            
+            function split(val) {
+                var test = val.split(/[+-\/*\s*]/);
+                return test;
+            }
+
+            function split3(val) {
+                var test = val.split(/[\s()*/%+-]+/g);
+                return test;
+            }
+
+            function split2(val) {
+                return val.split(/\s/);
+            }
+
+            function extractLast(term) {
+                var test2 = split3(term).pop();
+                return test2;
+            }
+
+            $("#tags")
+            // don't navigate away from the field on tab when selecting an item
+            .bind("keydown", function (event) {
+                if (event.keyCode === $.ui.keyCode.TAB &&
+                $(this).data("ui-autocomplete").menu.active) {
+                    event.preventDefault();
+                }
+            })
+            .autocomplete({
+                minLength: 0,
+                source: function (request, response) {
+                    var postData = { term: extractLast(request.term) };
+                    // delegate back to autocomplete, but extract the last term
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "/Home/GetCustomers3",
+                        data: postData,
+                        success: function (data) {
+                            response($.ui.autocomplete.filter(
+                                data, extractLast(request.term)));
+                        }
+                    })
+                    //response($.ui.autocomplete.filter(
+                    //availableTags, extractLast(request.term)));
+                    //getAvailableTags(), extractLast(request.term)));
+            },
+            focus: function () {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function (event, ui) {
+                var terms = split2(this.value);
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push(ui.item.value);
+                // add placeholder to get the comma-and-space at the end
+                terms.push("");
+                this.value = terms.join(" ");
+                return false;
+            }
+        });
+    });
+    </script>
+    @*<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#customers').autocomplete({
+            source: '@Url.Action("Autocomplete")'
+        });
+    })
+    </script>*@
+
+    <title>Test</title>
+</head>
+<h2>Search</h2>
+
+<label for="customers">Find:</label>
+<input type="text" id="customers" name="customers" />
+
+@using (Html.BeginForm("Search2", "Home"))
+{
+<div class="ui-widget">
+    <label for="tags">Tag programming languages: </label>
+    <input id="tags" name="tags" type="text" size="50" />
+   
+    <input type="submit" value="Search2" />
+    
+    <div class="form-group">
+        Ergebnis
+        <div class="col-md-10">
+            @ViewBag.Result
+        </div>
+    </div>   
+</div>
+}
+@*<label for="customers">Some value:</label><input type="text" id="customers" name="customers" />*@
+

@@ -17,6 +17,7 @@ namespace BoardCockpit.DAL
 
         public DbSet<Taxonomy> Taxonomies { get; set; }
         public DbSet<TaxonomyFile> TaxonomyFiles { get; set; }
+        public DbSet<TaxonomyFileNode> TaxonomyFileNodes { get; set; }
         public DbSet<Import> Imports { get; set; }
         public DbSet<ImportNode> ImportNodes { get; set; }
         public DbSet<ImportContainer> ImportContainers { get; set; }
@@ -27,7 +28,9 @@ namespace BoardCockpit.DAL
         public DbSet<Unit> Units { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<GenInfoDocument> GenInfoDocuments { get; set; }
-
+        public DbSet<Formula> Formulas { get; set; }
+        public DbSet<FormulaDetail> FormulaDetails { get; set; }
+        public DbSet<CalculatedKPI> CalculatedKPIs { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

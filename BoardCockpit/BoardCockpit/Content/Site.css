@@ -1,42 +1,93 @@
-﻿body {
+﻿/*body {
     padding-top: 50px;
     padding-bottom: 20px;
-}
+}*/
 
 /* Set padding to keep content from hitting the edges */
-.body-content {
+/*.body-content {
     padding-left: 15px;
     padding-right: 15px;
-}
+}*/
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 /* styles for validation helpers */
-.field-validation-error {
+/*.field-validation-error {
     color: #b94a48;
-}
+}*/
 
-.field-validation-valid {
+/*.field-validation-valid {
     display: none;
-}
+}*/
 
-input.input-validation-error {
+/*input.input-validation-error {
     border: 1px solid #b94a48;
-}
+}*/
 
-input[type="checkbox"].input-validation-error {
+/*input[type="checkbox"].input-validation-error {
     border: 0 none;
-}
+}*/
 
-.validation-summary-errors {
+/*.validation-summary-errors {
     color: #b94a48;
-}
+}*/
 
-.validation-summary-valid {
+/*.validation-summary-valid {
     display: none;
+}*/
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.metro .page {
+  width: 980px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.description {
+  margin: 10px 0;
+}
+.show-grid .row [class*="span"] {
+  line-height: 40px;
+  background: rgba(193, 179, 123, 0.52);
+  text-align: center;
+  min-height: 10px !important;
+}
+.color-stack li,
+#icon-list li {
+  margin-bottom: 5px;
+}
+.example > img {
+  margin: 5px;
+  display: inline-block;
+}
+.example .image-container {
+  margin: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.layout {
+  min-height: 100%;
+  position: relative;
+}
+header {
+  height: 45px;
+  position: relative;
+}
+footer {
+  width: 100%;
+  height: 25px;
+}
+@media only screen and (max-width: 640px) {
+  .prettyprint,
+  .example {
+    display: none;
+  }
 }

@@ -43,12 +43,12 @@ namespace BoardCockpit
             // bundles.Add(new StyleBundle("~/Content/css").Include(
             //           "~/Content/bootstrap.css",
             //           "~/Content/site.css"));
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/site.css",
+            bundles.Add(new StyleBundle("~/Content/css").Include(                      
                       "~/Content/metro/metro-bootstrap.css",
                       "~/Content/metro/metro-bootstrap-responsive.css",
+                      "~/Content/site.css",
                       "~/Content/metro/iconFont.css",
-                      "~/Content/metro/docs.css",
+                      //"~/Content/metro/docs.css",
                       "~/Content/metro/jquery.min.css",
                       "~/Content/metro/jquery.widget.min.css"));
 

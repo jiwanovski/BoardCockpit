@@ -135,6 +135,9 @@
   <data name="Date" xml:space="preserve">
     <value>Datum</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
   <data name="Directory" xml:space="preserve">
     <value>Verzeichnis</value>
   </data>

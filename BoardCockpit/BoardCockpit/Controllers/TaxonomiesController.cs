@@ -12,6 +12,8 @@ using MvcFileUploader.Models;
 using MvcFileUploader;
 using System.IO;
 using BoardCockpit.ViewModels;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace BoardCockpit.Controllers
 {
@@ -281,6 +283,63 @@ namespace BoardCockpit.Controllers
                     }
 
                     taxonomy.Files.Add(taxonomyFile);
+
+                    if (file.type == "application/xml") 
+                    {
+                        TaxonomyFile taxonomyFile2 = db.TaxonomyFiles.Where(c => c.FileName == file.SavedFileName).First();
+                        if (taxonomyFile2.TaxonomyFileNodes == null)
+                            taxonomyFile2.TaxonomyFileNodes = new List<TaxonomyFileNode>();
+                        XmlTextReader reader = new XmlTextReader(file.FullPath);
+                        XmlSchema myschema = XmlSchema.Read(reader, ValidationCallback);
+                        XmlDocument deLabelDoc = new XmlDocument();
+
+                        // Read Items
+                        foreach (var item in myschema.Items)
+                        {
+                            if (item is XmlSchemaAnnotation) 
+                            {
+                                XmlSchemaAnnotation xmlSchemaAnnotation = (XmlSchemaAnnotation)item;
+
+                                XmlSchemaAppInfo xmlSchemaAppInfo = (XmlSchemaAppInfo)xmlSchemaAnnotation.Items[0];
+
+                                foreach (var markup in xmlSchemaAppInfo.Markup.Where(x => x.LocalName == "linkbaseRef"))
+                                {
+                                    if (markup.OuterXml.Contains("label-de")) {
+                                        string deLabelName = "";
+                                        foreach (XmlAttribute attribute in markup.Attributes)
+                                        {
+                                            if (attribute.LocalName == "href") 
+                                            {
+                                                deLabelName = attribute.Value;
+                                            }
+                                        }
+
+                                        deLabelDoc.Load(path + "\\" + deLabelName);
+                                    }
+                                }                                                           
+                            }
+
+                            if (item is XmlSchemaElement) 
+                            {
+                                XmlSchemaElement xmlSchemaElement = (XmlSchemaElement)item;
+
+                                TaxonomyFileNode taxonomyFileNode = new TaxonomyFileNode
+                                {
+                                    TaxonomyFileID = taxonomyFile2.TaxonomyFileID,
+                                    NodeName = xmlSchemaElement.Name
+                                };
+
+                                taxonomyFile2.TaxonomyFileNodes.Add(taxonomyFileNode);
+
+                                if (ModelState.IsValid)
+                                {
+                                    db.TaxonomyFileNodes.Add(taxonomyFileNode);
+                                    db.Entry(taxonomyFile2).State = EntityState.Modified;
+                                    db.SaveChanges();
+                                }
+                            }                            
+                        }
+                    }
                 }
 
                 if (ModelState.IsValid)
@@ -295,6 +354,16 @@ namespace BoardCockpit.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        static void ValidationCallback(object sender, ValidationEventArgs args)
+        {
+            if (args.Severity == XmlSeverityType.Warning)
+                Console.Write("WARNING: ");
+            else if (args.Severity == XmlSeverityType.Error)
+                Console.Write("ERROR: ");
+
+            Console.WriteLine(args.Message);
         }
 
         //here i am receving the extra info injected

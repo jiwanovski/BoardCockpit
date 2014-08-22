@@ -54,8 +54,6 @@
                 selectedRow = "success";
             }
 
-
-
             <tr>
                 @if (item.Name.Contains(".xsd"))
                 {
@@ -66,6 +64,7 @@
                     <td><img src="/Images/XML_Icon.png"></td>
                 }
                 <td>@item.Name</td>
+                <td>@item.TaxonomyFileNodes.Count</td>
             </tr>
 
         }

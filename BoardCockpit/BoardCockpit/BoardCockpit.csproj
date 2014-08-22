@@ -161,9 +161,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalculatedKPIsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\ContextsController.cs" />
     <Compile Include="Controllers\FinancialDatasController.cs" />
+    <Compile Include="Controllers\FormulaDetailsController.cs" />
+    <Compile Include="Controllers\FormulasController.cs" />
     <Compile Include="Controllers\GenInfoDocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportContainersController.cs" />
@@ -186,9 +189,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CalculatedKPI.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\FinancialData.cs" />
+    <Compile Include="Models\Formula.cs" />
+    <Compile Include="Models\FormulaDetail.cs" />
     <Compile Include="Models\GenInfoDocument.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Import.cs" />
@@ -198,6 +204,7 @@
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Taxonomy.cs" />
     <Compile Include="Models\TaxonomyFile.cs" />
+    <Compile Include="Models\TaxonomyFileNode.cs" />
     <Compile Include="Models\Unit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -205,8 +212,12 @@
     <Compile Include="ViewModels\TaxonomyIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\autocomplete\jquery-ui.css" />
+    <Content Include="Content\autocomplete\jquery-ui.min.css" />
+    <Content Include="Content\autocomplete\jquery-ui.structure.css" />
+    <Content Include="Content\autocomplete\jquery-ui.structure.min.css" />
+    <Content Include="Content\autocomplete\jquery-ui.theme.css" />
+    <Content Include="Content\autocomplete\jquery-ui.theme.min.css" />
     <Content Include="Content\metro\docs.css" />
     <Content Include="Content\metro\iconFont.css" />
     <Content Include="Content\metro\metro-bootstrap-responsive.css" />
@@ -252,6 +263,9 @@
     <Content Include="Images\XBRL_Icon.png" />
     <Content Include="Images\XML_Icon.png" />
     <Content Include="Images\XSD_Icon.png" />
+    <Content Include="Scripts\autocomplete\jquery-ui.js" />
+    <Content Include="Scripts\autocomplete\jquery-ui.min.js" />
+    <Content Include="Scripts\autocomplete\jquery.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\mvcfileupload\fonts\glyphicons-halflings-regular.eot" />
@@ -511,6 +525,22 @@
     <Content Include="Views\ImportContainers\Edit.cshtml" />
     <Content Include="Views\ImportContainers\Index.cshtml" />
     <Content Include="Views\ImportContainers\Upload.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Formulas\Create.cshtml" />
+    <Content Include="Views\Formulas\Delete.cshtml" />
+    <Content Include="Views\Formulas\Details.cshtml" />
+    <Content Include="Views\Formulas\Edit.cshtml" />
+    <Content Include="Views\Formulas\Index.cshtml" />
+    <Content Include="Views\FormulaDetails\Create.cshtml" />
+    <Content Include="Views\FormulaDetails\Delete.cshtml" />
+    <Content Include="Views\FormulaDetails\Details.cshtml" />
+    <Content Include="Views\FormulaDetails\Edit.cshtml" />
+    <Content Include="Views\FormulaDetails\Index.cshtml" />
+    <Content Include="Views\CalculatedKPIs\Create.cshtml" />
+    <Content Include="Views\CalculatedKPIs\Delete.cshtml" />
+    <Content Include="Views\CalculatedKPIs\Details.cshtml" />
+    <Content Include="Views\CalculatedKPIs\Edit.cshtml" />
+    <Content Include="Views\CalculatedKPIs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -525,6 +555,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CalcFormulaParser\CalcFormulaParser.csproj">
+      <Project>{b0acb5da-c3eb-4bbf-8adb-ea9bcaee36ce}</Project>
+      <Name>CalcFormulaParser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JeffFerguson.Gepsio\JeffFerguson.Gepsio.csproj">
       <Project>{a567264b-3053-4daa-b601-aac3dfc94fbb}</Project>
       <Name>JeffFerguson.Gepsio</Name>

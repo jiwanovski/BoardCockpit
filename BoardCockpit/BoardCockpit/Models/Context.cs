@@ -44,5 +44,7 @@ namespace BoardCockpit.Models
         public virtual GenInfoDocument GenInfoDocument { get; set; }
         
         public virtual ICollection<FinancialData> FinancialDatas { get; set; }
+
+        public virtual ICollection<CalculatedKPI> CalculatedKPIs { get; set; }
     }
 }
