@@ -326,7 +326,8 @@ namespace BoardCockpit.Controllers
                                 TaxonomyFileNode taxonomyFileNode = new TaxonomyFileNode
                                 {
                                     TaxonomyFileID = taxonomyFile2.TaxonomyFileID,
-                                    NodeName = xmlSchemaElement.Name
+                                    NodeName = xmlSchemaElement.Name,
+                                    TaxonomyID = taxonomyFile2.TaxonomyID
                                 };
 
                                 taxonomyFile2.TaxonomyFileNodes.Add(taxonomyFileNode);

@@ -14,5 +14,9 @@ namespace BoardCockpit.Models
         public string NodeName { get; set; }
 
         public string LabelDE { get; set; }
+
+        public int TaxonomyID { get; set; }
+
+        public virtual TaxonomyFile TaxonomyFile { get; set;}
     }
 }

@@ -183,6 +183,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ImportXBRL.cs" />
+    <Compile Include="Helpers\JSONHelper.cs" />
     <Compile Include="Migrations\201407292200576_InitialCreate.cs" />
     <Compile Include="Migrations\201407292200576_InitialCreate.Designer.cs">
       <DependentUpon>201407292200576_InitialCreate.cs</DependentUpon>

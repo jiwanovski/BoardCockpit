@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using BoardCockpit.DAL;
 using BoardCockpit.Models;
 using BoardCockpit.ViewModels;
+using BoardCockpit.Helpers;
 using System.Data.Entity.Infrastructure;
 
 namespace BoardCockpit.Controllers
@@ -138,7 +139,7 @@ namespace BoardCockpit.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public ActionResult Edit([Bind(Include = "FormulaDetailID,FormulaExpression,FormulaID")] FormulaDetail formulaDetail)
-        public ActionResult Edit(int? id, string[] selectedTaxonomies)
+        public ActionResult Edit(int? id, string[] selectedTaxonomy)
         {
             ViewBag.Sidebar = true;
             
@@ -159,7 +160,7 @@ namespace BoardCockpit.Controllers
             {
                 try
                 {
-                    UpdateFormulaDetailTaxonomies(selectedTaxonomies, formulaDetailToUpdate);
+                    UpdateFormulaDetailTaxonomies(selectedTaxonomy, formulaDetailToUpdate);
 
                     db.Entry(formulaDetailToUpdate).State = EntityState.Modified;
                     db.SaveChanges();
@@ -244,11 +245,31 @@ namespace BoardCockpit.Controllers
             base.Dispose(disposing);
         }
 
-        public JsonResult GetTaxonomyNode(string term)
+        public JsonResult GetTaxonomyNode(string term, string cb)
         {
-            var node = from taxNode in db.TaxonomyFileNodes.Where(c => c.NodeName.Contains(term))
-                            select taxNode.NodeName;
-            node = node.Distinct();
+            string[] split = cb.Split(',');
+            string first = split.First();
+            List<Object> nodes ;
+            string y = null;
+            //var node = new { };
+            List<string> texts = new List<string>();
+            //foreach (var item in split)            
+            //{
+
+                var node = from taxNode in db.TaxonomyFileNodes.Where(i => i.TaxonomyID.ToString() == first)
+                               .Where(c => c.NodeName.Contains(term))
+                           select taxNode.NodeName;                                                       
+                node = node.Distinct();
+                //List<TaxonomyFileNode> jsonList = db.TaxonomyFileNodes.Where(i => i.TaxonomyID.ToString() == item).ToList();//.Where(c => c.NodeName.Contains(term)).ToList();
+                //foreach (var item2 in jsonList)
+                //{
+                //    texts.Add(item2.NodeName);
+                //}
+                                        
+            //}
+            //texts.Distinct();
+            //var jsonString = texts.ToJSON();
+            //return Json(jsonString, JsonRequestBehavior.AllowGet);
             return Json(node, JsonRequestBehavior.AllowGet);
         }
     }
