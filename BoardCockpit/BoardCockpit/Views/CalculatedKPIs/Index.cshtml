@@ -4,42 +4,64 @@
     ViewBag.Title = "Index";
 }
 
+@section CustomJS{
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    @*<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>*@
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                searching: true,
+                ordering: true
+            });
+        });
+    </script>
+}
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Context.XbrlContextID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FormulaDetail.FormulaExpression)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Value)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Context.XbrlContextID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FormulaDetail.FormulaExpression)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Value)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CalculatedKPIID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CalculatedKPIID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CalculatedKPIID })
-        </td>
-    </tr>
-}
-
+<table class="display" id="table_id">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Context.XbrlContextID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormulaDetail.FormulaExpression)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Context.XbrlContextID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormulaDetail.FormulaExpression)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CalculatedKPIID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CalculatedKPIID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CalculatedKPIID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
