@@ -4,41 +4,62 @@
 @{
     ViewBag.Title = "Index";
 }
+@section CustomJS{
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
 
+    <!-- jQuery -->
+    @*<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>*@
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                searching: true,
+                ordering: true
+            });
+        });
+    </script>
+}
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th style="text-align:left">
-            Name
-            @*@Html.DisplayNameFor(model => model.Name)*@
-        </th>
-        <th style="text-align:left">
-            Aktionen
-        </th>
-    </tr>
-
-    @foreach (var item in Model.Taxonomies)
-    {
-        string selectedRow = "";
-        if (item.TaxonomyID == ViewBag.TaxonomyID)
-        {
-            selectedRow = "success";
-        }
-        <tr class="@selectedRow">
-            <td>
-                <strong>@item.Name</strong>
-            </td>
-            <td>
-                @Html.ActionLink("Select", "Index", new { id = item.TaxonomyID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.TaxonomyID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.TaxonomyID })
-            </td>
+<table class="display" id="table_id">
+    <thead>
+        <tr>
+            <th style="text-align:left">
+                Name
+                @*@Html.DisplayNameFor(model => model.Name)*@
+            </th>
+            <th style="text-align:left">
+                Aktionen
+            </th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Taxonomies)
+        {
+            string selectedRow = "";
+            if (item.TaxonomyID == ViewBag.TaxonomyID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    <strong>@item.Name</strong>
+                </td>
+                <td>
+                    @Html.ActionLink("Select", "Index", new { id = item.TaxonomyID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TaxonomyID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TaxonomyID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 @if (Model.TaxonomyFiles != null)

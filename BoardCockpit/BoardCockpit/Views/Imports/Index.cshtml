@@ -3,7 +3,25 @@
 @{
     ViewBag.Title = "Index";
 }
+@section CustomJS{
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
 
+    <!-- jQuery -->
+    @*<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>*@
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                searching: true,
+                ordering: true
+            });
+        });
+    </script>
+}
 <h2>
     Index
 </h2>
@@ -11,40 +29,42 @@
 <p>
     @Html.ActionLink("Upload New", "Upload")
 </p>
-<table class="table">
-    <tr>
-        <th style="text-align:left">
-            @Html.DisplayNameFor(model => model.FileName)
-        </th>
-        <th style="text-align:left">
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th style="text-align:left">
-            @Html.DisplayNameFor(model => model.Error)
-        </th>
-        <th style="text-align:left">
-            Aktionen
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="display" id="table_id">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FileName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Error)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ImportID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ImportID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ImportID })
-            </td>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.Error)
+            </th>
+            <th style="text-align:left">
+                Aktionen
+            </th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Error)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ImportID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ImportID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ImportID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
