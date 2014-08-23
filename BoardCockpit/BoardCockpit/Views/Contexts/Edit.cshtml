@@ -11,57 +11,69 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Context</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.ContextID)
+    <div class="form">
+        <fieldset>
+            <legend>Context</legend>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.XbrlContextID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.XbrlContextID)
-                @Html.ValidationMessageFor(model => model.XbrlContextID)
-            </div>
-        </div>
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.ContextID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate)
-                @Html.ValidationMessageFor(model => model.StartDate)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.XbrlContextID, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.XbrlContextID)
+                    @Html.ValidationMessageFor(model => model.XbrlContextID)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate)
-                @Html.ValidationMessageFor(model => model.EndDate)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.StartDate)
+                    @Html.ValidationMessageFor(model => model.StartDate)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Instant, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Instant)
-                @Html.ValidationMessageFor(model => model.Instant)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.EndDate)
+                    @Html.ValidationMessageFor(model => model.EndDate)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CompanyID, "CompanyID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CompanyID", String.Empty)
-                @Html.ValidationMessageFor(model => model.CompanyID)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.Instant, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.Instant)
+                    @Html.ValidationMessageFor(model => model.Instant)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.CompanyID, "CompanyID", htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.DropDownList("CompanyID", String.Empty)
+                    @Html.ValidationMessageFor(model => model.CompanyID)
+                </div>
             </div>
-        </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </fieldset>
     </div>
 }
 
