@@ -208,6 +208,7 @@
     <Compile Include="Models\Unit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AssignedFormulaDetailData.cs" />
     <Compile Include="ViewModels\ImportIndexData.cs" />
     <Compile Include="ViewModels\TaxonomyIndexData.cs" />
   </ItemGroup>

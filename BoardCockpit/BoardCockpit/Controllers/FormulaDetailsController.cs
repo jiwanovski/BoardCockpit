@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using BoardCockpit.DAL;
 using BoardCockpit.Models;
+using BoardCockpit.ViewModels;
+using System.Data.Entity.Infrastructure;
 
 namespace BoardCockpit.Controllers
 {
@@ -45,6 +47,8 @@ namespace BoardCockpit.Controllers
         {
             ViewBag.Sidebar = true;
             ViewBag.FormulaID = new SelectList(db.Formulas, "FormulaID", "Name");
+            FormulaDetail formulaDetail = null;
+            PopulateAssignedFormulaDetailData(formulaDetail);
             return View();
         }
 
@@ -53,13 +57,34 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FormulaDetailID,FormulaExpression,FormulaID")] FormulaDetail formulaDetail)
+        public ActionResult Create([Bind(Include = "FormulaDetailID,FormulaExpression,FormulaID")] FormulaDetail formulaDetail, string[] selectedTaxonomies)
         {
             ViewBag.Sidebar = true;
             if (ModelState.IsValid)
             {
                 db.FormulaDetails.Add(formulaDetail);
                 db.SaveChanges();
+
+                if (TryUpdateModel(formulaDetail, "",
+                new string[] { "FormulaDetailID", "FormulaExpression", "FormulaID" }))
+                {
+                    try
+                    {
+                        formulaDetail.Taxonomies = new List<Taxonomy>();
+                        UpdateFormulaDetailTaxonomies(selectedTaxonomies, formulaDetail);
+
+                        db.Entry(formulaDetail).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        return RedirectToAction("Index");
+                    }
+                    catch (RetryLimitExceededException /* dex */)
+                    {
+                        //Log the error (uncomment dex variable name and add a line here to write a log.
+                        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                    }
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -68,20 +93,43 @@ namespace BoardCockpit.Controllers
         }
 
         // GET: FormulaDetails/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            FormulaDetail formulaDetail = db.FormulaDetails.Find(id);
+            FormulaDetail formulaDetail = db.FormulaDetails
+                .Include(i => i.CalculatedKPIs).Where(i => i.FormulaDetailID == id)
+                .Include(i => i.Formula)
+                .Include(i => i.Taxonomies).Where(i => i.FormulaDetailID == id)
+                .Single();
+            PopulateAssignedFormulaDetailData(formulaDetail);
             if (formulaDetail == null)
             {
                 return HttpNotFound();
             }
+
             ViewBag.FormulaID = new SelectList(db.Formulas, "FormulaID", "Name", formulaDetail.FormulaID);
             return View(formulaDetail);
+        }
+
+        private void PopulateAssignedFormulaDetailData(FormulaDetail formulaDetail)
+        {
+            var allTaxonomies = db.Taxonomies;
+            var formulaDetailTaxonomies = new HashSet<int>();
+
+            if (formulaDetail != null)
+                formulaDetailTaxonomies = new HashSet<int>(formulaDetail.Taxonomies.Select(c => c.TaxonomyID));
+            var viewModel = new List<AssignedFormulaDetailData>();
+            foreach (var taxonomy in allTaxonomies)
+            {
+                viewModel.Add(new AssignedFormulaDetailData
+                {
+                    TaxonomyID = taxonomy.TaxonomyID,
+                    TaxonomyName = taxonomy.Name,
+                    Assigned = formulaDetailTaxonomies.Contains(taxonomy.TaxonomyID)
+                });
+            }
+            ViewBag.Taxonomies = viewModel;
         }
 
         // POST: FormulaDetails/Edit/5
@@ -89,17 +137,74 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FormulaDetailID,FormulaExpression,FormulaID")] FormulaDetail formulaDetail)
+        //public ActionResult Edit([Bind(Include = "FormulaDetailID,FormulaExpression,FormulaID")] FormulaDetail formulaDetail)
+        public ActionResult Edit(int? id, string[] selectedTaxonomies)
         {
             ViewBag.Sidebar = true;
-            if (ModelState.IsValid)
+            
+            if (id == null)
             {
-                db.Entry(formulaDetail).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.FormulaID = new SelectList(db.Formulas, "FormulaID", "Name", formulaDetail.FormulaID);
-            return View(formulaDetail);
+
+            
+            var formulaDetailToUpdate = db.FormulaDetails
+                .Include(i => i.CalculatedKPIs).Where(i => i.FormulaDetailID == id)
+                .Include(i => i.Formula)
+                .Include(i => i.Taxonomies).Where(i => i.FormulaDetailID == id)
+                .Single();
+
+            if (TryUpdateModel(formulaDetailToUpdate, "",
+                new string[] { "FormulaDetailID", "FormulaExpression" , "FormulaID" }))
+            {
+                try
+                {
+                    UpdateFormulaDetailTaxonomies(selectedTaxonomies, formulaDetailToUpdate);
+
+                    db.Entry(formulaDetailToUpdate).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+
+            PopulateAssignedFormulaDetailData(formulaDetailToUpdate);
+            return View(formulaDetailToUpdate);
+        }
+
+        private void UpdateFormulaDetailTaxonomies(string[] selectedTaxonomies, FormulaDetail formulaDetailToUpdate)
+        {
+            if (selectedTaxonomies == null)
+            {
+                formulaDetailToUpdate.Taxonomies = new List<Taxonomy>();
+                return;
+            }
+
+            var selectedCoursesHS = new HashSet<string>(selectedTaxonomies);
+            var instructorCourses = new HashSet<int>
+                (formulaDetailToUpdate.Taxonomies.Select(c => c.TaxonomyID));
+            foreach (var taxonomy in db.Taxonomies)
+            {
+                if (selectedCoursesHS.Contains(taxonomy.TaxonomyID.ToString()))
+                {
+                    if (!instructorCourses.Contains(taxonomy.TaxonomyID))
+                    {
+                        formulaDetailToUpdate.Taxonomies.Add(taxonomy);
+                    }
+                }
+                else
+                {
+                    if (instructorCourses.Contains(taxonomy.TaxonomyID))
+                    {
+                        formulaDetailToUpdate.Taxonomies.Remove(taxonomy);
+                    }
+                }
+            }
         }
 
         // GET: FormulaDetails/Delete/5
@@ -137,6 +242,14 @@ namespace BoardCockpit.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public JsonResult GetTaxonomyNode(string term)
+        {
+            var node = from taxNode in db.TaxonomyFileNodes.Where(c => c.NodeName.Contains(term))
+                            select taxNode.NodeName;
+            node = node.Distinct();
+            return Json(node, JsonRequestBehavior.AllowGet);
         }
     }
 }

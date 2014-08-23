@@ -200,7 +200,7 @@ namespace BoardCockpit.Controllers
         public JsonResult GetCustomers3(string term)
         {
             BoardCockpitContext db = new BoardCockpitContext();
-            var customers = from cust in db.TaxonomyFileNodes.Where(c => c.NodeName.StartsWith(term))
+            var customers = from cust in db.TaxonomyFileNodes.Where(c => c.NodeName.Contains(term))
                             select cust.NodeName;
             customers = customers.Distinct();
             return Json(customers, JsonRequestBehavior.AllowGet);

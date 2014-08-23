@@ -9,36 +9,65 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form">
-        <fieldset>
-            <h4>FormulaDetail</h4>
-            <hr />
-            @Html.ValidationSummary(true)
-            <div class="form-group">
-                @Html.LabelFor(model => model.FormulaExpression, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="input-control text size6 block" data-role="input-control">
-                    @Html.EditorFor(model => model.FormulaExpression, new { htmlAttributes = new { @placeholder = "type text" }, })
-                    @Html.ValidationMessageFor(model => model.FormulaExpression)
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.FormulaID, "FormulaID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("FormulaID", String.Empty)
-                    @Html.ValidationMessageFor(model => model.FormulaID)
+        <div class="form">
+            <fieldset>
+                <legend>FormulaDetail</legend>
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    <label>
+                        @Html.LabelFor(model => model.FormulaExpression, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </label>
+                    <div class="input-control text size12 block" data-role="input-control">
+                        @Html.EditorFor(model => model.FormulaExpression, new { htmlAttributes = new { @placeholder = "type text" }, })
+                        @Html.ValidationMessageFor(model => model.FormulaExpression)
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FormulaID, "FormulaID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("FormulaID", String.Empty)
+                        @Html.ValidationMessageFor(model => model.FormulaID)
+                    </div>
                 </div>
-            </div>
-        </fieldset>
-    </div>
-    
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <table>
+                            <tr>
+                                @{
+                                    int cnt = 0;
+                                    List<BoardCockpit.ViewModels.AssignedFormulaDetailData> taxonomies = ViewBag.Taxonomies;
+
+                                    foreach (var taxonomy in taxonomies)
+                                    {
+                                        if (cnt++ % 3 == 0)
+                                        {
+                                            @:</tr><tr>
+                                        }
+                                        @:<td>
+                                            <input type="checkbox"
+                                                   name="selectedTaxonomies"
+                                                   value="@taxonomy.TaxonomyID"
+                                                   @(Html.Raw(taxonomy.Assigned ? "checked=\"checked\"" : "")) />
+                                            @taxonomy.TaxonomyID @:  @taxonomy.TaxonomyName
+                                        @:</td>
+                                    }
+                                    @:</tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+
 }
 
 <form>
@@ -52,63 +81,6 @@
         </div>
     </fieldset>
 </form>
-<h3>Input with sizeN class</h3>
-<p class="description">
-    Use <code>.size1</code> to <code>.size12</code> for <code>.input-control</code> that match the same sizes of the grid columns.
-</p>
-<div class="example">
-    <form class="clearfix">
-        <h4>As block</h4>
-        <div class="input-control text size1 block" data-role="input-control">
-            <input type="text" placeholder="size1">
-        </div>
-        <div class="input-control text size2 block" data-role="input-control">
-            <input type="text" placeholder="size2">
-        </div>
-        <div class="input-control text size3 block" data-role="input-control">
-            <input type="text" placeholder="size3">
-        </div>
-        <div class="input-control text size4 block" data-role="input-control">
-            <input type="text" placeholder="size3">
-        </div>
-        <div class="input-control text metro size12 block" data-role="input-control">
-            <input class="" type="text" placeholder="size12">
-        </div>
-
-        <h4>As inline-block</h4>
-        <div class="input-control text size1" data-role="input-control">
-            <input type="text" placeholder="size1">
-        </div>
-        <div class="input-control text size2" data-role="input-control">
-            <input type="text" placeholder="size2">
-        </div>
-        <div class="input-control text size3" data-role="input-control">
-            <input class="size12" type="text" placeholder="size3">
-        </div>
-    </form>
-    <form class="no-display">
-        <h4>In grid</h4>
-        <div class="grid">
-            <div class="row">
-                <div class="span2">
-                    <div class="input-control text size2" data-role="input-control">
-                        <input type="text" placeholder="size2">
-                    </div>
-                </div>
-                <div class="span2">
-                    <div class="input-control text size2" data-role="input-control">
-                        <input type="text" placeholder="size2">
-                    </div>
-                </div>
-                <div class="span2">
-                    <div class="input-control text size2" data-role="input-control">
-                        <input type="text" placeholder="size2">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")

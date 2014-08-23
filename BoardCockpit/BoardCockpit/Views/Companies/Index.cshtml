@@ -3,69 +3,91 @@
 @{
     ViewBag.Title = "Index";
 }
+@section CustomJS{
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    @*<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>*@
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#Company_Table').DataTable({
+                searching: true,
+                ordering: true
+            });
+        });
+    </script>
+}
 
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th style="text-align:left">
-            @Html.DisplayNameFor(model => model.SizeClass)
-        </th>
-        <th style="text-align:left">
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th style="text-align:left">
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
-        <th style="text-align:left">
-            @Html.DisplayNameFor(model => model.Street)
-        </th>
-        <th style="text-align:left">
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </th>
-        <th style="text-align:left">
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th style="text-align:left">
-            @Html.DisplayNameFor(model => model.Country)
-        </th>
-        <th style="text-align:left">
-            Aktionen
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SizeClass)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Street)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Country)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CompanyID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CompanyID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CompanyID })
-        </td>
-    </tr>
-}
-
+<table class="display" id="Company_Table">
+    <thead>
+        <tr>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.SizeClass)
+            </th>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.ZipCode)
+            </th>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th style="text-align:left">
+                Aktionen
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SizeClass)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZipCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CompanyID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CompanyID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CompanyID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

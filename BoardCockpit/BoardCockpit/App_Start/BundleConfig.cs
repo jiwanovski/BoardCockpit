@@ -9,8 +9,10 @@ namespace BoardCockpit
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
-
+                        //"~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/autocomplete/jquery.js",
+                        "~/Scripts/autocomplete/jquery-ui.js"));
+        
             // FileUpload Out
             // bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
             //             "~/Scripts/jquery.validate*"));
@@ -27,12 +29,9 @@ namespace BoardCockpit
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/respond.js",
                       "~/Scipts/metro/metro.min.js",
-                 "~/Scripts/metro/jquery/jquery.min.js",
-                 "~/Scripts/metro/jquery/jquery.widget.min.js",
-                 "~/Scripts/metro/jquery/jquery.mousewheel.js",
-                //      "~/Scripts/mvcfileupload/blueimp/jquery.min.js",
-                //      "~/Scripts/mvcfileupload/blueimp/jquery.widget.min.js",
-                //      "~/Scripts/mvcfileupload/blueimp/jquery.mousewheel.js",
+                 //"~/Scripts/metro/jquery/jquery.min.js",
+                 //"~/Scripts/metro/jquery/jquery.widget.min.js",
+                 //"~/Scripts/metro/jquery/jquery.mousewheel.js",
                       "~/Scripts/metro/prettify/prettify.js",
                       "~/Scripts/metro/load-metro.js",
                       "~/Scripts/metro/docs.js",
