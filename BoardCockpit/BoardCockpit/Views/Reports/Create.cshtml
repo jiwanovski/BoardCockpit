@@ -11,39 +11,47 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Report</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-        <div class="form-group">
-            @Html.LabelFor(model => model.AccordingToYearEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AccordingToYearEnd)
-                @Html.ValidationMessageFor(model => model.AccordingToYearEnd)
-            </div>
-        </div>
+    <div class="form">
+        <fieldset>
+            <legend>Report</legend>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReportType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReportType)
-                @Html.ValidationMessageFor(model => model.ReportType)
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.AccordingToYearEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.AccordingToYearEnd)
+                    @Html.ValidationMessageFor(model => model.AccordingToYearEnd)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.XbrlContextRef, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.XbrlContextRef)
-                @Html.ValidationMessageFor(model => model.XbrlContextRef)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.ReportType, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.ReportType)
+                    @Html.ValidationMessageFor(model => model.ReportType)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.XbrlContextRef, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.XbrlContextRef)
+                    @Html.ValidationMessageFor(model => model.XbrlContextRef)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
-        </div>
+            </div>
+        </fieldset>
     </div>
 }
 

@@ -11,65 +11,79 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>ImportNode</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.ImportNodeID)
+    <div class="form">
+        <fieldset>
+            <legend>ImportNode</legend>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ImportID, "ImportID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ImportID", String.Empty)
-                @Html.ValidationMessageFor(model => model.ImportID)
-            </div>
-        </div>
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.ImportNodeID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ContextRef, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ContextRef)
-                @Html.ValidationMessageFor(model => model.ContextRef)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.ImportID, "ImportID", htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.DropDownList("ImportID", String.Empty)
+                    @Html.ValidationMessageFor(model => model.ImportID)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UnitRef, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UnitRef)
-                @Html.ValidationMessageFor(model => model.UnitRef)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.ContextRef, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.ContextRef)
+                    @Html.ValidationMessageFor(model => model.ContextRef)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Precision, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Precision)
-                @Html.ValidationMessageFor(model => model.Precision)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.UnitRef, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.UnitRef)
+                    @Html.ValidationMessageFor(model => model.UnitRef)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.Precision, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.Precision)
+                    @Html.ValidationMessageFor(model => model.Precision)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Value)
-                @Html.ValidationMessageFor(model => model.Value)
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.Name)
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="form-group">
+                <label>
+                    @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+                </label>
+                <div class="input-control text size10 block" data-role="input-control">
+                    @Html.EditorFor(model => model.Value)
+                    @Html.ValidationMessageFor(model => model.Value)
+                </div>
             </div>
-        </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </fieldset>
     </div>
 }
 
