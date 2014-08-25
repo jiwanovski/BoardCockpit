@@ -5,7 +5,16 @@
 }
 
 <h2>Create</h2>
-
+<div class="row">
+    <div class="tile half bg-cyan" data-click="transform">
+        <div class="tile-content icon">
+            <a href="@Url.Action("Index")">
+                <i class="icon-undo"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -14,40 +23,40 @@
             <fieldset>
                 <legend>FormulaDetail</legend>
                 @Html.ValidationSummary(true)
-                
+
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <table>
                             <tr>
-                            @{
-                                int cnt = 0;
-                                List<BoardCockpit.ViewModels.AssignedFormulaDetailData> taxonomies = ViewBag.Taxonomies;
+                                @{
+                                    int cnt = 0;
+                                    List<BoardCockpit.ViewModels.AssignedFormulaDetailData> taxonomies = ViewBag.Taxonomies;
 
-                                foreach (var taxonomy in taxonomies)
-                                {
-                                    if (cnt++ % 3 == 0)
+                                    foreach (var taxonomy in taxonomies)
                                     {
-                                        @:</tr><tr>
-                                    }
+                                        if (cnt++ % 3 == 0)
+                                        {
+                                            @:</tr><tr>
+                                        }
                                     @:<td>
                                         <div class="input-control checkbox" data-role="input-control">
                                             <label>
-                                                <input type="checkbox"
+                                            <input type="checkbox"
                                                        class="selectedTaxonomies"
                                                        name="selectedTaxonomy"
-                                                       value="@taxonomy.TaxonomyID"
-                                                       @(Html.Raw(taxonomy.Assigned ? "checked=\"checked\"" : "")) />
+                                                   value="@taxonomy.TaxonomyID"
+                                                   @(Html.Raw(taxonomy.Assigned ? "checked=\"checked\"" : "")) />
                                                 <span class="check"></span>
                                                 @taxonomy.TaxonomyName
                                             </label>
                                         </div>
                                     @:</td>
+                                    }
+                                    @:</tr>
                                 }
-                            @:</tr>
-                            }
-                        </table>
+                            </table>
+                        </div>
                     </div>
-                </div>
 
                 <div class="form-group">
                     <label>
@@ -79,7 +88,7 @@
                 function split(val) {
                     var test = val.split(/[+-\/*\s*]/);
                     return test;
-                }
+}
 
                 function split3(val) {
                     var test = val.split(/[\s()*/%+-]+/g);

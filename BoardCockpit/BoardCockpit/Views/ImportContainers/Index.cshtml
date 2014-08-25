@@ -24,9 +24,16 @@
 }
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="tile half bg-cyan" data-click="transform">
+    <div class="tile-content icon">
+        <a href="@Url.Action("Create")">
+            <i class="icon-plus-2"></i>
+        </a>
+    </div>
+</div>
+<br />
+
+
 <table class="display" id="table_id">
     <thead>
         <tr>
@@ -58,6 +65,7 @@
                     @Html.DisplayFor(modelItem => item.Imports.Count)
                 </td>
                 <td>
+       
                     @Html.ActionLink("Details", "IndexForContainer", "Imports", new { importContainerId = item.ImportContainerID }, null)
 
                 </td>

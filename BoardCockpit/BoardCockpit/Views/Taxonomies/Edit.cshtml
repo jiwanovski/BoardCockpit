@@ -5,50 +5,56 @@
 }
 
 <h2>Edit</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form">
-        <fieldset>
-            <legend>Taxonomy</legend>
-
-            @Html.ValidationSummary(true)
-            @Html.HiddenFor(model => model.TaxonomyID)
-
-            <div class="form-group">
-                <label>
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                </label>
-                <div class="input-control text size10 block" data-role="input-control">
-                    @Html.EditorFor(model => model.Name)
-                    @Html.ValidationMessageFor(model => model.Name)
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    @Html.LabelFor(model => model.Path, htmlAttributes: new { @class = "control-label col-md-2" })
-                </label>
-                <div class="input-control text size10 block" data-role="input-control">
-                    @Html.EditorFor(model => model.Path)
-                    @Html.ValidationMessageFor(model => model.Path)
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>
-        </fieldset>
+<div class="row">
+    <div class="tile half bg-cyan" data-click="transform">
+        <div class="tile-content icon">
+            <a href="@Url.Action("Index")">
+                <i class="icon-undo"></i>
+            </a>
+        </div>
     </div>
-}
+</div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form">
+            <fieldset>
+                <legend>Taxonomy</legend>
+
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.TaxonomyID)
+
+                <div class="form-group">
+                    <label>
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </label>
+                    <div class="input-control text size10 block" data-role="input-control">
+                        @Html.EditorFor(model => model.Name)
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        @Html.LabelFor(model => model.Path, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </label>
+                    <div class="input-control text size10 block" data-role="input-control">
+                        @Html.EditorFor(model => model.Path)
+                        @Html.ValidationMessageFor(model => model.Path)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    }
 </div>
 
 @section Scripts {

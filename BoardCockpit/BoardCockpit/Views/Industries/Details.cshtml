@@ -5,8 +5,24 @@
 }
 
 <h2>Details</h2>
+<div class="row">
+    <div class="tile half bg-cyan" data-click="transform">
+        <div class="tile-content icon">
+            <a href="@Url.Action("Index")">
+                <i class="icon-undo"></i>
+            </a>
+        </div>
+    </div>
+    <div class="tile half bg-cyan" data-click="transform">
+        <div class="tile-content icon">
+            <a href="@Url.Action("Edit", new { id = Model.IndustryID })">
+                <i class="icon-pencil"></i>
+            </a>
+        </div>
+    </div>
+</div>
 
-<div>
+<div class="row">
     <h4>Industry</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -20,7 +36,3 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IndustryID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
