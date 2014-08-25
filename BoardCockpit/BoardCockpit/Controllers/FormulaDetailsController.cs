@@ -19,10 +19,14 @@ namespace BoardCockpit.Controllers
         private BoardCockpitContext db = new BoardCockpitContext();
 
         // GET: FormulaDetails
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             ViewBag.Sidebar = true;
-            var formulaDetails = db.FormulaDetails.Include(f => f.Formula);
+            ViewBag.FormulaID = id;
+
+            var formulaDetails = db.FormulaDetails
+                                        .Where(i => i.FormulaID == id)
+                                        .Include(f => f.Formula);
             return View(formulaDetails.ToList());
         }
 
@@ -44,10 +48,10 @@ namespace BoardCockpit.Controllers
         }
 
         // GET: FormulaDetails/Create
-        public ActionResult Create()
+        public ActionResult Create(int? formulaId)
         {
             ViewBag.Sidebar = true;
-            ViewBag.FormulaID = new SelectList(db.Formulas, "FormulaID", "Name");
+            ViewBag.FormulaID = new SelectList(db.Formulas, "FormulaID", "Name", formulaId);
             FormulaDetail formulaDetail = null;
             PopulateAssignedFormulaDetailData(formulaDetail);
             return View();

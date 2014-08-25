@@ -23,7 +23,7 @@ namespace JeffFerguson.Gepsio
         // JIW Start
         public string SchemaDirectory
         {
-            private get;
+            get;
             set;
         }
         // JIW Stop

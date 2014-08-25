@@ -52,7 +52,8 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.FormulaID }) |
                     @Html.ActionLink("Details", "Details", new { id = item.FormulaID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.FormulaID })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.FormulaID }) |
+                    @Html.ActionLink("Formeln", "Index", "FormulaDetails", new { id = item.FormulaID }, null)
                 </td>
             </tr>
         }

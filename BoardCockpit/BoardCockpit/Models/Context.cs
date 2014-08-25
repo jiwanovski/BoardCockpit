@@ -8,10 +8,6 @@ namespace BoardCockpit.Models
 {
     public class Context
     {
-        private DateTime startDate;
-        private DateTime endDate;
-        private DateTime instantDate;
-
         public int ContextID { get; set; }
 
         

@@ -33,6 +33,11 @@ namespace BoardCockpit.Helpers
             
         }
 
+        public XbrlDocument XbrlDocument
+        {
+            get { return Doc; }
+        }
+
         public JeffFerguson.Gepsio.Report Report
         {
             get
