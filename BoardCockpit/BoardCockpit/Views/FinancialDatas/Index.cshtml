@@ -24,9 +24,16 @@
 }
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="tile half bg-cyan" data-click="transform">
+    <div class="tile-content icon">
+        <a href="@Url.Action("Create")">
+            <i class="icon-plus-2"></i>
+        </a>
+    </div>
+</div>
+<br />
+
+
 <table class="display" id="table_id">
     <thead>
         <tr>
@@ -70,9 +77,17 @@
                     @Html.DisplayFor(modelItem => item.XbrlName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.FinancialDataID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.FinancialDataID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.FinancialDataID })
+                    <div class="toolbar transparent">
+                        <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", new { id = item.FinancialDataID })'">
+                            <i class="icon-folder-2 on-left">
+                            </i>
+                        </button>
+                        <span class="divider"></span>
+                        <button class="toolbar fg-red" onclick="location.href='@Url.Action("Delete", new { id = item.FinancialDataID })'">
+                            <i class="icon-remove">
+                            </i>
+                        </button>
+                    </div>
                 </td>
             </tr>
         }

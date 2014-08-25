@@ -5,56 +5,64 @@
 }
 
 <h2>Edit</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form">
-        <fieldset>
-            <legend>CalculatedKPI</legend>
-            @Html.ValidationSummary(true)
-            @Html.HiddenFor(model => model.CalculatedKPIID)
-
-            <div class="form-group">
-                <label>
-                    @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
-                </label>
-                <div class="input-control text size10 block" data-role="input-control">
-                    @Html.EditorFor(model => model.Value)
-                    @Html.ValidationMessageFor(model => model.Value)
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    @Html.LabelFor(model => model.FormulaDetailID, "FormulaDetailID", htmlAttributes: new { @class = "control-label col-md-2" })
-                </label>
-                <div class="input-control text size10 block" data-role="input-control">
-                    @Html.DropDownList("FormulaDetailID", String.Empty)
-                    @Html.ValidationMessageFor(model => model.FormulaDetailID)
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    @Html.LabelFor(model => model.ContextID, "ContextID", htmlAttributes: new { @class = "control-label col-md-2" })
-                </label>
-                <div class="input-control text size10 block" data-role="input-control">
-                    @Html.DropDownList("ContextID", String.Empty)
-                    @Html.ValidationMessageFor(model => model.ContextID)
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>
-        </fieldset>
+<div class="row">
+    <div class="tile half bg-cyan" data-click="transform">
+        <div class="tile-content icon">
+            <a href="@Url.Action("Index")">
+                <i class="icon-undo"></i>
+            </a>
+        </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form">
+            <fieldset>
+                <legend>CalculatedKPI</legend>
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.CalculatedKPIID)
+
+                <div class="form-group">
+                    <label>
+                        @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </label>
+                    <div class="input-control text size10 block" data-role="input-control">
+                        @Html.EditorFor(model => model.Value)
+                        @Html.ValidationMessageFor(model => model.Value)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        @Html.LabelFor(model => model.FormulaDetailID, "FormulaDetailID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    </label>
+                    <div class="input-control text size10 block" data-role="input-control">
+                        @Html.DropDownList("FormulaDetailID", String.Empty)
+                        @Html.ValidationMessageFor(model => model.FormulaDetailID)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        @Html.LabelFor(model => model.ContextID, "ContextID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    </label>
+                    <div class="input-control text size10 block" data-role="input-control">
+                        @Html.DropDownList("ContextID", String.Empty)
+                        @Html.ValidationMessageFor(model => model.ContextID)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    }
+</div>
+

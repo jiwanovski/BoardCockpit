@@ -24,72 +24,87 @@
     </script>
 }
 <h2>Index</h2>
+<div class="row">
+<div class="tile half bg-cyan" data-click="transform">
+    <div class="tile-content icon">
+        <a href="@Url.Action("Create")">
+            <i class="icon-plus-2"></i>
+        </a>
+    </div>
+</div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="display" id="table_id">
-    <thead>
-        <tr>
-            <th style="text-align:left">
-                Name
-                @*@Html.DisplayNameFor(model => model.Name)*@
-            </th>
-            <th style="text-align:left">
-                Aktionen
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Taxonomies)
-        {
-            string selectedRow = "";
-            if (item.TaxonomyID == ViewBag.TaxonomyID)
-            {
-                selectedRow = "success";
-            }
-            <tr class="@selectedRow">
-                <td>
-                    <strong>@item.Name</strong>
-                </td>
-                <td>
-                    @Html.ActionLink("Select", "Index", new { id = item.TaxonomyID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.TaxonomyID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.TaxonomyID })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-@if (Model.TaxonomyFiles != null)
-{
-    <h3>Dateien der Taxonomie:</h3>
-    <table class="table">
-        
-        @foreach (var item in Model.TaxonomyFiles)
-        {
-            string selectedRow = "";
-            if (item.TaxonomyFileID == ViewBag.TaxonomyFileID)
-            {
-                selectedRow = "success";
-            }
-
+<div class="row">
+    <table class="display" id="table_id">
+        <thead>
             <tr>
-                @if (item.Name.Contains(".xsd"))
-                {
-                    <td><img src="/Images/XSD_Icon.png"></td>
-                }
-                @if (item.Name.Contains(".xml"))
-                {
-                    <td><img src="/Images/XML_Icon.png"></td>
-                }
-                <td>@item.Name</td>
-                <td>@item.TaxonomyFileNodes.Count</td>
+                <th style="text-align:left">
+                    Name
+                    @*@Html.DisplayNameFor(model => model.Name)*@
+                </th>
+                <th style="text-align:left">
+                    Aktionen
+                </th>
             </tr>
-
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Taxonomies)
+            {
+                string selectedRow = "";
+                if (item.TaxonomyID == ViewBag.TaxonomyID)
+                {
+                    selectedRow = "success";
+                }
+                <tr class="@selectedRow">
+                    <td>
+                        <strong>@item.Name</strong>
+                    </td>
+                    <td>
+                        <div class="toolbar transparent">
+                            <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", new { id = item.TaxonomyID })'">
+                                <i class="icon-folder-2 on-left">
+                                </i>
+                            </button>
+                            <span class="divider"></span>
+                            <button class="toolbar fg-red" onclick="location.href='@Url.Action("Delete", new { id = item.TaxonomyID })'">
+                                <i class="icon-remove">
+                                </i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
-}
 
+    @if (Model.TaxonomyFiles != null)
+    {
+        <h3>Dateien der Taxonomie:</h3>
+        <table class="table">
+
+            @foreach (var item in Model.TaxonomyFiles)
+            {
+                string selectedRow = "";
+                if (item.TaxonomyFileID == ViewBag.TaxonomyFileID)
+                {
+                    selectedRow = "success";
+                }
+
+                <tr>
+                    @if (item.Name.Contains(".xsd"))
+                    {
+                        <td><img src="/Images/XSD_Icon.png"></td>
+                    }
+                    @if (item.Name.Contains(".xml"))
+                    {
+                        <td><img src="/Images/XML_Icon.png"></td>
+                    }
+                    <td>@item.Name</td>
+                    <td>@item.TaxonomyFileNodes.Count</td>
+                </tr>
+
+            }
+        </table>
+    }
+</div>
 
