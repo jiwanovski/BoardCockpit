@@ -24,25 +24,7 @@
         <fieldset>
             <legend>FormulaDetail</legend>            
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.FormulaDetailID)
-
-        <div class="form-group">
-                <div class="ui-widget">
-                    @Html.LabelFor(model => model.FormulaExpression, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.FormulaExpression, new { htmlAttributes = new { @name = "tags" } })
-                        @Html.ValidationMessageFor(model => model.FormulaExpression)
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.FormulaID, "FormulaID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("FormulaID", String.Empty)
-                    @Html.ValidationMessageFor(model => model.FormulaID)
-                </div>
-            </div>
+        @Html.HiddenFor(model => model.FormulaDetailID)        
 
             <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

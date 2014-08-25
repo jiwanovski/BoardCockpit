@@ -63,6 +63,11 @@
                             </i>
                         </button>
                         <span class="divider"></span>
+                        <button class="toolbar transparent" onclick="location.href='@Url.Action("Index", "FormulaDetails", new { id = item.FormulaID }, null)'">
+                            <i class="icon-link-2 on-left">
+                            </i>
+                        </button>
+                        <span class="divider"></span>
                         <button class="toolbar fg-red" onclick="location.href='@Url.Action("Delete", new { id = item.FormulaID })'">
                             <i class="icon-remove">
                             </i>
