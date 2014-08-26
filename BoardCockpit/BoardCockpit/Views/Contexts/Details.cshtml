@@ -4,6 +4,26 @@
     ViewBag.Title = "Details";
 }
 
+@section CustomJS{
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    @*<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>*@
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#Context_Table').DataTable({
+                searching: true,
+                ordering: true
+            });
+        });
+    </script>
+}
+
 <h2>Details</h2>
 <div class="row">
     <div class="tile half bg-cyan">
@@ -22,48 +42,131 @@
     </div>
 </div>
 <div class="row">
-    <h4>Context</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Company.Name)
-        </dt>
+    <form>
+        <fieldset>
+            <legend><strong>Context</strong></legend>
+            <table>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Company.Name)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Company.Name)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.XbrlContextID)</strong></td>
+                    <td>@Html.DisplayFor(model => model.XbrlContextID)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.StartDate)</strong></td>
+                    <td>@Html.DisplayFor(model => model.StartDate)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.EndDate)</strong></td>
+                    <td>@Html.DisplayFor(model => model.EndDate)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Instant)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Instant)</td>
+                </tr>
+            </table>            
+        </fieldset>
+    </form>
 
-        <dd>
-            @Html.DisplayFor(model => model.Company.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.XbrlContextID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.XbrlContextID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Instant)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Instant)
-        </dd>
-
-    </dl>
+    @if (Model.FinancialDatas.Count > 0)
+    {
+        <div class="panel" data-role="panel">
+            <div class="panel-header bg-lightBlue fg-white">
+                Financial Datas
+            </div>
+            <div class="panel-content">
+                <table class="display" id="Context_Table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.FinancialDatas.First().XbrlName)
+                            </th>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.FinancialDatas.First().Unit)
+                            </th>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.FinancialDatas.First().Precision)
+                            </th>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.FinancialDatas.First().Value)
+                            </th>                            
+                            <th style="text-align:left">
+                                Aktionen
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.FinancialDatas)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.XbrlName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Unit.Value)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Precision)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Value)
+                                </td>                                
+                                <td>
+                                    <div class="toolbar transparent">
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    
+    @if (Model.CalculatedKPIs.Count > 0)
+    {
+        <div class="panel" data-role="panel">
+            <div class="panel-header bg-lightBlue fg-white">
+                Calculated KPIs
+            </div>
+            <div class="panel-content">
+                <table class="display" id="Context_Table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.CalculatedKPIs.First().FormulaDetail.Formula.Name)
+                            </th>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.CalculatedKPIs.First().Value)
+                            </th>                            
+                            <th style="text-align:left">
+                                Aktionen
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CalculatedKPIs)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FormulaDetail.Formula.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Value)
+                                </td>                                
+                                <td>
+                                    <div class="toolbar transparent">
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
 </div>

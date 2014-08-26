@@ -24,6 +24,16 @@ namespace BoardCockpit.Controllers
             return View(contexts.ToList());
         }
 
+        public ActionResult IndexForCompany(int? companyId)
+        {
+            ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
+            var contexts = db.Contexts
+                                .Where(i => i.CompanyID == companyId)
+                                .Include(c => c.Company);
+            return View("Index", contexts.ToList());
+        }
+
         // GET: Contexts/Details/5
         public ActionResult Details(int? id)
         {

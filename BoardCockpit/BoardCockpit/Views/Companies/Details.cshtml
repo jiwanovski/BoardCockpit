@@ -4,6 +4,26 @@
     ViewBag.Title = "Details";
 }
 
+@section CustomJS{
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    @*<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>*@
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#Context_Table').DataTable({
+                searching: true,
+                ordering: true
+            });
+        });
+    </script>
+}
+
 <h2>Details</h2>
 <div class="row">
     <div class="tile half bg-cyan">
@@ -82,4 +102,74 @@
         </dd>
 
     </dl>
+    @if (Model.Contexts.Count > 0)
+    {
+        <div class="panel" data-role="panel">
+            <div class="panel-header bg-lightBlue fg-white">
+                Contexts
+            </div>
+            <div class="panel-content">
+                <table class="display" id="Context_Table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.Contexts.First().ContextID)
+                            </th>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.Contexts.First().StartDate)
+                            </th>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.Contexts.First().EndDate)
+                            </th>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.Contexts.First().Instant)
+                            </th>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.Contexts.First().CalculatedKPIs)
+                            </th>
+                            <th style="text-align:left">
+                                @Html.DisplayNameFor(model => model.Contexts.First().FinancialDatas)
+                            </th>
+                            <th style="text-align:left">
+                                Aktionen
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Contexts)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CompanyID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Instant)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CalculatedKPIs.Count)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FinancialDatas.Count)
+                                </td>
+                                <td>
+                                    <div class="toolbar transparent">
+                                        <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", "Contexts", new { id = item.ContextID }, null)'">
+                                            <i class="icon-folder-2 on-left">
+                                            </i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+    }       
 </div>
