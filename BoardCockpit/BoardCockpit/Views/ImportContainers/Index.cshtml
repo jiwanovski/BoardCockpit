@@ -24,7 +24,7 @@
 }
 <h2>Index</h2>
 
-<div class="tile half bg-cyan" data-click="transform">
+<div class="tile half bg-cyan">
     <div class="tile-content icon">
         <a href="@Url.Action("Create")">
             <i class="icon-plus-2"></i>
@@ -65,9 +65,12 @@
                     @Html.DisplayFor(modelItem => item.Imports.Count)
                 </td>
                 <td>
-       
-                    @Html.ActionLink("Details", "IndexForContainer", "Imports", new { importContainerId = item.ImportContainerID }, null)
-
+                    <div class="toolbar transparent">
+                        <button class="toolbar transparent" onclick="location.href='@Url.Action("IndexForContainer", "Imports", new { importContainerId = item.ImportContainerID }, null)'">
+                            <i class="icon-folder-2 on-left">
+                            </i>
+                        </button>
+                    </div>
                 </td>
             </tr>
         }
