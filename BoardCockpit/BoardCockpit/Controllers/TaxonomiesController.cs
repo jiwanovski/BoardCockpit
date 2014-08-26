@@ -25,6 +25,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
             var viewModel = new TaxonomyIndexData();
             viewModel.Taxonomies = db.Taxonomies;
 
@@ -43,6 +44,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -61,6 +63,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
             return View();
         }
 
@@ -72,6 +75,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "TaxonomyID,Name,Path")] Taxonomy taxonomy)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
 
             if (ModelState.IsValid)
             {
@@ -88,6 +92,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
 
             if (id == null)
             {
@@ -110,6 +115,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit([Bind(Include = "TaxonomyID,Name,Path")] Taxonomy taxonomy)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
 
             if (ModelState.IsValid)
             {
@@ -125,6 +131,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
 
             if (id == null)
             {
@@ -145,6 +152,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
 
             Taxonomy taxonomy = db.Taxonomies.Find(id);
             db.Taxonomies.Remove(taxonomy);
@@ -166,6 +174,7 @@ namespace BoardCockpit.Controllers
         {
             ViewBag.TaxonomyID = taxonomyID;
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
 
             return View();
         }
@@ -173,6 +182,7 @@ namespace BoardCockpit.Controllers
         public ActionResult UploadFile(int? entityId, int taxonomyId) // optionally receive values specified with Html helper
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
 
             Taxonomy taxonomy = db.Taxonomies.Find(taxonomyId);
             if (taxonomy == null)
@@ -372,6 +382,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteFile(int? entityId, string fileUrl)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Taxonomies";
             var filePath = Server.MapPath("~" + fileUrl);
 
             if (System.IO.File.Exists(filePath))
@@ -387,6 +398,7 @@ namespace BoardCockpit.Controllers
 
         public ActionResult DownloadFile(string fileUrl, string mimetype)
         {
+            ViewBag.ActiveSidebar = "Taxonomies";
             var filePath = Server.MapPath("~" + fileUrl);
 
             if (System.IO.File.Exists(filePath))

@@ -19,6 +19,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             return View(db.Companies.ToList());
         }
 
@@ -26,6 +27,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -42,6 +44,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             return View();
         }
 
@@ -53,6 +56,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "CompanyID,SizeClass,Name,Location,Street,ZipCode,City,Country")] Company company)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
              
             if (ModelState.IsValid)
             {
@@ -69,6 +73,8 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -89,6 +95,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit([Bind(Include = "CompanyID,SizeClass,Name,Location,Street,ZipCode,City,Country")] Company company)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (ModelState.IsValid)
             {
                 db.Entry(company).State = EntityState.Modified;
@@ -120,6 +127,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             Company company = db.Companies.Find(id);
             db.Companies.Remove(company);
             db.SaveChanges();

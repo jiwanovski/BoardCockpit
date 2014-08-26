@@ -19,6 +19,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             var financialDatas = db.FinancialDatas.Include(f => f.Context).Include(f => f.Unit);
             return View(financialDatas.ToList());
         }
@@ -27,6 +28,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -43,6 +45,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             ViewBag.ContextID = new SelectList(db.Contexts, "ContextID", "XbrlContextID");
             ViewBag.UnitID = new SelectList(db.Units, "UnitId", "XbrlUnitID");
             return View();
@@ -56,6 +59,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "FinancialDataID,Precision,Value,XbrlName,ContextID,UnitID")] FinancialData financialData)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (ModelState.IsValid)
             {
                 db.FinancialDatas.Add(financialData);
@@ -72,6 +76,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -94,6 +99,8 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit([Bind(Include = "FinancialDataID,Precision,Value,XbrlName,ContextID,UnitID")] FinancialData financialData)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
+
             if (ModelState.IsValid)
             {
                 db.Entry(financialData).State = EntityState.Modified;
@@ -109,6 +116,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -127,6 +135,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             FinancialData financialData = db.FinancialDatas.Find(id);
             db.FinancialDatas.Remove(financialData);
             db.SaveChanges();

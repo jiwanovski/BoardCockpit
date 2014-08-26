@@ -19,6 +19,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             var importNodes = db.ImportNodes.Include(i => i.Import);
             return View(importNodes.ToList());
         }
@@ -27,6 +28,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -43,6 +45,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             ViewBag.ImportID = new SelectList(db.Imports, "ImportID", "FileName");
             return View();
         }
@@ -55,6 +58,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "ImportNodeID,ImportID,ContextRef,UnitRef,Precision,Name,Value")] ImportNode importNode)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (ModelState.IsValid)
             {
                 db.ImportNodes.Add(importNode);
@@ -70,6 +74,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,6 +96,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit([Bind(Include = "ImportNodeID,ImportID,ContextRef,UnitRef,Precision,Name,Value")] ImportNode importNode)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (ModelState.IsValid)
             {
                 db.Entry(importNode).State = EntityState.Modified;
@@ -105,6 +111,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -123,6 +130,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             ImportNode importNode = db.ImportNodes.Find(id);
             db.ImportNodes.Remove(importNode);
             db.SaveChanges();

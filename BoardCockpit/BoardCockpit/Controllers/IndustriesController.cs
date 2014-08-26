@@ -19,6 +19,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             return View(db.Industries.ToList());
         }
 
@@ -43,6 +44,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             return View();
         }
 
@@ -68,6 +70,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -88,6 +91,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit([Bind(Include = "IndustryID,Name")] Industry industry)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (ModelState.IsValid)
             {
                 db.Entry(industry).State = EntityState.Modified;
@@ -101,6 +105,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -119,6 +124,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             Industry industry = db.Industries.Find(id);
             db.Industries.Remove(industry);
             db.SaveChanges();

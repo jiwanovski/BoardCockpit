@@ -22,6 +22,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             ViewBag.FormulaID = id;
 
             var formulaDetails = db.FormulaDetails
@@ -34,6 +35,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
 
             if (id == null)
             {
@@ -51,6 +53,8 @@ namespace BoardCockpit.Controllers
         public ActionResult Create(int? formulaId)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
+
             ViewBag.FormulaID = new SelectList(db.Formulas, "FormulaID", "Name", formulaId);
             FormulaDetail formulaDetail = null;
             PopulateAssignedFormulaDetailData(formulaDetail);
@@ -65,6 +69,8 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "FormulaDetailID,FormulaExpression,FormulaID")] FormulaDetail formulaDetail, string[] selectedTaxonomies)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
+
             if (ModelState.IsValid)
             {
                 db.FormulaDetails.Add(formulaDetail);
@@ -102,6 +108,8 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
+
             FormulaDetail formulaDetail = db.FormulaDetails
                 .Include(i => i.CalculatedKPIs).Where(i => i.FormulaDetailID == id)
                 .Include(i => i.Formula)
@@ -146,6 +154,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id, string[] selectedTaxonomy)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             
             if (id == null)
             {
@@ -216,6 +225,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -234,6 +244,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             FormulaDetail formulaDetail = db.FormulaDetails.Find(id);
             db.FormulaDetails.Remove(formulaDetail);
             db.SaveChanges();

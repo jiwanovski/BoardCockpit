@@ -24,6 +24,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             return View(db.Imports.ToList());
         }
        
@@ -31,6 +32,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -56,6 +58,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             return View();
         }
 
@@ -67,6 +70,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "ImportID,FileName,Date,Directory,Error")] Import import)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (ModelState.IsValid)
             {
                 db.Imports.Add(import);
@@ -81,6 +85,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -101,6 +106,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit([Bind(Include = "ImportID,FileName,Date,Directory,Error")] Import import)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (ModelState.IsValid)
             {
                 db.Entry(import).State = EntityState.Modified;
@@ -114,6 +120,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -132,6 +139,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             Import import = db.Imports.Find(id);
             db.Imports.Remove(import);
             db.SaveChanges();
@@ -150,6 +158,7 @@ namespace BoardCockpit.Controllers
         public ActionResult IndexForContainer(int importContainerId)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             
             return View("Index", db.Imports.Where(n => n.ImportContainerID == importContainerId).ToList());
             
@@ -159,12 +168,14 @@ namespace BoardCockpit.Controllers
         public ActionResult Upload()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             return View();
         }
 
         public ActionResult UploadFile(int? entityId) // optionally receive values specified with Html helper
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             string path = Server.MapPath("~/Content/ImportedFiles/XBRL");
 
             // here we can send in some extra info to be included with the delete url 
@@ -488,6 +499,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteFile(int? entityId, string fileUrl)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             var filePath = Server.MapPath("~" + fileUrl);
 
             if (System.IO.File.Exists(filePath))
@@ -504,6 +516,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DownloadFile(string fileUrl, string mimetype)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             var filePath = Server.MapPath("~" + fileUrl);
 
             if (System.IO.File.Exists(filePath))

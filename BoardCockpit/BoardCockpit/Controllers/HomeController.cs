@@ -29,12 +29,14 @@ namespace BoardCockpit.Controllers
         private BoardCockpitContext db = new BoardCockpitContext();
         public ActionResult Index()
         {
+            ViewBag.ActiveSidebar = "Home";
             return View();
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+            ViewBag.ActiveSidebar = "Home";
 
             return View();
         }
@@ -42,6 +44,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+            ViewBag.ActiveSidebar = "Home";
 
             return View();
         }
@@ -49,6 +52,7 @@ namespace BoardCockpit.Controllers
         public ActionResult SetupView()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Home";
             return View();
         }
 

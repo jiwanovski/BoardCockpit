@@ -19,6 +19,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             return View(db.GenInfoDocuments.ToList());
         }
 
@@ -26,6 +27,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -42,6 +44,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             return View();
         }
 
@@ -53,6 +56,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "GenInfoDocumentID,GenerationDate")] GenInfoDocument genInfoDocument)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (ModelState.IsValid)
             {
                 db.GenInfoDocuments.Add(genInfoDocument);
@@ -67,6 +71,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -87,6 +92,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit([Bind(Include = "GenInfoDocumentID,GenerationDate")] GenInfoDocument genInfoDocument)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (ModelState.IsValid)
             {
                 db.Entry(genInfoDocument).State = EntityState.Modified;
@@ -100,6 +106,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -118,6 +125,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             GenInfoDocument genInfoDocument = db.GenInfoDocuments.Find(id);
             db.GenInfoDocuments.Remove(genInfoDocument);
             db.SaveChanges();

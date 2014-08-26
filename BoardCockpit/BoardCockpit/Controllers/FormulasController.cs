@@ -19,6 +19,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             return View(db.Formulas.ToList());
         }
 
@@ -26,6 +27,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -42,6 +44,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             return View();
         }
 
@@ -53,6 +56,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "FormulaID,Name,Description")] Formula formula)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             if (ModelState.IsValid)
             {
                 db.Formulas.Add(formula);
@@ -67,6 +71,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -87,6 +92,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit([Bind(Include = "FormulaID,Name,Description")] Formula formula)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             if (ModelState.IsValid)
             {
                 db.Entry(formula).State = EntityState.Modified;
@@ -100,6 +106,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -118,6 +125,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Formulas";
             Formula formula = db.Formulas.Find(id);
             db.Formulas.Remove(formula);
             db.SaveChanges();

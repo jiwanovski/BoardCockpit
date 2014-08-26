@@ -26,6 +26,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             return View(db.ImportContainers.ToList());
         }
 
@@ -33,6 +34,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -49,6 +51,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             return View();
         }
 
@@ -60,6 +63,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "ImportContainerID,Name,Date")] ImportContainer importContainer)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (ModelState.IsValid)
             {
                 db.ImportContainers.Add(importContainer);
@@ -75,6 +79,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -95,6 +100,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit([Bind(Include = "ImportContainerID,Name,Date")] ImportContainer importContainer)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (ModelState.IsValid)
             {
                 db.Entry(importContainer).State = EntityState.Modified;
@@ -108,6 +114,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -126,6 +133,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             ImportContainer importContainer = db.ImportContainers.Find(id);
             db.ImportContainers.Remove(importContainer);
             db.SaveChanges();
@@ -145,8 +153,8 @@ namespace BoardCockpit.Controllers
         public ActionResult Upload(int importContainerID)
         {
             ViewBag.Sidebar = true;
-            ViewBag.ImportContainerID = importContainerID;
-            ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
+            ViewBag.ImportContainerID = importContainerID;            
 
             return View();
         }
@@ -154,6 +162,7 @@ namespace BoardCockpit.Controllers
         public ActionResult UploadFile(int? entityId, int importContainerId) // optionally receive values specified with Html helper
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             string path = Server.MapPath("~/Content/ImportedFiles/XBRL");
 
             // here we can send in some extra info to be included with the delete url 
@@ -541,6 +550,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteFile(int? entityId, string fileUrl)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             var filePath = Server.MapPath("~" + fileUrl);
 
             if (System.IO.File.Exists(filePath))
@@ -557,6 +567,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DownloadFile(string fileUrl, string mimetype)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Imports";
             var filePath = Server.MapPath("~" + fileUrl);
 
             if (System.IO.File.Exists(filePath))

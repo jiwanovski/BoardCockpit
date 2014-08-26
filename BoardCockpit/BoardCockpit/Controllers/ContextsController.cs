@@ -19,6 +19,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             var contexts = db.Contexts.Include(c => c.Company);
             return View(contexts.ToList());
         }
@@ -27,6 +28,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -43,6 +45,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name");
             return View();
         }
@@ -55,6 +58,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Create([Bind(Include = "ContextID,XbrlContextID,StartDate,EndDate,Instant,CompanyID")] Context context)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (ModelState.IsValid)
             {
                 db.Contexts.Add(context);
@@ -70,6 +74,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,6 +96,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Edit([Bind(Include = "ContextID,XbrlContextID,StartDate,EndDate,Instant,CompanyID")] Context context)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (ModelState.IsValid)
             {
                 db.Entry(context).State = EntityState.Modified;
@@ -105,6 +111,7 @@ namespace BoardCockpit.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -123,6 +130,7 @@ namespace BoardCockpit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
+            ViewBag.ActiveSidebar = "Companies";
             Context context = db.Contexts.Find(id);
             db.Contexts.Remove(context);
             db.SaveChanges();
