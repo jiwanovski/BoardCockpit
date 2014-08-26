@@ -1,30 +1,78 @@
 ﻿<nav class="sidebar light">
     <ul>
         <li class="title">Einrichtung</li>
-        <li class="active">
-            <a href="#">
-                <i class="icon-home"></i>
-                <span class="no-phone">Allgemein</span>
-            </a>
-        </li>
-        <li>
-            <a href="@Url.Action("Index", "Taxonomies")">
-                <i class="icon-newspaper"></i>
-                <span class="no-phone">Taxonomie</span>
-            </a>
-        </li>
-        <li>
-            <a href="@Url.Action("Index", "ImportContainers")">
-                <i class="icon-database"></i>
-                <span class="no-phone">Imports</span>
-            </a>
-        </li>
-        <li>
-            <a href="@Url.Action("Index", "Companies")">
-                <i class="icon-briefcase-2"></i>
-                <span class="no-phone">Companies</span>
-            </a>
-        </li>
+        @if (ViewBag.ActiveSidebar == "Home")
+        {
+            <li class="active">
+                <a href="#">
+                    <i class="icon-home"></i>
+                    <span class="no-phone">Allgemein</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="#">
+                    <i class="icon-home"></i>
+                    <span class="no-phone">Allgemein</span>
+                </a>
+            </li>
+        }
+        @if (ViewBag.ActiveSidebar == "Taxonomies")
+        {
+            <li class="active">
+                <a href="@Url.Action("Index", "Taxonomies")">
+                    <i class="icon-newspaper"></i>
+                    <span class="no-phone">Taxonomie</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="@Url.Action("Index", "Taxonomies")">
+                    <i class="icon-newspaper"></i>
+                    <span class="no-phone">Taxonomie</span>
+                </a>
+            </li>
+        }
+        @if (ViewBag.ActiveSidebar == "Imports")
+        {
+            <li class="active">
+                <a href="@Url.Action("Index", "ImportContainers")">
+                    <i class="icon-database"></i>
+                    <span class="no-phone">Imports</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="@Url.Action("Index", "ImportContainers")">
+                    <i class="icon-database"></i>
+                    <span class="no-phone">Imports</span>
+                </a>
+            </li>
+        }
+        @if (ViewBag.ActiveSidebar == "Companies")
+        {
+            <li class="active">
+                <a href="@Url.Action("Index", "Companies")">
+                    <i class="icon-briefcase-2"></i>
+                    <span class="no-phone">Companies</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="@Url.Action("Index", "Companies")">
+                    <i class="icon-briefcase-2"></i>
+                    <span class="no-phone">Companies</span>
+                </a>
+            </li>
+        }
         <li>
             <a href="">
                 <i class="icon-user"></i>
@@ -37,12 +85,24 @@
                 <span class="no-phone">Rollenverwaltung</span>
             </a>
         </li>
-        <li>
-            <a href="@Url.Action("Index", "Formulas")">
-                <i class="icon-pencil"></i>
-                <span class="no-phone">Kennzahlendefinition</span>
-            </a>
-        </li>
+        @if (ViewBag.ActiveSidebar == "Formulas")
+        {
+            <li class="active">
+                <a href="@Url.Action("Index", "Formulas")">
+                    <i class="icon-pencil"></i>
+                    <span class="no-phone">Kennzahlendefinition</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="@Url.Action("Index", "Formulas")">
+                    <i class="icon-pencil"></i>
+                    <span class="no-phone">Kennzahlendefinition</span>
+                </a>
+            </li>
+        }
         <li>
             <a href="">
                 <i class="icon-bars"></i>
