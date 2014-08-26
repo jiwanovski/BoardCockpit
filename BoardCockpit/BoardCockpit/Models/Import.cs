@@ -34,7 +34,10 @@ namespace BoardCockpit.Models
 
         public int ImportContainerID { get; set; }
 
+        public int TaxonomyID { get; set; }
+
         // public virtual ApplicationUser User { get; set; }
+        public virtual Taxonomy Taxonomy { get; set; }
         public virtual ICollection<ImportNode> Nodes { get; set; }
     }
 }

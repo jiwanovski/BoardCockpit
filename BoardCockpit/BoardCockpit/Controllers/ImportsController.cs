@@ -12,6 +12,7 @@ using MvcFileUploader.Models;
 using MvcFileUploader;
 using BoardCockpit.Helpers;
 using BoardCockpit.ViewModels;
+using System.Data.SqlTypes;
 
 namespace BoardCockpit.Controllers
 {
@@ -300,7 +301,7 @@ namespace BoardCockpit.Controllers
                         // ------ Report -------
 
                         if (importXBRL.Report.AccordingToYearEnd == DateTime.MinValue)
-                            report.AccordingToYearEnd = new DateTime(1753, 1, 1);
+                            report.AccordingToYearEnd = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
                         else
                             report.AccordingToYearEnd = importXBRL.Report.AccordingToYearEnd;
                         report.ReportType = importXBRL.Report.ReportType;
@@ -309,7 +310,7 @@ namespace BoardCockpit.Controllers
                         // ----- GENINFO -------
 
                         if (importXBRL.Document.GenerationDate == DateTime.MinValue)
-                            genInfoDocument.GenerationDate = new DateTime(1753, 1, 1);
+                            genInfoDocument.GenerationDate = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
                         else
                             genInfoDocument.GenerationDate = importXBRL.Document.GenerationDate;
                     }
@@ -342,15 +343,15 @@ namespace BoardCockpit.Controllers
                             Context context2 = new Context();
                             context2.XbrlContextID = context.Id;
                             if (context.PeriodStartDate == DateTime.MinValue)
-                                context2.StartDate = new DateTime(1753, 1, 1);
+                                context2.StartDate = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
                             else
                                 context2.StartDate = context.PeriodStartDate;
                             if (context.PeriodEndDate == DateTime.MinValue)
-                                context2.EndDate = new DateTime(1753, 1, 1);
+                                context2.EndDate = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
                             else
                                 context2.EndDate = context.PeriodEndDate;
                             if (context.InstantDate == DateTime.MinValue)
-                                context2.Instant = new DateTime(1753, 1, 1);
+                                context2.Instant = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
                             else
                                 context2.Instant = context.InstantDate;
                             context2.CompanyID = company.CompanyID;

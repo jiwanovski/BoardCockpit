@@ -15,84 +15,148 @@
     </div>
 </div>
 <div class="row">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
 
         <div class="form">
             <fieldset>
                 <legend>FormulaDetail</legend>
                 @Html.ValidationSummary(true)
-                <div class="form-group">
-                    <label>
-                        @Html.LabelFor(model => model.FormulaExpression, htmlAttributes: new { @class = "control-label col-md-2" })
-                    </label>
-                    <div class="input-control text size12 block" data-role="input-control">
-                        @Html.EditorFor(model => model.FormulaExpression, new { htmlAttributes = new { @placeholder = "type text" }, })
-                        @Html.ValidationMessageFor(model => model.FormulaExpression)
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FormulaID, "FormulaID", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("FormulaID", String.Empty)
-                        @Html.ValidationMessageFor(model => model.FormulaID)
-                    </div>
-                </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <table>
                             <tr>
                                 @{
-        int cnt = 0;
-        List<BoardCockpit.ViewModels.AssignedFormulaDetailData> taxonomies = ViewBag.Taxonomies;
+                                    int cnt = 0;
+                                    List<BoardCockpit.ViewModels.AssignedFormulaDetailData> taxonomies = ViewBag.Taxonomies;
 
-        foreach (var taxonomy in taxonomies)
-        {
-            if (cnt++ % 3 == 0)
-            {
-                @:
-            </tr>
-            <tr>
+                                    foreach (var taxonomy in taxonomies)
+                                    {
+                                        if (cnt++ % 3 == 0)
+                                        {
+                                            @:</tr><tr>
                                         }
-                                        @:
-                                        <td>
+                                    @:<td>
+                                        <div class="input-control checkbox" data-role="input-control">
+                                            <label>
                                             <input type="checkbox"
-                                                   name="selectedTaxonomies"
+                                                       class="selectedTaxonomies"
+                                                       name="selectedTaxonomy"
                                                    value="@taxonomy.TaxonomyID"
                                                    @(Html.Raw(taxonomy.Assigned ? "checked=\"checked\"" : "")) />
-                                            @taxonomy.TaxonomyID @:  @taxonomy.TaxonomyName
-                                            @:
-                                        </td>
+                                                <span class="check"></span>
+                                                @taxonomy.TaxonomyName
+                                            </label>
+                                        </div>
+                                    @:</td>
                                     }
-                                    @:
-                                </tr>
+                                    @:</tr>
                                 }
                             </table>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
-                        </div>
+                <div class="form-group">
+                    <label>
+                        @Html.LabelFor(model => model.FormulaExpression, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </label>
+                    <div class="input-control text size10 block" data-role="input-control">
+                        @Html.EditorFor(model => model.FormulaExpression, new { htmlAttributes = new { @placeholder = "type text" }, })
+                        @Html.ValidationMessageFor(model => model.FormulaExpression)
                     </div>
-                </fieldset>
-            </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+}
 
-
-    }
-
-    <form>
-        <fieldset>
-            <legend>Legende</legend>
-            <label>
-                @Html.LabelFor(model => model.FormulaExpression, htmlAttributes: new { @class = "control-label col-md-2" })
-            </label>
-            <div class="input-control text size12 block">
-                <input type="text" />
-            </div>
-        </fieldset>
-    </form>
+<div>
+    @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section CustomJS{
+    <link href="~/Content/autocomplete/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+            $(function () {
+                function split(val) {
+                    var test = val.split(/[+-\/*\s*]/);
+                    return test;
+}
+
+                function split3(val) {
+                    var test = val.split(/[\s()*/%+-]+/g);
+                    return test;
+                }
+
+                function split2(val) {
+                    return val.split(/\s/);
+                }
+
+                function extractLast(term) {
+                    var test2 = split3(term).pop();
+                    return test2;
+                }
+
+                function getTaxonomy() {
+                    //var checkedValue = $('.selectedTaxonomies:checked').val();
+                    //var chrArray = [];
+                    var stringArray = new Array();
+                    $('.selectedTaxonomies:checked').each(function () {
+                        stringArray.push($(this).val());
+                    });
+                    return stringArray.toString();
+                }
+
+                $("#FormulaExpression")
+                // don't navigate away from the field on tab when selecting an item
+                .bind("keydown", function (event) {
+                    if (event.keyCode === $.ui.keyCode.TAB &&
+                    $(this).data("ui-autocomplete").menu.active) {
+                        event.preventDefault();
+                    }
+                })
+                .autocomplete({
+                    minLength: 0,
+                    source: function (request, response) {
+                        var postData = { term: extractLast(request.term), cb: getTaxonomy() };
+                        // delegate back to autocomplete, but extract the last term
+                        $.ajax({
+                            type: "GET",
+                            dataType: "json",
+                            url: "/FormulaDetails/GetTaxonomyNode",
+                            data: postData,
+                            success: function (data) {
+                                response($.ui.autocomplete.filter(
+                                    data, extractLast(request.term)));
+                            }
+                        })
+                        //response($.ui.autocomplete.filter(
+                        //availableTags, extractLast(request.term)));
+                        //getAvailableTags(), extractLast(request.term)));
+                },
+                focus: function () {
+                    // prevent value inserted on focus
+                    return false;
+                },
+                select: function (event, ui) {
+                    var terms = split2(this.value);
+                    // remove the current input
+                    terms.pop();
+                    // add the selected item
+                    terms.push(ui.item.value);
+                    // add placeholder to get the comma-and-space at the end
+                    terms.push("");
+                    this.value = terms.join(" ");
+                    return false;
+                }
+            });
+        });
+    </script>
+}

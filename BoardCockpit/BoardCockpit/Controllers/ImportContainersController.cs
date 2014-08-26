@@ -11,6 +11,10 @@ using BoardCockpit.Models;
 using MvcFileUploader.Models;
 using MvcFileUploader;
 using BoardCockpit.Helpers;
+using System.Xml;
+using System.Xml.Schema;
+using System.IO;
+using System.Data.SqlTypes;
 
 namespace BoardCockpit.Controllers
 {
@@ -226,25 +230,35 @@ namespace BoardCockpit.Controllers
                 List<ImportNode> nodes = new List<ImportNode>();
                 foreach (ViewDataUploadFileResult file in statuses2)
                 {
+                    //XmlTextReader reader = new XmlTextReader(file.FullPath);
+                    //XmlSchema myschema = XmlSchema.Read(reader, ValidationCallback);
                     // Make Entry in Import
                     Import import = new Import
                     {
                         FileName = file.SavedFileName,
                         Directory = path,
-                        Date = DateTime.Now,
+                        Date =  DateTime.Now,
                         ImportContainerID = importContainerId
                     };
+
+                    // Make Entry in Import Nodes --> GEPSIO   
+                    ImportXBRL importXBRL = new ImportXBRL();
+                    importXBRL.Import(import, ref nodes, file.FullPath, Server.MapPath("~/Content/ImportedFiles/Taxonomy"));
+
+                    JeffFerguson.Gepsio.XbrlDocument xbrlDoc = importXBRL.XbrlDocument;
+                    JeffFerguson.Gepsio.XbrlSchema xbrlSchema = xbrlDoc.XbrlFragments.First().Schemas.First();
+                    string schemeDirectoryName = Path.GetDirectoryName(xbrlSchema.Path);
+                    Taxonomy taxonomy = db.Taxonomies.Where(i => i.Path == schemeDirectoryName).First();
+                        //Where(i => i.Path == xbrlSchema.Path).First();
+
+                    import.TaxonomyID = taxonomy.TaxonomyID;
 
                     if (ModelState.IsValid)
                     {
                         db.Imports.Add(import);
                         db.SaveChanges();
                     }
-
-                    // Make Entry in Import Nodes --> GEPSIO   
-                    ImportXBRL importXBRL = new ImportXBRL();
-                    importXBRL.Import(import, ref nodes, file.FullPath, Server.MapPath("~/Content/ImportedFiles/Taxonomy"));
-
+                    
                     foreach (ImportNode node in nodes)
                     {
                         if (ModelState.IsValid)
@@ -288,7 +302,7 @@ namespace BoardCockpit.Controllers
                         // ------ Report -------
 
                         if (importXBRL.Report.AccordingToYearEnd == DateTime.MinValue)
-                            report.AccordingToYearEnd = new DateTime(1753, 1, 1);
+                            report.AccordingToYearEnd = (DateTime)SqlDateTime.MinValue;// DateTime.MinValue;//new DateTime(1753, 1, 1);
                         else
                             report.AccordingToYearEnd = importXBRL.Report.AccordingToYearEnd;
                         report.ReportType = importXBRL.Report.ReportType;
@@ -297,10 +311,20 @@ namespace BoardCockpit.Controllers
                         // ----- GENINFO -------
 
                         if (importXBRL.Document.GenerationDate == DateTime.MinValue)
-                            genInfoDocument.GenerationDate = new DateTime(1753, 1, 1);
+                            genInfoDocument.GenerationDate = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
                         else
                             genInfoDocument.GenerationDate = importXBRL.Document.GenerationDate;
                     }
+                    else 
+                    {
+                        report = db.Reports.Where(i => i.ReportIDXbrl == importXBRL.Report.ReportID).First();
+                        //genInfoDocument = db.GenInfoDocuments.Where(i => i.GenInfoDocumentID == importXBRL.Document.DocumentID).First();
+                    }
+
+                    if (importXBRL.Document.GenerationDate == DateTime.MinValue)
+                        genInfoDocument.GenerationDate = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
+                    else
+                        genInfoDocument.GenerationDate = importXBRL.Document.GenerationDate;
 
                     if (ModelState.IsValid)
                     {
@@ -330,15 +354,15 @@ namespace BoardCockpit.Controllers
                             Context context2 = new Context();
                             context2.XbrlContextID = context.Id;
                             if (context.PeriodStartDate == DateTime.MinValue)
-                                context2.StartDate = new DateTime(1753, 1, 1);
+                                context2.StartDate = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
                             else
                                 context2.StartDate = context.PeriodStartDate;
                             if (context.PeriodEndDate == DateTime.MinValue)
-                                context2.EndDate = new DateTime(1753, 1, 1);
+                                context2.EndDate = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
                             else
                                 context2.EndDate = context.PeriodEndDate;
                             if (context.InstantDate == DateTime.MinValue)
-                                context2.Instant = new DateTime(1753, 1, 1);
+                                context2.Instant = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
                             else
                                 context2.Instant = context.InstantDate;
                             context2.CompanyID = company.CompanyID;
@@ -358,6 +382,7 @@ namespace BoardCockpit.Controllers
                             foreach (Context context in contexts)
                             {
                                 db.Contexts.Add(context);
+                                db.SaveChanges();
                             }
                             db.SaveChanges();
                         }
@@ -461,6 +486,47 @@ namespace BoardCockpit.Controllers
 
                             db.SaveChanges();
                         }
+
+                        // Calculate KPIs
+                        Calculator calculator = new Calculator();
+                        ICollection<CalculatedKPI> calculatedKPIs = new List<CalculatedKPI>();
+
+                        foreach (Context context in contexts) {
+                            context.CalculatedKPIs = new List<CalculatedKPI>();
+                            foreach (FormulaDetail formula in taxonomy.FormulaDetails)
+                            {
+                                decimal result = 0;
+                                if (calculator.CalculateDetail(financialDatas.Where(i => i.ContextID == context.ContextID).ToList(), formula.FormulaExpression, ref result)) {
+                                    CalculatedKPI calculatedKPI = new CalculatedKPI
+                                                                        {
+                                                                            ContextID = context.ContextID,
+                                                                            FormulaDetailID = formula.FormulaDetailID,
+                                                                            Value = result,
+                                                                            Context = context,
+                                                                            FormulaDetail = formula
+                                                                        };
+                                    calculatedKPIs.Add(calculatedKPI);
+                                    db.CalculatedKPIs.Add(calculatedKPI);
+                                    context.CalculatedKPIs.Add(calculatedKPI);
+                                }
+                            }
+                            //context.CalculatedKPIs = calculatedKPIs;
+                        }
+
+                        if (ModelState.IsValid)
+                        {
+                            foreach (CalculatedKPI calculatedKPI in calculatedKPIs)
+                            {
+                                db.CalculatedKPIs.Add(calculatedKPI);
+                            }
+
+                            foreach (Context context in contexts)
+                            {
+                                db.Entry(context).State = EntityState.Modified;
+                            }
+
+                            db.SaveChanges();
+                        }
                     }
                 }
 
@@ -499,6 +565,16 @@ namespace BoardCockpit.Controllers
             {
                 return new HttpNotFoundResult("File not found");
             }
+        }
+
+        static void ValidationCallback(object sender, ValidationEventArgs args)
+        {
+            if (args.Severity == XmlSeverityType.Warning)
+                Console.Write("WARNING: ");
+            else if (args.Severity == XmlSeverityType.Error)
+                Console.Write("ERROR: ");
+
+            Console.WriteLine(args.Message);
         }
     }
 }

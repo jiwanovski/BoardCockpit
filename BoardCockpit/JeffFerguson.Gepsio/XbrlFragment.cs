@@ -97,6 +97,10 @@ namespace JeffFerguson.Gepsio
         #region Properties
 
         // JIW Start
+        //public List<XbrlSchema> Schemas
+        //{
+        //    get { return thisSchemas; }
+        //}
         public string DefinitionDirectory
         {
             private get;
