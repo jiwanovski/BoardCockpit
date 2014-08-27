@@ -1,0 +1,50 @@
+﻿@model BoardCockpit.Models.TaxonomyFileNode
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TaxonomyFileNode</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxonomyFile.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxonomyFile.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NodeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NodeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LabelDE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LabelDE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxonomyID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxonomyID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TaxonomyFileNodeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

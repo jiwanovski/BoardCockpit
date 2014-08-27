@@ -175,6 +175,7 @@
     <Compile Include="Controllers\IndustriesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\TaxonomiesController.cs" />
+    <Compile Include="Controllers\TaxonomyFileNodesController.cs" />
     <Compile Include="Controllers\TaxonomyFilesController.cs" />
     <Compile Include="Controllers\UnitsController.cs" />
     <Compile Include="DAL\BoardCockpitContext.cs" />
@@ -544,6 +545,11 @@
     <Content Include="Views\CalculatedKPIs\Details.cshtml" />
     <Content Include="Views\CalculatedKPIs\Edit.cshtml" />
     <Content Include="Views\CalculatedKPIs\Index.cshtml" />
+    <Content Include="Views\TaxonomyFileNodes\Create.cshtml" />
+    <Content Include="Views\TaxonomyFileNodes\Delete.cshtml" />
+    <Content Include="Views\TaxonomyFileNodes\Details.cshtml" />
+    <Content Include="Views\TaxonomyFileNodes\Edit.cshtml" />
+    <Content Include="Views\TaxonomyFileNodes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
