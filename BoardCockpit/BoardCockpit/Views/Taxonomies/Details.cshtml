@@ -24,26 +24,20 @@
 </div>
 
 <div class="row">
-    <p></p>
-    <h4>Taxonomy</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Path)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Path)
-        </dd>
-
-    </dl>
+    <form>
+        <fieldset>
+            <legend>Taxonomy</legend>
+            <table>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Name)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Name)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Path)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Path)</td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
 </div>
 

@@ -23,16 +23,15 @@
 </div>
 
 <div class="row">
-    <h4>Industry</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
+    <form>
+        <fieldset>
+            <legend>Industry</legend>
+            <table>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Name)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Name)</td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
 </div>

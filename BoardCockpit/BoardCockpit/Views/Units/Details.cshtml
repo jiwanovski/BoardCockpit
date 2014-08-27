@@ -7,26 +7,21 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Unit</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.XbrlUnitID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.XbrlUnitID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Value)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Value)
-        </dd>
-
-    </dl>
+    <form>
+        <fieldset>
+            <legend>Unit</legend>
+            <table>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.XbrlUnitID)</strong></td>
+                    <td>@Html.DisplayFor(model => model.XbrlUnitID)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Value)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Value)</td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.UnitId }) |

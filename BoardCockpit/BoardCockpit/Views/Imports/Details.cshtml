@@ -25,42 +25,29 @@
 </div>
 
 <div class="row">
-    <h4>Import</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Import.FileName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Import.FileName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Import.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Import.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Import.Directory)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Import.Directory)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Import.Error)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Import.Error)
-        </dd>
-
-    </dl>
+    <form>
+        <fieldset>
+            <legend>Import</legend>
+            <table>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Import.FileName)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Import.FileName)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Import.Date)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Import.Date)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Import.Directory)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Import.Directory)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Import.Error)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Import.Error)</td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
 </div>
 
 @if (Model.ImportNodes != null)

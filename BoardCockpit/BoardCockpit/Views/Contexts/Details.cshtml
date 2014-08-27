@@ -21,6 +21,12 @@
                 ordering: true
             });
         });
+        $(document).ready(function () {
+            $('#Context_Table2').DataTable({
+                searching: true,
+                ordering: true
+            });
+        });
     </script>
 }
 
@@ -133,7 +139,7 @@
                 Calculated KPIs
             </div>
             <div class="panel-content">
-                <table class="display" id="Context_Table">
+                <table class="display" id="Context_Table2">
                     <thead>
                         <tr>
                             <th style="text-align:left">
@@ -141,7 +147,7 @@
                             </th>
                             <th style="text-align:left">
                                 @Html.DisplayNameFor(model => model.CalculatedKPIs.First().Value)
-                            </th>                            
+                            </th>
                             <th style="text-align:left">
                                 Aktionen
                             </th>
@@ -156,10 +162,10 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Value)
-                                </td>                                
+                                </td>
                                 <td>
                                     <div class="toolbar transparent">
-                                        
+
                                     </div>
                                 </td>
                             </tr>

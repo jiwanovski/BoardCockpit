@@ -22,57 +22,36 @@
     </div>
 </div>
 <div>
-    <h4>ImportNode</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Import.FileName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Import.FileName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ContextRef)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContextRef)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UnitRef)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UnitRef)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Precision)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Precision)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Value)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Value)
-        </dd>
-
-    </dl>
+    <form>
+        <fieldset>
+            <legend>ImportNode</legend>
+            <table>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Import.FileName)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Import.FileName)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.ContextRef)</strong></td>
+                    <td>@Html.DisplayFor(model => model.ContextRef)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.UnitRef)</strong></td>
+                    <td>@Html.DisplayFor(model => model.UnitRef)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Precision)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Precision)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Name)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Name)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Value)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Value)</td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
 </div>
 

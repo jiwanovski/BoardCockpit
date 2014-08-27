@@ -22,24 +22,19 @@
     </div>
 </div>
 <div>
-    <h4>FormulaDetail</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Formula.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Formula.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FormulaExpression)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FormulaExpression)
-        </dd>
-
-    </dl>
+    <form>
+        <fieldset>
+            <legend>FormulaDetail</legend>
+            <table>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Formula.Name)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Formula.Name)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.FormulaExpression)</strong></td>
+                    <td>@Html.DisplayFor(model => model.FormulaExpression)</td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>  
 </div>

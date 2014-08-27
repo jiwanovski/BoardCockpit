@@ -23,48 +23,31 @@
 </div>
 
 <div class="row">
-    <h4>TaxonomyFile</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Taxonomy.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Taxonomy.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FileName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FileName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Path)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Path)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FullFilePath)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FullFilePath)
-        </dd>
-
-    </dl>
+    <form>
+        <fieldset>
+            <legend>TaxonomyFile</legend>
+            <table>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Taxonomy.Name)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Taxonomy.Name)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Name)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Name)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.FileName)</strong></td>
+                    <td>@Html.DisplayFor(model => model.FileName)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Path)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Path)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.FullFilePath)</strong></td>
+                    <td>@Html.DisplayFor(model => model.FullFilePath)</td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
 </div>
