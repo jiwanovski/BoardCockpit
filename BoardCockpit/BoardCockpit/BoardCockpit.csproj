@@ -160,7 +160,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalculatedKPIsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\ContextsController.cs" />
@@ -186,9 +185,9 @@
     <Compile Include="Helpers\Calculator.cs" />
     <Compile Include="Helpers\ImportXBRL.cs" />
     <Compile Include="Helpers\JSONHelper.cs" />
-    <Compile Include="Migrations\201407292200576_InitialCreate.cs" />
-    <Compile Include="Migrations\201407292200576_InitialCreate.Designer.cs">
-      <DependentUpon>201407292200576_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201408301008463_Inital.cs" />
+    <Compile Include="Migrations\201408301008463_Inital.Designer.cs">
+      <DependentUpon>201408301008463_Inital.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -199,7 +198,6 @@
     <Compile Include="Models\Formula.cs" />
     <Compile Include="Models\FormulaDetail.cs" />
     <Compile Include="Models\GenInfoDocument.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Import.cs" />
     <Compile Include="Models\ImportContainer.cs" />
     <Compile Include="Models\ImportNode.cs" />
@@ -582,8 +580,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407292200576_InitialCreate.resx">
-      <DependentUpon>201407292200576_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408301008463_Inital.resx">
+      <DependentUpon>201408301008463_Inital.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

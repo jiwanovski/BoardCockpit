@@ -93,7 +93,7 @@ namespace BoardCockpit.Helpers
             {
                 company = new BoardCockpit.Models.Company
                 {
-                    CompanyIDXbrl = Company.CompanyID,
+                    CompanyIDXbrl = (int)Company.CompanyID,
                     Name = Company.Name,
                     Location = Company.Location,
                     Street = Company.Street,

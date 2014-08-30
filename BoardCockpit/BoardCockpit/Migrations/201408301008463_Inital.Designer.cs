@@ -7,13 +7,13 @@ namespace BoardCockpit.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class Inital : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Inital));
         
         string IMigrationMetadata.Id
         {
-            get { return "201407292200576_InitialCreate"; }
+            get { return "201408301008463_Inital"; }
         }
         
         string IMigrationMetadata.Source

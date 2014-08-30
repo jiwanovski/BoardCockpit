@@ -10,9 +10,9 @@ namespace BoardCockpit.Models
     public class Company
     {
         
-        public Int64 CompanyID { get; set; }
+        public int CompanyID { get; set; }
 
-        public Int64 CompanyIDXbrl { get; set; }
+        public int CompanyIDXbrl { get; set; }
 
         [Display(Name = "SizeClass", ResourceType = typeof(Resources.Model))]
         public int SizeClass { get; set; }
