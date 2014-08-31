@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace BoardCockpit.Models
 {
+    public enum ContextType
+    {
+        BalanceSheet, IncomeStatement
+    }
     public class Context
     {
+        
         public int ContextID { get; set; }
 
         
@@ -24,23 +30,25 @@ namespace BoardCockpit.Models
         [Display(Name = "Instant", ResourceType = typeof(Resources.Model))]
         public DateTime Instant { get; set; }
 
-        [Display(Name = "CompanyID", ResourceType = typeof(Resources.Model))]
-        public Int64 CompanyID { get; set; }
+        [Display(Name = "ContextContainer", ResourceType = typeof(Resources.Model))]
+        [ForeignKey("ContextContainer")]
+        public int ContextContainerID { get; set; }
 
         [Display(Name = "ReportID", ResourceType = typeof(Resources.Model))]
-        public Int64 ReportID { get; set; }
+        public int ReportID { get; set; }
 
         [Display(Name = "GenInfoDocumentID", ResourceType = typeof(Resources.Model))]
         public int GenInfoDocumentID { get; set; }
 
-        public virtual Company Company { get; set; }
+        public ContextType Type { get; set; }
+
+      
+        public virtual ContextContainer ContextContainer { get; set; }
 
         public virtual Report Report { get; set; }
 
         public virtual GenInfoDocument GenInfoDocument { get; set; }
         
         public virtual ICollection<FinancialData> FinancialDatas { get; set; }
-
-        public virtual ICollection<CalculatedKPI> CalculatedKPIs { get; set; }
     }
 }

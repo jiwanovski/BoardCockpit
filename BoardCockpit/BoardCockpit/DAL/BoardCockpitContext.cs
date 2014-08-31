@@ -31,6 +31,10 @@ namespace BoardCockpit.DAL
         public DbSet<Formula> Formulas { get; set; }
         public DbSet<FormulaDetail> FormulaDetails { get; set; }
         public DbSet<CalculatedKPI> CalculatedKPIs { get; set; }
+        public DbSet<ReportingYear> ReportingYears { get; set; }
+        public DbSet<ContextContainer> ContextContainers { get; set; }
+
+        // public DbSet<ContextAssignment> ContextAssignments { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

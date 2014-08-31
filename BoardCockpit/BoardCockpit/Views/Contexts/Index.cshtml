@@ -37,7 +37,7 @@
     <thead>
         <tr>
             <th style="text-align:left">
-                @Html.DisplayNameFor(model => model.Company.Name)
+                @Html.DisplayNameFor(model => model.ContextContainer.ContextContainerID)
             </th>
             <th style="text-align:left">
                 @Html.DisplayNameFor(model => model.XbrlContextID)
@@ -61,7 +61,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Company.Name)
+                    @Html.DisplayFor(modelItem => item.ContextContainer.ContextContainerID)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.XbrlContextID)

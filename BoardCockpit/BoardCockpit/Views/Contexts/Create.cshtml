@@ -66,11 +66,11 @@
 
                 <div class="form-group">
                     <label>
-                        @Html.LabelFor(model => model.CompanyID, "CompanyID", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.ContextContainerID, "ContextContainerID", htmlAttributes: new { @class = "control-label col-md-2" })
                     </label>
                     <div class="input-control text size10 block" data-role="input-control">
                         @Html.DropDownList("CompanyID", String.Empty)
-                        @Html.ValidationMessageFor(model => model.CompanyID)
+                        @Html.ValidationMessageFor(model => model.ContextContainerID)
                     </div>
                 </div>
 

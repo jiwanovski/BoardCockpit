@@ -9,7 +9,8 @@ namespace BoardCockpit.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(BoardCockpit.DAL.BoardCockpitContext context)

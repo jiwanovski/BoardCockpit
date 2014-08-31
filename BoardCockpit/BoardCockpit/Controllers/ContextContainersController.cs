@@ -11,130 +11,128 @@ using BoardCockpit.Models;
 
 namespace BoardCockpit.Controllers
 {
-    public class CalculatedKPIsController : Controller
+    public class ContextContainersController : Controller
     {
         private BoardCockpitContext db = new BoardCockpitContext();
 
-        // GET: CalculatedKPIs
+        // GET: ContextContainers
         public ActionResult Index()
         {
             ViewBag.Sidebar = true;
-            var calculatedKPIs = db.CalculatedKPIs.Include(c => c.ContextContainer).Include(c => c.FormulaDetail);
-            return View(calculatedKPIs.ToList());
+            ViewBag.ActiveSidebar = "Companies";
+            var contextContainers = db.ContextContainers.Include(c => c.Company);
+            return View(contextContainers.ToList());
         }
 
-        // GET: CalculatedKPIs/Details/5
+        // GET: ContextContainers/Details/5
         public ActionResult Details(int? id)
         {
             ViewBag.Sidebar = true;
-
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CalculatedKPI calculatedKPI = db.CalculatedKPIs.Find(id);
-            if (calculatedKPI == null)
+            ContextContainer contextContainer = db.ContextContainers.Find(id);
+            if (contextContainer == null)
             {
                 return HttpNotFound();
             }
-            return View(calculatedKPI);
+            return View(contextContainer);
         }
 
-        // GET: CalculatedKPIs/Create
+        // GET: ContextContainers/Create
         public ActionResult Create()
         {
             ViewBag.Sidebar = true;
-            ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID");
-            ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression");
+            ViewBag.ActiveSidebar = "Companies";
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name");
             return View();
         }
 
-        // POST: CalculatedKPIs/Create
+        // POST: ContextContainers/Create
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CalculatedKPIID,Value,FormulaDetailID,ContextContainerID")] CalculatedKPI calculatedKPI)
+        public ActionResult Create([Bind(Include = "ContextContainerID,Year,CompanyID")] ContextContainer contextContainer)
         {
             ViewBag.Sidebar = true;
-
+            ViewBag.ActiveSidebar = "Companies";
             if (ModelState.IsValid)
             {
-                db.CalculatedKPIs.Add(calculatedKPI);
+                db.ContextContainers.Add(contextContainer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", calculatedKPI.ContextContainerID);
-            ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression", calculatedKPI.FormulaDetailID);
-            return View(calculatedKPI);
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name", contextContainer.CompanyID);
+            return View(contextContainer);
         }
 
-        // GET: CalculatedKPIs/Edit/5
+        // GET: ContextContainers/Edit/5
         public ActionResult Edit(int? id)
         {
             ViewBag.Sidebar = true;
-
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CalculatedKPI calculatedKPI = db.CalculatedKPIs.Find(id);
-            if (calculatedKPI == null)
+            ContextContainer contextContainer = db.ContextContainers.Find(id);
+            if (contextContainer == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", calculatedKPI.ContextContainerID);
-            ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression", calculatedKPI.FormulaDetailID);
-            return View(calculatedKPI);
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name", contextContainer.CompanyID);
+            return View(contextContainer);
         }
 
-        // POST: CalculatedKPIs/Edit/5
+        // POST: ContextContainers/Edit/5
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CalculatedKPIID,Value,FormulaDetailID,ContextContainerID")] CalculatedKPI calculatedKPI)
+        public ActionResult Edit([Bind(Include = "ContextContainerID,Year,CompanyID")] ContextContainer contextContainer)
         {
             ViewBag.Sidebar = true;
-
+            ViewBag.ActiveSidebar = "Companies";
             if (ModelState.IsValid)
             {
-                db.Entry(calculatedKPI).State = EntityState.Modified;
+                db.Entry(contextContainer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", calculatedKPI.ContextContainerID);
-            ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression", calculatedKPI.FormulaDetailID);
-            return View(calculatedKPI);
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name", contextContainer.CompanyID);
+            return View(contextContainer);
         }
 
-        // GET: CalculatedKPIs/Delete/5
+        // GET: ContextContainers/Delete/5
         public ActionResult Delete(int? id)
         {
             ViewBag.Sidebar = true;
-
+            ViewBag.ActiveSidebar = "Companies";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CalculatedKPI calculatedKPI = db.CalculatedKPIs.Find(id);
-            if (calculatedKPI == null)
+            ContextContainer contextContainer = db.ContextContainers.Find(id);
+            if (contextContainer == null)
             {
                 return HttpNotFound();
             }
-            return View(calculatedKPI);
+            return View(contextContainer);
         }
 
-        // POST: CalculatedKPIs/Delete/5
+        // POST: ContextContainers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             ViewBag.Sidebar = true;
-
-            CalculatedKPI calculatedKPI = db.CalculatedKPIs.Find(id);
-            db.CalculatedKPIs.Remove(calculatedKPI);
+            ViewBag.ActiveSidebar = "Companies";
+            ContextContainer contextContainer = db.ContextContainers.Find(id);
+            db.ContextContainers.Remove(contextContainer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

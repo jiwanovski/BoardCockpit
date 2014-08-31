@@ -1,4 +1,4 @@
-﻿@model BoardCockpit.Models.CalculatedKPI
+﻿@model BoardCockpit.Models.ContextContainer
 
 @{
     ViewBag.Title = "Delete";
@@ -16,31 +16,23 @@
 </div>
 <h3>Are you sure you want to delete this?</h3>
 <div class="row">
-    <h4>CalculatedKPI</h4>
+    <h4>ContextContainer</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ContextContainer.ContextContainerID)
+            @Html.DisplayNameFor(model => model.Company.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ContextContainer.ContextContainerID)
+            @Html.DisplayFor(model => model.Company.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FormulaDetail.FormulaExpression)
+            @Html.DisplayNameFor(model => model.Year)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FormulaDetail.FormulaExpression)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Value)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Value)
+            @Html.DisplayFor(model => model.Year)
         </dd>
 
     </dl>
@@ -49,7 +41,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" />
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>

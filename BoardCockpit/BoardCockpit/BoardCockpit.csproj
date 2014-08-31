@@ -162,6 +162,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\CalculatedKPIsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\ContextContainersController.cs" />
     <Compile Include="Controllers\ContextsController.cs" />
     <Compile Include="Controllers\FinancialDatasController.cs" />
     <Compile Include="Controllers\FormulaDetailsController.cs" />
@@ -185,15 +186,18 @@
     <Compile Include="Helpers\Calculator.cs" />
     <Compile Include="Helpers\ImportXBRL.cs" />
     <Compile Include="Helpers\JSONHelper.cs" />
-    <Compile Include="Migrations\201408301008463_Inital.cs" />
-    <Compile Include="Migrations\201408301008463_Inital.Designer.cs">
-      <DependentUpon>201408301008463_Inital.cs</DependentUpon>
+    <Compile Include="Helpers\ReportingValues.cs" />
+    <Compile Include="Migrations\201408312059026_Initial.cs" />
+    <Compile Include="Migrations\201408312059026_Initial.Designer.cs">
+      <DependentUpon>201408312059026_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CalculatedKPI.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\ContextAssignment.cs" />
+    <Compile Include="Models\ContextContainer.cs" />
     <Compile Include="Models\FinancialData.cs" />
     <Compile Include="Models\Formula.cs" />
     <Compile Include="Models\FormulaDetail.cs" />
@@ -203,6 +207,7 @@
     <Compile Include="Models\ImportNode.cs" />
     <Compile Include="Models\Industry.cs" />
     <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\ReportingYear.cs" />
     <Compile Include="Models\Taxonomy.cs" />
     <Compile Include="Models\TaxonomyFile.cs" />
     <Compile Include="Models\TaxonomyFileNode.cs" />
@@ -332,6 +337,7 @@
     <Content Include="Content\metro\less\variables\window.less" />
     <Content Include="Content\metro\less\variables\wizard.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Highcharts\highcharts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -435,7 +441,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -548,6 +556,12 @@
     <Content Include="Views\TaxonomyFileNodes\Details.cshtml" />
     <Content Include="Views\TaxonomyFileNodes\Edit.cshtml" />
     <Content Include="Views\TaxonomyFileNodes\Index.cshtml" />
+    <Content Include="Views\Home\Index - Kopieren.cshtml" />
+    <Content Include="Views\ContextContainers\Create.cshtml" />
+    <Content Include="Views\ContextContainers\Delete.cshtml" />
+    <Content Include="Views\ContextContainers\Details.cshtml" />
+    <Content Include="Views\ContextContainers\Edit.cshtml" />
+    <Content Include="Views\ContextContainers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -562,6 +576,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\DotNetHighCharts\DotNet.Highcharts\DotNet.Highcharts\DotNet.Highcharts.csproj">
+      <Project>{6fe2ea1e-85e3-4969-be6c-c08c9ba9029a}</Project>
+      <Name>DotNet.Highcharts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CalcFormulaParser\CalcFormulaParser.csproj">
       <Project>{b0acb5da-c3eb-4bbf-8adb-ea9bcaee36ce}</Project>
       <Name>CalcFormulaParser</Name>
@@ -580,8 +598,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201408301008463_Inital.resx">
-      <DependentUpon>201408301008463_Inital.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408312059026_Initial.resx">
+      <DependentUpon>201408312059026_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

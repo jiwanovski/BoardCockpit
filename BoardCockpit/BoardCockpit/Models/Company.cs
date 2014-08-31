@@ -36,6 +36,6 @@ namespace BoardCockpit.Models
         public string Country { get; set; }
 
         public virtual ICollection<Industry> Industies { get; set; }
-        public virtual ICollection<Context> Contexts { get; set; }
+        public virtual ICollection<ContextContainer> ContextContainers { get; set; }
     }
 }

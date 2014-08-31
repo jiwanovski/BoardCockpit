@@ -61,16 +61,6 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm("Index", "Home")) {
-<div class="form-group">
-    <div class="col-md-10">
-        @Html.DropDownList("Formulas", String.Empty)
-    </div>
-</div>
-    <p>
-        <input type="submit" value="Submit" />
-    </p>
-}
 <div class="row">
     <div class="span12">
         <div class="panel" data-role="panel">
@@ -78,9 +68,20 @@
                 Grafik 1
             </div>
             <div class="panel-content">
-                @(ViewBag.Chart)
+                <img src="~/Images/2014_08_12_18_42_39_Highcharts_Basic_line.png" class="shadow">
             </div>
         </div>
     </div>
 </div>
-    
+    <div class="row">
+        <div class="span12">
+            <div class="panel" data-role="panel">
+                <div class="panel-header bg-lightBlue fg-white">
+                    Grafik 2
+                </div>
+                <div class="panel-content">
+                    <img src="~/Images/2014_08_12_18_44_02_Highcharts_Column_with_negative_values.png" class="shadow">
+                </div>
+            </div>
+        </div>
+    </div>

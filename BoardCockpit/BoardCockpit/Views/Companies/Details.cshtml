@@ -78,7 +78,7 @@
         </fieldset>
     </form>
 
-    @if (Model.Contexts.Count > 0)
+    @if (Model.ContextContainers.Count > 0)
     {
         <div class="panel" data-role="panel">
             <div class="panel-header bg-lightBlue fg-white">
@@ -89,53 +89,41 @@
                     <thead>
                         <tr>
                             <th style="text-align:left">
-                                @Html.DisplayNameFor(model => model.Contexts.First().ContextID)
+                                @Html.DisplayNameFor(model => model.ContextContainers.First().ContextContainerID)
                             </th>
                             <th style="text-align:left">
-                                @Html.DisplayNameFor(model => model.Contexts.First().StartDate)
+                                @Html.DisplayNameFor(model => model.ContextContainers.First().Year)
                             </th>
                             <th style="text-align:left">
-                                @Html.DisplayNameFor(model => model.Contexts.First().EndDate)
+                                @Html.DisplayNameFor(model => model.ContextContainers.First().Contexts)
                             </th>
                             <th style="text-align:left">
-                                @Html.DisplayNameFor(model => model.Contexts.First().Instant)
-                            </th>
-                            <th style="text-align:left">
-                                @Html.DisplayNameFor(model => model.Contexts.First().CalculatedKPIs)
-                            </th>
-                            <th style="text-align:left">
-                                @Html.DisplayNameFor(model => model.Contexts.First().FinancialDatas)
-                            </th>
+                                @Html.DisplayNameFor(model => model.ContextContainers.First().CalculatedKPIs)
+                            </th>                            
                             <th style="text-align:left">
                                 Aktionen
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Contexts)
+                        @foreach (var item in Model.ContextContainers)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CompanyID)
+                                    @Html.DisplayFor(modelItem => item.ContextContainerID)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                    @Html.DisplayFor(modelItem => item.Year)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.EndDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Instant)
+                                    @Html.DisplayFor(modelItem => item.Contexts.Count)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CalculatedKPIs.Count)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FinancialDatas.Count)
-                                </td>
+                                </td>                                
                                 <td>
                                     <div class="toolbar transparent">
-                                        <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", "Contexts", new { id = item.ContextID }, null)'">
+                                        <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", "ContextContainers", new { id = item.ContextContainerID }, null)'">
                                             <i class="icon-folder-2 on-left">
                                             </i>
                                         </button>

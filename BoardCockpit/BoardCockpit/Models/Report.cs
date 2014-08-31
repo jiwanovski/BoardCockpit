@@ -8,7 +8,7 @@ namespace BoardCockpit.Models
 {
     public class Report
     {
-        public Int64 ReportID { get; set; }
+        public int ReportID { get; set; }
 
         public Int64 ReportIDXbrl { get; set; }
 

@@ -7,6 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using CalcFormulaParser;
 using System.Reflection;
+using DotNet.Highcharts;
+using DotNet.Highcharts.Options;
+using DotNet.Highcharts.Enums;
+using System.Drawing;
+using DotNet.Highcharts.Helpers;
+using BoardCockpit.Helpers;
 
 namespace BoardCockpit.Controllers
 {
@@ -27,10 +33,182 @@ namespace BoardCockpit.Controllers
 
         private string calcFormula = "";
         private BoardCockpitContext db = new BoardCockpitContext();
-        public ActionResult Index()
+
+        public static readonly object[] BerlinData = { -0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0 };
+        public static readonly string[] Categories = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+        public static readonly object[] LondonData = { 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8 };
+        public static readonly object[] NewYorkData = { -0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5 };
+        public static readonly object[] TokioData = { 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6 };
+        public ActionResult Index(string Formulas)
         {
             ViewBag.ActiveSidebar = "Home";
-            return View();
+            List<Formula> formulas = db.Formulas.ToList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            //int i = 0;
+            foreach (Formula item in formulas)
+            {
+                items.Add(new SelectListItem
+                                    {
+                                        Text = item.Name,
+                                        Value = item.FormulaID.ToString()
+                                    });
+                
+            }
+            ViewBag.Formulas = items;
+
+            List<List<ReportingValues>> totalReportingValues = new List<List<ReportingValues>>();
+            List<string> categories = new List<string>();
+            categories.Add("2008");
+            categories.Add("2009");
+            List<ReportingValues> reportingValues = new List<ReportingValues>();
+            List<Company> companies = db.Companies.ToList();
+            List<Series> testSeries = new List<Series>();
+            foreach (Company company in companies)
+            {
+                foreach (string category in categories)
+                {                                    
+                    //List<Context> contexts = company.Contexts.Where(i => i.Instant.Year.ToString() == category).ToList();
+                    
+                    //foreach (Context context in contexts)
+                    //{
+                    //    List<CalculatedKPI> calcKPIs = context.CalculatedKPIs.Where(i => i.FormulaDetail.FormulaID.ToString() == Formulas).ToList();
+                    //    if (calcKPIs.Count() > 0) 
+                    //    {
+                    //        CalculatedKPI calKPI = calcKPIs.First();
+                    //        reportingValues.Add(
+                    //            new ReportingValues
+                    //            {
+                    //                ContextID = context.ContextID,
+                    //                FormulaID = calKPI.FormulaDetailID,
+                    //                Date = context.Instant,
+                    //                Value = calKPI.Value,
+                    //                CompanyName = context.Company.Name
+                    //            }
+                    //        );
+                        
+                    //    }
+                    //}
+                    List<ContextContainer> contextContailers = company.ContextContainers.Where(i => i.Year.ToString() == category).ToList();
+                    foreach (ContextContainer contextContainer in contextContailers)
+                    {
+                        List<CalculatedKPI> calcKPIs = contextContainer.CalculatedKPIs.Where(i => i.FormulaDetail.FormulaID.ToString() == Formulas).ToList();
+                        if (calcKPIs.Count() > 0)
+                        {
+                            CalculatedKPI calKPI = calcKPIs.First();
+                            reportingValues.Add(
+                                new ReportingValues
+                                {
+                                    ContextContainerID = contextContainer.ContextContainerID,
+                                    FormulaID = calKPI.FormulaDetailID,
+                                    Year = contextContainer.Year,
+                                    Value = calKPI.Value,
+                                    CompanyName = contextContainer.Company.Name
+                                }
+                            );
+
+                        }
+                    }                    
+                }
+                //List<ReportingValues> reportingValues2 = new List<ReportingValues>(reportingValues);
+                //totalReportingValues.Add(reportingValues2);
+                //reportingValues.Clear();
+                var nodeValues = from test2 in reportingValues
+                                 select (object)test2.Value;
+                testSeries.Add(new Series
+                {
+                    Name = company.Name,
+                    Data = new Data(nodeValues.ToArray())
+                });
+                reportingValues.Clear();
+            }
+
+            //List<Context> contexts = db.Contexts.ToList();
+            //foreach (Context context in contexts)
+            //{
+            //    if (context.CalculatedKPIs.Where(i => i.FormulaDetail.FormulaID.ToString() == Formulas).Count() > 0) {
+            //        CalculatedKPI calKpi = context.CalculatedKPIs.Where(i => i.FormulaDetail.FormulaID.ToString() == Formulas).Single();
+            //        reportingValues.Add(new ReportingValues
+            //                                    {
+            //                                        ContextID = context.ContextID,
+            //                                        FormulaID = calKpi.FormulaDetailID,
+            //                                        Date = context.Instant,
+            //                                        Value = calKpi.Value
+            //                                    });
+            //    }
+            //}
+            
+            
+
+            //ar nodeValues = from contexts2 in reportingValues
+            //                 select (object)contexts2.Value;
+            //var nodeCategories = from contexts2 in reportingValues
+            //                 select contexts2.Year.ToString();
+
+
+           //string[] test = nodeCategories.ToArray();
+           // object[] test2 = nodeValues.ToArray();
+
+            Highcharts chart = new Highcharts("chart")
+                .InitChart(new Chart
+                {
+                    DefaultSeriesType = ChartTypes.Line,
+                    MarginRight = 130,
+                    MarginBottom = 25,
+                    ClassName = "chart"
+                })
+                .SetTitle(new Title
+                {
+                    Text = "Monthly Average Temperature",
+                    X = -20
+                })
+                .SetSubtitle(new Subtitle
+                {
+                    Text = "Source: WorldClimate.com",
+                    X = -20
+                })
+                .SetXAxis(new XAxis { Categories = categories.ToArray() })
+                .SetYAxis(new YAxis
+                {
+                    Title = new YAxisTitle { Text = "Temperature (°C)" },
+                    PlotLines = new[]
+                    {
+                        new YAxisPlotLines
+                        {
+                            Value = 0,
+                            Width = 1,
+                            Color = ColorTranslator.FromHtml("#808080")
+                        }
+                    }
+                })
+                .SetTooltip(new Tooltip
+                {
+                    Formatter = @"function() {
+                                        return '<b>'+ this.series.name +'</b><br/>'+
+                                    this.x +': '+ this.y +'°C';
+                                }"
+                })
+                .SetLegend(new Legend
+                {
+                    Layout = Layouts.Vertical,
+                    Align = HorizontalAligns.Right,
+                    VerticalAlign = VerticalAligns.Top,
+                    X = -10,
+                    Y = 100,
+                    BorderWidth = 0
+                })
+                .SetSeries(testSeries.ToArray());
+                //new[]
+                //{
+                //    //new Series { Name = "Tokyo", Data = new Data(TokioData) },
+                //    //new Series { Name = "New York", Data = new Data(NewYorkData) },
+                //    new Series { Name = "Berlin", Data = new Data(BerlinData) },
+                //    //new Series { Name = "London", Data = new Data(test2) }
+                    
+                //});
+                
+            ViewBag.Chart = chart; 
+            return View(chart);
+            //return View();
         }
 
         public ActionResult About()

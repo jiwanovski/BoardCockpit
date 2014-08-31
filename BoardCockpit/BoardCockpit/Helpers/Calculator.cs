@@ -32,7 +32,7 @@ namespace BoardCockpit.Helpers
             fp = (IParser)Activator.CreateInstance(parsers[nParser]);
         }
 
-        public bool CalculateDetail(List<FinancialData> financialDatas, string formula, ref decimal result) 
+        public bool CalculateDetail(List<FinancialData> isFinancialDatas, List<FinancialData> bsFinancialDatas, string formula, ref decimal result) 
         {
             calcFormula = "";
             bool resolvedFormula = true;
@@ -48,16 +48,32 @@ namespace BoardCockpit.Helpers
                     }
                     else
                     {
-                        if (financialDatas.Where(y => y.XbrlName == element).Count() > 0)
+                        if (element.StartsWith("is"))
                         {
-                            List<FinancialData> test = financialDatas.Where(y => y.XbrlName == element).ToList();
-                            FinancialData data = financialDatas.Where(y => y.XbrlName == element).Single();
-                            calcFormula += data.Value;
+                            if (isFinancialDatas.Where(y => y.XbrlName == element).Count() > 0)
+                            {
+                                List<FinancialData> test = isFinancialDatas.Where(y => y.XbrlName == element).ToList();
+                                FinancialData data = isFinancialDatas.Where(y => y.XbrlName == element).Single();
+                                calcFormula += "(" + data.Value + ")";
+                            }
+                            else
+                            {
+                                resolvedFormula = false;
+                            }
                         }
-                        else 
-                        { 
-                            resolvedFormula = false;
-                        }
+                        else
+                        {
+                            if (bsFinancialDatas.Where(y => y.XbrlName == element).Count() > 0)
+                            {
+                                List<FinancialData> test = bsFinancialDatas.Where(y => y.XbrlName == element).ToList();
+                                FinancialData data = bsFinancialDatas.Where(y => y.XbrlName == element).Single();
+                                calcFormula += "(" + data.Value + ")";
+                            }
+                            else
+                            {
+                                resolvedFormula = false;
+                            }
+                        }                        
                     }
                 }
                 i += 1;

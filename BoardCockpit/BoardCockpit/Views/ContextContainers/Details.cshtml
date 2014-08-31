@@ -1,4 +1,4 @@
-﻿@model BoardCockpit.Models.Context
+﻿@model BoardCockpit.Models.ContextContainer
 
 @{
     ViewBag.Title = "Details";
@@ -41,7 +41,7 @@
     </div>
     <div class="tile half bg-cyan">
         <div class="tile-content icon">
-            <a href="@Url.Action("Edit", new { id = Model.ContextID })">
+            <a href="@Url.Action("Edit", new { id = Model.ContextContainerID })">
                 <i class="icon-pencil"></i>
             </a>
         </div>
@@ -50,78 +50,61 @@
 <div class="row">
     <form>
         <fieldset>
-            <legend><strong>Context</strong></legend>
+            <legend><strong>ContextContainer</strong></legend>
             <table>
                 <tr>
-                    <td><strong>@Html.DisplayNameFor(model => model.ContextContainer.ContextContainerID)</strong></td>
-                    <td>@Html.DisplayFor(model => model.ContextContainer.ContextContainerID)</td>
+                    <td><strong>@Html.DisplayNameFor(model => model.Company.Name)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Company.Name)</td>
                 </tr>
                 <tr>
-                    <td><strong>@Html.DisplayNameFor(model => model.XbrlContextID)</strong></td>
-                    <td>@Html.DisplayFor(model => model.XbrlContextID)</td>
+                    <td><strong>@Html.DisplayNameFor(model => model.Year)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Year)</td>
                 </tr>
-                <tr>
-                    <td><strong>@Html.DisplayNameFor(model => model.StartDate)</strong></td>
-                    <td>@Html.DisplayFor(model => model.StartDate)</td>
-                </tr>
-                <tr>
-                    <td><strong>@Html.DisplayNameFor(model => model.EndDate)</strong></td>
-                    <td>@Html.DisplayFor(model => model.EndDate)</td>
-                </tr>
-                <tr>
-                    <td><strong>@Html.DisplayNameFor(model => model.Instant)</strong></td>
-                    <td>@Html.DisplayFor(model => model.Instant)</td>
-                </tr>
-            </table>            
+            </table>
         </fieldset>
     </form>
 
-    @if (Model.FinancialDatas.Count > 0)
+
+    @if (Model.Contexts.Count > 0)
     {
         <div class="panel" data-role="panel">
             <div class="panel-header bg-lightBlue fg-white">
-                Financial Datas
+                Contexts
             </div>
             <div class="panel-content">
                 <table class="display" id="Context_Table">
                     <thead>
                         <tr>
                             <th style="text-align:left">
-                                @Html.DisplayNameFor(model => model.FinancialDatas.First().XbrlName)
+                                @Html.DisplayNameFor(model => model.Contexts.First().XbrlContextID)
                             </th>
                             <th style="text-align:left">
-                                @Html.DisplayNameFor(model => model.FinancialDatas.First().Unit)
+                                @Html.DisplayNameFor(model => model.Contexts.First().Type)
                             </th>
                             <th style="text-align:left">
-                                @Html.DisplayNameFor(model => model.FinancialDatas.First().Precision)
+                                @Html.DisplayNameFor(model => model.Contexts.First().FinancialDatas)
                             </th>
-                            <th style="text-align:left">
-                                @Html.DisplayNameFor(model => model.FinancialDatas.First().Value)
-                            </th>                            
                             <th style="text-align:left">
                                 Aktionen
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.FinancialDatas)
+                        @foreach (var item in Model.Contexts)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.XbrlName)
+                                    @Html.DisplayFor(modelItem => item.XbrlContextID)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Unit.Value)
+                                    @Html.DisplayFor(modelItem => item.Type)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Precision)
+                                    @Html.DisplayFor(modelItem => item.FinancialDatas.Count)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Value)
-                                </td>                                
                                 <td>
                                     <div class="toolbar transparent">
-                                        
+
                                     </div>
                                 </td>
                             </tr>
@@ -131,8 +114,8 @@
             </div>
         </div>
     }
-    
-    @*@if (Model.CalculatedKPIs.Count > 0)
+
+    @if (Model.CalculatedKPIs.Count > 0)
     {
         <div class="panel" data-role="panel">
             <div class="panel-header bg-lightBlue fg-white">
@@ -174,5 +157,5 @@
                 </table>
             </div>
         </div>
-    }*@
+    }
 </div>

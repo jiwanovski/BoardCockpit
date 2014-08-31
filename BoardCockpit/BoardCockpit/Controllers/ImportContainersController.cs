@@ -349,12 +349,48 @@ namespace BoardCockpit.Controllers
                         }
 
                         db.SaveChanges();
-                    }
+                    }                    
 
                     // ----- CONTEXT -------
                     ICollection<Context> contexts = new List<Context>();
+                    ICollection<ContextContainer> contextContainers = new List<ContextContainer>();
                     foreach (JeffFerguson.Gepsio.Context context in importXBRL.Contexts)
                     {
+                        // ----- CONTEXT CONTAINER -------
+                        ContextContainer contextContainer = new ContextContainer();
+                        int contextYear;
+                        if (context.PeriodEndDate == DateTime.MinValue) {
+                            contextYear = context.InstantDate.Year;
+                        } else {
+                            contextYear = context.PeriodEndDate.Year;
+                        }
+                        List<ContextContainer> existingContextContainers = db.ContextContainers
+                                                                                .Where(i => i.CompanyID == company.CompanyID)
+                                                                                .Where(i => i.Year == contextYear)
+                                                                                .ToList();
+                        if (existingContextContainers.Count > 0)
+                        {
+                            contextContainer = existingContextContainers.First();
+                        }
+                        else
+                        {
+                            contextContainer = new ContextContainer
+                                                    {
+                                                        CompanyID = company.CompanyID,
+                                                        Company = company,
+                                                        Year = contextYear
+                                                    };
+                            if (ModelState.IsValid)
+                            {                                
+                                db.ContextContainers.Add(contextContainer);
+                                db.SaveChanges();
+                            }
+                        }
+                        if (contextContainers.Where(i => i.ContextContainerID == contextContainer.ContextContainerID).Count() == 0) {
+                            contextContainers.Add(contextContainer);
+                        }
+                        
+                        // TODO
                         if (db.Contexts.Where(i => i.XbrlContextID == context.Id).Count() > 0)
                             contextExists = true;
 
@@ -374,30 +410,50 @@ namespace BoardCockpit.Controllers
                                 context2.Instant = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
                             else
                                 context2.Instant = context.InstantDate;
-                            context2.CompanyID = company.CompanyID;
-                            context2.Company = company;
+                            // JIW context2.ContextContainerID = contextContainer.ContextContainerID;//company.CompanyID;
+                            context2.ContextContainer = contextContainer;
                             context2.ReportID = report.ReportID;
                             context2.Report = report;
                             context2.GenInfoDocumentID = genInfoDocument.GenInfoDocumentID;
                             context2.GenInfoDocument = genInfoDocument;
+                            if (context2.EndDate == (DateTime)SqlDateTime.MinValue) {
+                                context2.Type = ContextType.BalanceSheet;
+                            } else {
+                                context2.Type = ContextType.IncomeStatement;
+                            }
                             contexts.Add(context2);
                         }
                     }
 
                     if (contexts.Count() > 0)
                     {
+                        ContextContainer contextContainer;
+
                         if (ModelState.IsValid)
                         {
                             foreach (Context context in contexts)
                             {
                                 db.Contexts.Add(context);
                                 db.SaveChanges();
+                                // TODO JIW!!!!!!!
+                                contextContainer = contextContainers.Where(i => i.ContextContainerID == context.ContextContainerID).Single();
+                                // if (context.EndDate == (DateTime)SqlDateTime.MinValue)
+                                // {
+                                //     contextContainer.BalanceSheetContext = context;
+                                // }
+                                // else
+                                // {
+                                //     contextContainer.IncomeStatementContext = context;                                    
+                                // }
+                                contextContainer.Contexts.Add(context);
+                                db.Entry(contextContainer).State = EntityState.Modified;
+                                db.SaveChanges();
                             }
                             db.SaveChanges();
                         }
 
                         // ----- Company -------
-                        company.Contexts = contexts;
+                        company.ContextContainers = contextContainers;
 
                         // ----- Report -------
                         report.Contexts = contexts;
@@ -500,26 +556,39 @@ namespace BoardCockpit.Controllers
                         Calculator calculator = new Calculator();
                         ICollection<CalculatedKPI> calculatedKPIs = new List<CalculatedKPI>();
 
-                        foreach (Context context in contexts) {
-                            context.CalculatedKPIs = new List<CalculatedKPI>();
+                        foreach (ContextContainer contextContainer2 in contextContainers)
+                        {
+                            contextContainer2.CalculatedKPIs = new List<CalculatedKPI>();
                             foreach (FormulaDetail formula in taxonomy.FormulaDetails)
                             {
                                 decimal result = 0;
-                                if (calculator.CalculateDetail(financialDatas.Where(i => i.ContextID == context.ContextID).ToList(), formula.FormulaExpression, ref result)) {
+                                List<FinancialData> isFinancialDatas = contextContainer2.Contexts.Where(i => i.Type == ContextType.IncomeStatement).Single().FinancialDatas.ToList();
+                                List<FinancialData> bsFinancialDatas = contextContainer2.Contexts.Where(i => i.Type == ContextType.BalanceSheet).Single().FinancialDatas.ToList();
+                                if (calculator.CalculateDetail(isFinancialDatas, bsFinancialDatas, formula.FormulaExpression, ref result))
+                                {
                                     CalculatedKPI calculatedKPI = new CalculatedKPI
-                                                                        {
-                                                                            ContextID = context.ContextID,
-                                                                            FormulaDetailID = formula.FormulaDetailID,
-                                                                            Value = result,
-                                                                            Context = context,
-                                                                            FormulaDetail = formula
-                                                                        };
+                                                                            {
+                                                                                ContextContainerID = contextContainer2.ContextContainerID,
+                                                                                FormulaDetailID = formula.FormulaDetailID,
+                                                                                Value = result,
+                                                                                ContextContainer = contextContainer2,
+                                                                                FormulaDetail = formula
+                                                                            };
                                     calculatedKPIs.Add(calculatedKPI);
-                                    db.CalculatedKPIs.Add(calculatedKPI);
-                                    context.CalculatedKPIs.Add(calculatedKPI);
+                                    //db.CalculatedKPIs.Add(calculatedKPI);
+                                    contextContainer2.CalculatedKPIs.Add(calculatedKPI);
+                                    //if (ModelState.IsValid)
+                                    //{
+                                    //    db.CalculatedKPIs.Add(calculatedKPI);
+                                    //    db.SaveChanges();
+                                    //}
                                 }
                             }
-                            //context.CalculatedKPIs = calculatedKPIs;
+                            //contextContainer2.CalculatedKPIs = calculatedKPIs;
+                            //if (ModelState.IsValid) { 
+                            //    db.Entry(contextContainer2).State = EntityState.Modified;
+                            //    db.SaveChanges();
+                            //}
                         }
 
                         if (ModelState.IsValid)
@@ -529,9 +598,9 @@ namespace BoardCockpit.Controllers
                                 db.CalculatedKPIs.Add(calculatedKPI);
                             }
 
-                            foreach (Context context in contexts)
+                            foreach (ContextContainer contextContainer2 in contextContainers)
                             {
-                                db.Entry(context).State = EntityState.Modified;
+                                db.Entry(contextContainer2).State = EntityState.Modified;
                             }
 
                             db.SaveChanges();

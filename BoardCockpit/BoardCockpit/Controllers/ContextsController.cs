@@ -20,7 +20,7 @@ namespace BoardCockpit.Controllers
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Companies";
-            var contexts = db.Contexts.Include(c => c.Company);
+            var contexts = db.Contexts.Include(c => c.ContextContainer);
             return View(contexts.ToList());
         }
 
@@ -29,8 +29,8 @@ namespace BoardCockpit.Controllers
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Companies";
             var contexts = db.Contexts
-                                .Where(i => i.CompanyID == companyId)
-                                .Include(c => c.Company);
+                                .Where(i => i.ContextContainer.CompanyID == companyId)
+                                .Include(c => c.ContextContainer.Company);
             return View("Index", contexts.ToList());
         }
 
@@ -56,7 +56,7 @@ namespace BoardCockpit.Controllers
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Companies";
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name");
+            ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ContextID,XbrlContextID,StartDate,EndDate,Instant,CompanyID")] Context context)
+        public ActionResult Create([Bind(Include = "ContextID,XbrlContextID,StartDate,EndDate,Instant,ContextContainerID")] Context context)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Companies";
@@ -76,7 +76,7 @@ namespace BoardCockpit.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name", context.CompanyID);
+            //ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", context.ContextContainerID);
             return View(context);
         }
 
@@ -94,7 +94,7 @@ namespace BoardCockpit.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name", context.CompanyID);
+            //ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", context.ContextContainerID);
             return View(context);
         }
 
@@ -103,7 +103,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ContextID,XbrlContextID,StartDate,EndDate,Instant,CompanyID")] Context context)
+        public ActionResult Edit([Bind(Include = "ContextID,XbrlContextID,StartDate,EndDate,Instant,ContextContainerID")] Context context)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Companies";
@@ -113,7 +113,7 @@ namespace BoardCockpit.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name", context.CompanyID);
+            //ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", context.ContextContainerID);
             return View(context);
         }
 
