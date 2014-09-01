@@ -9,7 +9,7 @@ namespace BoardCockpit.Models
 {
     public enum ContextType
     {
-        BalanceSheet, IncomeStatement
+        None, BalanceSheet, IncomeStatement
     }
     public class Context
     {
