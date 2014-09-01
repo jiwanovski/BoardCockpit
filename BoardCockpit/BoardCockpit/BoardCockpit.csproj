@@ -576,13 +576,13 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\DotNetHighCharts\DotNet.Highcharts\DotNet.Highcharts\DotNet.Highcharts.csproj">
-      <Project>{6fe2ea1e-85e3-4969-be6c-c08c9ba9029a}</Project>
-      <Name>DotNet.Highcharts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CalcFormulaParser\CalcFormulaParser.csproj">
       <Project>{b0acb5da-c3eb-4bbf-8adb-ea9bcaee36ce}</Project>
       <Name>CalcFormulaParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotNet.Highcharts\DotNet.Highcharts.csproj">
+      <Project>{6fe2ea1e-85e3-4969-be6c-c08c9ba9029a}</Project>
+      <Name>DotNet.Highcharts</Name>
     </ProjectReference>
     <ProjectReference Include="..\JeffFerguson.Gepsio\JeffFerguson.Gepsio.csproj">
       <Project>{a567264b-3053-4daa-b601-aac3dfc94fbb}</Project>
