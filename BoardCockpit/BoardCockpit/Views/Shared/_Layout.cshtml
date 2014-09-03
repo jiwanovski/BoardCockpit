@@ -40,9 +40,11 @@
                         <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
                         <li>@Html.ActionLink("Info", "About", "Home")</li>
                         <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                        <li>@Html.ActionLink("Einrichtung", "Setup", "GeneralSetting")</li>
+                        
                         <li><a href="#" onclick="showFilter();">Filter</a></li>
+                        <li class="no-desktop">@Html.ActionLink("Einrichtung", "Setup", "GeneralSetting")</li>
                     </ul>
+                    
                     <div class="no-tablet-portrait no-phone">
                         <div class="element place-right">
                             <a href="@Url.Action("Setup", "GeneralSetting")">
