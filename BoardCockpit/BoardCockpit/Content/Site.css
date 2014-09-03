@@ -85,6 +85,11 @@ footer {
   width: 100%;
   height: 25px;
 }
+
+/*#MainBody {
+  margin-right:50px;
+}*/ 
+
 @media only screen and (max-width: 640px) {
   .prettyprint,
   .example {
