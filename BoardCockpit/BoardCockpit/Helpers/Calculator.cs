@@ -79,13 +79,21 @@ namespace BoardCockpit.Helpers
                 i += 1;
             }
 
-            if (resolvedFormula) { 
-                MethodInfo calculate = GetType().GetMethod("Calculate", BindingFlags.Instance | BindingFlags.NonPublic);
-                if (calculate != null)
-                    calculate.MakeGenericMethod(fp.Type).Invoke(this, new object[] { fp });
+            try
+            {
+                if (resolvedFormula)
+                {
+                    MethodInfo calculate = GetType().GetMethod("Calculate", BindingFlags.Instance | BindingFlags.NonPublic);
+                    if (calculate != null)
+                        calculate.MakeGenericMethod(fp.Type).Invoke(this, new object[] { fp });
 
-                result = System.Convert.ToDecimal(calcFormula); 
+                    result = System.Convert.ToDecimal(calcFormula);
+                }            
             }
+            catch (Exception)
+            {
+                resolvedFormula = false;                                
+            }            
             
             return resolvedFormula;
         }

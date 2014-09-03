@@ -138,7 +138,8 @@ namespace JeffFerguson.Gepsio
                         CompanyID = Convert.ToInt64(CurrentChild.InnerText);
                         break;
                     case "genInfo.company.id.sizeClass":
-                        SizeClass = Convert.ToInt32(CurrentChild.InnerText);
+                        if (!System.String.IsNullOrEmpty(CurrentChild.InnerText)) 
+                            SizeClass = Convert.ToInt32(CurrentChild.InnerText);                        
                         break;
                     case "genInfo.company.id.name":
                         Name = CurrentChild.InnerText;

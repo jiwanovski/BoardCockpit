@@ -398,28 +398,32 @@ namespace BoardCockpit.Controllers
                         {
                             Context context2 = new Context();
                             context2.XbrlContextID = context.Id;
-                            if (context.PeriodStartDate == DateTime.MinValue)
-                                context2.StartDate = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
-                            else
+                            context2.StartDate = (DateTime)SqlDateTime.MinValue;
+                            context2.EndDate = (DateTime)SqlDateTime.MinValue;
+                            context2.Instant = (DateTime)SqlDateTime.MinValue;
+
+                            if (context.PeriodStartDate != DateTime.MinValue)                                
                                 context2.StartDate = context.PeriodStartDate;
-                            if (context.PeriodEndDate == DateTime.MinValue)
-                                context2.EndDate = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
-                            else
+
+                            if (context.PeriodEndDate != DateTime.MinValue)                                
                                 context2.EndDate = context.PeriodEndDate;
-                            if (context.InstantDate == DateTime.MinValue)
-                                context2.Instant = (DateTime)SqlDateTime.MinValue;//DateTime.MinValue;//new DateTime(1753, 1, 1);
-                            else
+
+                            if (context.InstantDate != DateTime.MinValue)                                
                                 context2.Instant = context.InstantDate;
+
                             // JIW context2.ContextContainerID = contextContainer.ContextContainerID;//company.CompanyID;
                             context2.ContextContainer = contextContainer;
                             context2.ReportID = report.ReportID;
                             context2.Report = report;
                             context2.GenInfoDocumentID = genInfoDocument.GenInfoDocumentID;
                             context2.GenInfoDocument = genInfoDocument;
-                            if (context2.EndDate == (DateTime)SqlDateTime.MinValue) {
-                                context2.Type = ContextType.BalanceSheet;
-                            } else {
+                            context2.Type = ContextType.None;
+                            if (context2.EndDate != (DateTime)SqlDateTime.MinValue) {
                                 context2.Type = ContextType.IncomeStatement;
+                            }
+                            if (context2.Instant != (DateTime)SqlDateTime.MinValue)
+                            {                                
+                                context2.Type = ContextType.BalanceSheet;
                             }
                             contexts.Add(context2);
                         }
@@ -562,8 +566,15 @@ namespace BoardCockpit.Controllers
                             foreach (FormulaDetail formula in taxonomy.FormulaDetails)
                             {
                                 decimal result = 0;
-                                List<FinancialData> isFinancialDatas = contextContainer2.Contexts.Where(i => i.Type == ContextType.IncomeStatement).Single().FinancialDatas.ToList();
-                                List<FinancialData> bsFinancialDatas = contextContainer2.Contexts.Where(i => i.Type == ContextType.BalanceSheet).Single().FinancialDatas.ToList();
+                                List<FinancialData> isFinancialDatas = new List<FinancialData>();
+                                List<FinancialData> bsFinancialDatas = new List<FinancialData>();
+                                if (contextContainer2.Contexts.Where(i => i.Type == ContextType.IncomeStatement).Count() > 0) {
+                                    isFinancialDatas = contextContainer2.Contexts.Where(i => i.Type == ContextType.IncomeStatement).Single().FinancialDatas.ToList();
+                                }
+                                if (contextContainer2.Contexts.Where(i => i.Type == ContextType.BalanceSheet).Count() > 0) { 
+                                    bsFinancialDatas = contextContainer2.Contexts.Where(i => i.Type == ContextType.BalanceSheet).Single().FinancialDatas.ToList();
+                                }
+                                
                                 if (calculator.CalculateDetail(isFinancialDatas, bsFinancialDatas, formula.FormulaExpression, ref result))
                                 {
                                     CalculatedKPI calculatedKPI = new CalculatedKPI
