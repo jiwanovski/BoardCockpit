@@ -33,7 +33,7 @@ namespace BoardCockpit.DAL
         public DbSet<CalculatedKPI> CalculatedKPIs { get; set; }
         public DbSet<ReportingYear> ReportingYears { get; set; }
         public DbSet<ContextContainer> ContextContainers { get; set; }
-
+        public DbSet<GeneralSetting> GeneralSetting { get; set; }
         // public DbSet<ContextAssignment> ContextAssignments { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

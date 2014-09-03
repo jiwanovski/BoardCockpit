@@ -1,10 +1,10 @@
 ﻿<nav class="sidebar light">
     <ul>
         <li class="title">Einrichtung</li>
-        @if (ViewBag.ActiveSidebar == "Home")
+        @if (ViewBag.ActiveSidebar == "GeneralSetting")
         {
             <li class="active">
-                <a href="#">
+                <a href="@Url.Action("Setup", "GeneralSetting")">
                     <i class="icon-home"></i>
                     <span class="no-phone">Allgemein</span>
                 </a>
@@ -13,7 +13,7 @@
         else
         {
             <li>
-                <a href="#">
+                <a href="@Url.Action("Setup", "GeneralSetting")">
                     <i class="icon-home"></i>
                     <span class="no-phone">Allgemein</span>
                 </a>

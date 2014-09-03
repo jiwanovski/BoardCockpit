@@ -168,6 +168,7 @@
     <Compile Include="Controllers\FinancialDatasController.cs" />
     <Compile Include="Controllers\FormulaDetailsController.cs" />
     <Compile Include="Controllers\FormulasController.cs" />
+    <Compile Include="Controllers\GeneralSettingController.cs" />
     <Compile Include="Controllers\GenInfoDocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportContainersController.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Models\FinancialData.cs" />
     <Compile Include="Models\Formula.cs" />
     <Compile Include="Models\FormulaDetail.cs" />
+    <Compile Include="Models\GeneralSettings.cs" />
     <Compile Include="Models\GenInfoDocument.cs" />
     <Compile Include="Models\Import.cs" />
     <Compile Include="Models\ImportContainer.cs" />
@@ -565,6 +567,7 @@
     <Content Include="Views\ContextContainers\Details.cshtml" />
     <Content Include="Views\ContextContainers\Edit.cshtml" />
     <Content Include="Views\ContextContainers\Index.cshtml" />
+    <Content Include="Views\GeneralSetting\Setup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

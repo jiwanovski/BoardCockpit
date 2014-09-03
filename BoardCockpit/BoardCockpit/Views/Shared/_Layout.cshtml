@@ -22,7 +22,8 @@
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
-    </style>
+    </style>
+
     @RenderSection("CustomJS", false);
 
     </head>
@@ -37,12 +38,12 @@
                     <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
                     <li>@Html.ActionLink("Info", "About", "Home")</li>
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Einrichtung", "SetupView", "Home")</li>                    
+                    <li>@Html.ActionLink("Einrichtung", "Setup", "GeneralSetting")</li>                    
                     <li><a href="#" onclick="showFilter();">Filter</a></li>                  
                 </ul>
                 <div class="no-tablet-portrait no-phone">
                     <div class="element place-right">
-                        <a href="@Url.Action("SetupView", "Home")">
+                        <a href="@Url.Action("Setup", "GeneralSetting")">
                             <span class="icon-cog"></span>
                         </a>
                     </div>
