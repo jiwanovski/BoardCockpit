@@ -89,13 +89,14 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
         <script>
+            var $img = $('<i class="child-opener-image icon-search icon-filter"></i>');
             function showFilter() {
                 $.Dialog({
                     overlay: true,
                     shadow: true,
                     flat: true,
                     draggable: true,
-                    icon: '<img src="images/excel2013icon.png">',
+                    icon: $img,
                     title: 'Filter',
                     content: '',
                     padding: 10,
