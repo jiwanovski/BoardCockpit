@@ -40,19 +40,19 @@
 <table class="display" id="table_id">
     <thead>
         <tr>
-            <th>
+            <th style ="text-align:left">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th style="text-align:left">
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
+            <th style="text-align:left">
                 @Html.DisplayNameFor(model => model.ChartType)
             </th>
-            <th>
+            <th style="text-align:left">
                 @Html.DisplayNameFor(model => model.ToolTipDescription)
             </th>
-            <th></th>
+            <th style="text-align:left">Aktionen</th>
         </tr>
     </thead>
     <tbody>
@@ -64,6 +64,12 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChartType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToolTipDescription)
                 </td>
                 <td>
                     <div class="toolbar transparent">
