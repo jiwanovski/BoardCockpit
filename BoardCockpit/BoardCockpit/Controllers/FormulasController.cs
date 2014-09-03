@@ -38,7 +38,8 @@ namespace BoardCockpit.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ChartTypes = formula.ChartType.ToSelectList();
+            ViewBag.ChartType = formula.ChartType.ToSelectList();
+            ViewBag.Unit = formula.Unit.ToSelectList();
             return View(formula);
         }
 
@@ -49,6 +50,8 @@ namespace BoardCockpit.Controllers
             ViewBag.ActiveSidebar = "Formulas";
             ChartType chartTypes = new ChartType();
             ViewBag.ChartType = chartTypes.ToSelectList();
+            UnitEnum unitEnum = new UnitEnum();
+            ViewBag.Unit = unitEnum.ToSelectList();
             return View();
         }
 
@@ -57,7 +60,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FormulaID,Name,Description,ChartType,ToolTipDescription")] Formula formula)
+        public ActionResult Create([Bind(Include = "FormulaID,Name,Description,ChartType,ToolTipDescription,Unit")] Formula formula)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
@@ -70,6 +73,8 @@ namespace BoardCockpit.Controllers
 
             ChartType chartTypes = formula.ChartType;
             ViewBag.ChartType = chartTypes.ToSelectList();
+            UnitEnum unitEnum = new UnitEnum();
+            ViewBag.Unit = unitEnum.ToSelectList();
 
             return View(formula);
         }
@@ -90,6 +95,8 @@ namespace BoardCockpit.Controllers
             }
             ChartType chartTypes = formula.ChartType;
             ViewBag.ChartType = chartTypes.ToSelectList();
+            UnitEnum unitEnum = new UnitEnum();
+            ViewBag.Unit = unitEnum.ToSelectList();
             return View(formula);
         }
 
@@ -98,7 +105,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FormulaID,Name,Description,ChartType,ToolTipDescription")] Formula formula)
+        public ActionResult Edit([Bind(Include = "FormulaID,Name,Description,ChartType,ToolTipDescription,Unit")] Formula formula)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
@@ -110,6 +117,8 @@ namespace BoardCockpit.Controllers
             }
             ChartType chartTypes = formula.ChartType;
             ViewBag.ChartType = chartTypes.ToSelectList();
+            UnitEnum unitEnum = new UnitEnum();
+            ViewBag.Unit = unitEnum.ToSelectList();
             return View(formula);
         }
 

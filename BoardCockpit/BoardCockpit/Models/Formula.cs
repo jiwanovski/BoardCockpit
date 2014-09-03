@@ -15,6 +15,16 @@ namespace BoardCockpit.Models
         [Display(Name = "Balkendiagramm")]
         DualAxesLineAndColumn = 3
     }
+
+    public enum UnitEnum : byte
+    {
+        [Display(Name = "Prozent")]
+        PerCent = 1,
+        [Display(Name = "Währung")]
+        Currency = 2,
+        [Display(Name = "Tage")]
+        Days = 3
+    }
     public class Formula
     {
 
@@ -27,6 +37,8 @@ namespace BoardCockpit.Models
         public string Description { get; set; }
 
         public ChartType ChartType { get; set; }
+
+        public UnitEnum Unit { get; set; }
 
         [Display(Name = "ToolTipDescription", ResourceType = typeof(Resources.Model))]
         public string ToolTipDescription { get; set; }
