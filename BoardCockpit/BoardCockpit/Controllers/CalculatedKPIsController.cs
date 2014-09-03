@@ -37,6 +37,8 @@ namespace BoardCockpit.Controllers
             {
                 return HttpNotFound();
             }
+
+            
             return View(calculatedKPI);
         }
 
@@ -46,6 +48,7 @@ namespace BoardCockpit.Controllers
             ViewBag.Sidebar = true;
             ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID");
             ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression");
+            
             return View();
         }
 
@@ -67,6 +70,7 @@ namespace BoardCockpit.Controllers
 
             ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", calculatedKPI.ContextContainerID);
             ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression", calculatedKPI.FormulaDetailID);
+            
             return View(calculatedKPI);
         }
 
@@ -86,6 +90,7 @@ namespace BoardCockpit.Controllers
             }
             ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", calculatedKPI.ContextContainerID);
             ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression", calculatedKPI.FormulaDetailID);
+            
             return View(calculatedKPI);
         }
 
@@ -106,6 +111,7 @@ namespace BoardCockpit.Controllers
             }
             ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", calculatedKPI.ContextContainerID);
             ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression", calculatedKPI.FormulaDetailID);
+            
             return View(calculatedKPI);
         }
 

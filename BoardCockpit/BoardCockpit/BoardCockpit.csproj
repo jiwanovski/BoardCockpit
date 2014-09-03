@@ -184,6 +184,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Calculator.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\ImportXBRL.cs" />
     <Compile Include="Helpers\JSONHelper.cs" />
     <Compile Include="Helpers\ReportingValues.cs" />
@@ -568,7 +569,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\ImportedFiles\Taxonomy\" />
     <Folder Include="Content\ImportedFiles\XBRL\" />
-    <Folder Include="Views\Localization\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
