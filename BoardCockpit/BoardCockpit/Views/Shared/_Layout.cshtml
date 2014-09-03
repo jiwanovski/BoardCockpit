@@ -18,38 +18,41 @@
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/Highcharts/highcharts.js" type="text/javascript"></script>
 
-    <style>
-        body {
-            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        }
-    </style>
+    
 
-    @RenderSection("CustomJS", false);
+    @RenderSection("CustomJS", false)
 
     </head>
     <body class="metro">
-        <div class="navigation-bar light fixed-top">
-            <div class="navigation-bar-content">
-                <a href="/" class="element"><span class="icon-grid-view"></span> Board Cockpit <sup>0.2</sup></a>
-                <span class="element-divider"></span>
+        @*<style class="no-desktop">
+            body { 
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>*@
+        <header>
+            <div class="navigation-bar light fixed-top">
+                <div class="navigation-bar-content">
+                    <a href="/" class="element"><span class="icon-grid-view"></span> Board Cockpit <sup>0.2</sup></a>
+                    <span class="element-divider"></span>
 
-                <a class="pull-menu" href="#"></a>
-                <ul class="element-menu drop-up">
-                    <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Info", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Einrichtung", "Setup", "GeneralSetting")</li>                    
-                    <li><a href="#" onclick="showFilter();">Filter</a></li>                  
-                </ul>
-                <div class="no-tablet-portrait no-phone">
-                    <div class="element place-right">
-                        <a href="@Url.Action("Setup", "GeneralSetting")">
-                            <span class="icon-cog"></span>
-                        </a>
+                    <a class="pull-menu" href="#"></a>
+                    <ul class="element-menu drop-up">
+                        <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Info", "About", "Home")</li>
+                        <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Einrichtung", "Setup", "GeneralSetting")</li>
+                        <li><a href="#" onclick="showFilter();">Filter</a></li>
+                    </ul>
+                    <div class="no-tablet-portrait no-phone">
+                        <div class="element place-right">
+                            <a href="@Url.Action("Setup", "GeneralSetting")">
+                                <span class="icon-cog"></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </header>
         <div class="grid fluid">
             <div class="row">
                 @if (ViewBag.Sidebar == true)
@@ -127,35 +130,14 @@
                                 '<div class="form-actions">' +
                                     '<button class="button success">Anwenden</button>&nbsp;' +
                                     '<button class="button" type="button" onclick="$.Dialog.close()">Abbrechen</button> ' +
-                                '</div>' +
-                                //'<label>Filter</label>' +
-                                //'<div class="input-control text">' + 
-                                //    '<input type="text" name="login">' +
-                                //        '<button class="btn-clear"></button>' +
-                                //'</div>' +
-                                //'<label>Password</label>' +
-                                //'<div class="input-control password">' + 
-                                //    '<input type="password" name="password">' + 
-                                //        '<button class="btn-reveal"></button>' +
-                                //'</div>' +
-                                //'<div class="input-control checkbox">' + 
-                                //    '<label>' +
-                                //        '<input type="checkbox" name="c1" checked/>' + 
-                                //            '<span class="check"></span>' + 
-                                //        'Check me out' +
-                                //    '</label>' +
-                                //'</div>' +
-                                //'<div class="form-actions">' +
-                                //    '<button class="button primary">Login to...</button>&nbsp;' +
-                                //    '<button class="button" type="button" onclick="$.Dialog.close()">Cancel</button> ' +
-                                //'</div>' +
-                            '</form>';
+                                '</div>' +                               
+                            '</form>'
 
-                        $.Dialog.title("Filter");
-                        $.Dialog.content(content);
+                        $.Dialog.title("Filter")
+                        $.Dialog.content(content)
                     }
-                });
-            };
+                })
+            }
         </script>
 
 </body>
