@@ -53,7 +53,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FormulaID,Name,Description")] Formula formula)
+        public ActionResult Create([Bind(Include = "FormulaID,Name,Description,ToolTipDescription")] Formula formula)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
@@ -89,7 +89,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FormulaID,Name,Description")] Formula formula)
+        public ActionResult Edit([Bind(Include = "FormulaID,Name,Description,ToolTipDescription")] Formula formula)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";

@@ -173,7 +173,6 @@
     <Compile Include="Controllers\ImportNodesController.cs" />
     <Compile Include="Controllers\ImportsController.cs" />
     <Compile Include="Controllers\IndustriesController.cs" />
-    <Compile Include="Controllers\LocalizationController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\TaxonomiesController.cs" />
     <Compile Include="Controllers\TaxonomyFileNodesController.cs" />

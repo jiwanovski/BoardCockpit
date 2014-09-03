@@ -16,6 +16,9 @@ namespace BoardCockpit.Models
         [Display(Name = "Description", ResourceType = typeof(Resources.Model))]
         public string Description { get; set; }
 
+        [Display(Name = "ToolTipDescription", ResourceType = typeof(Resources.Model))]
+        public string ToolTipDescription { get; set; }
+
         public virtual ICollection<FormulaDetail> FormulaDetails { get; set; }
     }
 }
