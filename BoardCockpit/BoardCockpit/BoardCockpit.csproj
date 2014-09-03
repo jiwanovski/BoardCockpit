@@ -338,7 +338,6 @@
     <Content Include="Content\metro\less\variables\variables.less" />
     <Content Include="Content\metro\less\variables\window.less" />
     <Content Include="Content\metro\less\variables\wizard.less" />
-    <Content Include="Content\localisation\de-DE.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Highcharts\highcharts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
