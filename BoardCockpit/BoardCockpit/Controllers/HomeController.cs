@@ -122,32 +122,6 @@ namespace BoardCockpit.Controllers
                 reportingValues.Clear();
             }
 
-            //List<Context> contexts = db.Contexts.ToList();
-            //foreach (Context context in contexts)
-            //{
-            //    if (context.CalculatedKPIs.Where(i => i.FormulaDetail.FormulaID.ToString() == Formulas).Count() > 0) {
-            //        CalculatedKPI calKpi = context.CalculatedKPIs.Where(i => i.FormulaDetail.FormulaID.ToString() == Formulas).Single();
-            //        reportingValues.Add(new ReportingValues
-            //                                    {
-            //                                        ContextID = context.ContextID,
-            //                                        FormulaID = calKpi.FormulaDetailID,
-            //                                        Date = context.Instant,
-            //                                        Value = calKpi.Value
-            //                                    });
-            //    }
-            //}
-            
-            
-
-            //ar nodeValues = from contexts2 in reportingValues
-            //                 select (object)contexts2.Value;
-            //var nodeCategories = from contexts2 in reportingValues
-            //                 select contexts2.Year.ToString();
-
-
-           //string[] test = nodeCategories.ToArray();
-           // object[] test2 = nodeValues.ToArray();
-
             Highcharts chart = new Highcharts("chart")
                 .InitChart(new Chart
                 {
@@ -197,18 +171,9 @@ namespace BoardCockpit.Controllers
                     BorderWidth = 0
                 })
                 .SetSeries(testSeries.ToArray());
-                //new[]
-                //{
-                //    //new Series { Name = "Tokyo", Data = new Data(TokioData) },
-                //    //new Series { Name = "New York", Data = new Data(NewYorkData) },
-                //    new Series { Name = "Berlin", Data = new Data(BerlinData) },
-                //    //new Series { Name = "London", Data = new Data(test2) }
-                    
-                //});
                 
             ViewBag.Chart = chart; 
             return View(chart);
-            //return View();
         }
 
         public ActionResult About()

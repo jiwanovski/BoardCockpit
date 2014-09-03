@@ -173,6 +173,7 @@
     <Compile Include="Controllers\ImportNodesController.cs" />
     <Compile Include="Controllers\ImportsController.cs" />
     <Compile Include="Controllers\IndustriesController.cs" />
+    <Compile Include="Controllers\LocalizationController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\TaxonomiesController.cs" />
     <Compile Include="Controllers\TaxonomyFileNodesController.cs" />
@@ -337,6 +338,7 @@
     <Content Include="Content\metro\less\variables\variables.less" />
     <Content Include="Content\metro\less\variables\window.less" />
     <Content Include="Content\metro\less\variables\wizard.less" />
+    <Content Include="Content\localisation\de-DE.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Highcharts\highcharts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -568,6 +570,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\ImportedFiles\Taxonomy\" />
     <Folder Include="Content\ImportedFiles\XBRL\" />
+    <Folder Include="Views\Localization\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
