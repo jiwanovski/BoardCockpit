@@ -17,7 +17,10 @@
         $(document).ready(function () {
             $('#table_id').DataTable({
                 searching: true,
-                ordering: true
+                ordering: true,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/725b2a2115b/i18n/German.json'
+                }
             });
         });
     </script>
@@ -78,12 +81,12 @@
                     </td>
                     <td>
                         <div class="toolbar transparent">
-                            <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", new { id = item.TaxonomyFileID })'">
+                            <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", new { id = item.TaxonomyFileID })'" data-hint="Öffnen|Klicken Sie zum Öffnen." data-hint-position="top">
                                 <i class="icon-folder-2 on-left">
                                 </i>
                             </button>
                             <span class="divider"></span>
-                            <button class="toolbar fg-red" onclick="location.href='@Url.Action("Delete", new { id = item.TaxonomyFileID })'">
+                            <button class="toolbar fg-red" onclick="location.href='@Url.Action("Delete", new { id = item.TaxonomyFileID })'" data-hint="Löschen|Klicken Sie zum Löschen." data-hint-position="top">
                                 <i class="icon-remove">
                                 </i>
                             </button>

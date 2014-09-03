@@ -240,6 +240,7 @@
     <Content Include="Content\mvcfileupload\images\loading.gif" />
     <Content Include="Content\mvcfileupload\images\progressbar.gif" />
     <Content Include="Content\mvcfileupload\vendor\bootstrap.min.css" />
+    <Content Include="Content\translation\de-DE.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\iconFont.dev.svg" />

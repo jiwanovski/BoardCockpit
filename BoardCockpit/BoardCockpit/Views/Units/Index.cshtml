@@ -23,40 +23,55 @@
     </script>
 }
 <h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="display" id="table_id">
-    <thead>
-        <tr>
-            <th style="text-align:left">
-                @Html.DisplayNameFor(model => model.XbrlUnitID)
-            </th>
-            <th style="text-align:left">
-                @Html.DisplayNameFor(model => model.Value)
-            </th>
-            <th style="text-align:left">
-                Aktionen
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="row">
+    <div class="tile half bg-cyan">
+        <div class="tile-content icon">
+            <a href="@Url.Action("Create")">
+                <i class="icon-plus-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <table class="display" id="table_id">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.XbrlUnitID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Value)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UnitId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.UnitId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.UnitId })
-                </td>
+                <th style="text-align:left">
+                    @Html.DisplayNameFor(model => model.XbrlUnitID)
+                </th>
+                <th style="text-align:left">
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
+                <th style="text-align:left">
+                    Aktionen
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.XbrlUnitID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        <div class="toolbar transparent">
+                            <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", new { id = item.UnitId })'" data-hint="Öffnen|Klicken Sie zum Öffnen." data-hint-position="top">
+                                <i class="icon-folder-2 on-left">
+                                </i>
+                            </button>
+                            <span class="divider"></span>
+                            <button class="toolbar fg-red" onclick="location.href='@Url.Action("Delete", new { id = item.UnitId })'" data-hint="Löschen|Klicken Sie zum Löschen." data-hint-position="top">
+                                <i class="icon-remove">
+                                </i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
