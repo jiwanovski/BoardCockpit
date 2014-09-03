@@ -8,11 +8,11 @@ namespace BoardCockpit.Models
 {
     public enum ChartType : byte
     {
-        [Display(Name = "Drama!")]
+        [Display(Name = "Liniendiagramm")]
         AjaxLoadedDataClickablePoints = 1,
-        [Display(Name = "Drama1")]
+        [Display(Name = "Linien- und Balkendiagramm")]
         FixedPlacementColumn = 2,
-        [Display(Name = "Drama2")]
+        [Display(Name = "Balkendiagramm")]
         DualAxesLineAndColumn = 3
     }
     public class Formula
