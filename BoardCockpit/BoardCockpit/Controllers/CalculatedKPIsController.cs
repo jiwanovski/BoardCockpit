@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BoardCockpit.DAL;
 using BoardCockpit.Models;
+using BoardCockpit.Helpers;
 
 namespace BoardCockpit.Controllers
 {
@@ -37,6 +38,8 @@ namespace BoardCockpit.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.ChartTypes = calculatedKPI.ChartType.ToSelectList();
             return View(calculatedKPI);
         }
 
@@ -46,6 +49,8 @@ namespace BoardCockpit.Controllers
             ViewBag.Sidebar = true;
             ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID");
             ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression");
+            ChartType chartTypes = new ChartType();            
+            ViewBag.ChartTypes = chartTypes.ToSelectList();
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CalculatedKPIID,Value,FormulaDetailID,ContextContainerID")] CalculatedKPI calculatedKPI)
+        public ActionResult Create([Bind(Include = "CalculatedKPIID,Value,FormulaDetailID,ContextContainerID,ChartType")] CalculatedKPI calculatedKPI)
         {
             ViewBag.Sidebar = true;
 
@@ -67,6 +72,8 @@ namespace BoardCockpit.Controllers
 
             ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", calculatedKPI.ContextContainerID);
             ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression", calculatedKPI.FormulaDetailID);
+            ChartType chartTypes = calculatedKPI.ChartType;             
+            ViewBag.ChartTypes = chartTypes.ToSelectList();
             return View(calculatedKPI);
         }
 
@@ -86,6 +93,8 @@ namespace BoardCockpit.Controllers
             }
             ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", calculatedKPI.ContextContainerID);
             ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression", calculatedKPI.FormulaDetailID);
+            ChartType chartTypes = calculatedKPI.ChartType;
+            ViewBag.ChartTypes = chartTypes.ToSelectList();
             return View(calculatedKPI);
         }
 
@@ -94,7 +103,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CalculatedKPIID,Value,FormulaDetailID,ContextContainerID")] CalculatedKPI calculatedKPI)
+        public ActionResult Edit([Bind(Include = "CalculatedKPIID,Value,FormulaDetailID,ContextContainerID,ChartType")] CalculatedKPI calculatedKPI)
         {
             ViewBag.Sidebar = true;
 
@@ -106,6 +115,8 @@ namespace BoardCockpit.Controllers
             }
             ViewBag.ContextContainerID = new SelectList(db.ContextContainers, "ContextContainerID", "ContextContainerID", calculatedKPI.ContextContainerID);
             ViewBag.FormulaDetailID = new SelectList(db.FormulaDetails, "FormulaDetailID", "FormulaExpression", calculatedKPI.FormulaDetailID);
+            ChartType chartTypes = calculatedKPI.ChartType;
+            ViewBag.ChartTypes = chartTypes.ToSelectList();
             return View(calculatedKPI);
         }
 

@@ -6,6 +6,12 @@ using System.Web;
 
 namespace BoardCockpit.Models
 {
+    public enum ChartType
+    {
+        AjaxLoadedDataClickablePoints = 1,
+        FixedPlacementColumn = 2,
+        DualAxesLineAndColumn = 3
+    }
     public class CalculatedKPI
     {
         public int CalculatedKPIID { get; set; }
@@ -16,6 +22,8 @@ namespace BoardCockpit.Models
         public int FormulaDetailID { get; set; }
 
         public int ContextContainerID { get; set; }
+
+        public ChartType ChartType { get; set; }
         public virtual FormulaDetail FormulaDetail { get; set; }
         public virtual ContextContainer ContextContainer { get; set; }
     }
