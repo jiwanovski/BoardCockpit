@@ -49,7 +49,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Value)
-            </th>
+            </th>            
             <th></th>
         </tr>
     </thead>
@@ -65,7 +65,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Value)
-                </td>
+                </td>                
                 <td>
                     <div class="toolbar transparent">
                         <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", new { id = item.CalculatedKPIID })'" data-hint="Öffnen|Klicken Sie zum Öffnen." data-hint-position="top">

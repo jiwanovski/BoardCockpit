@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BoardCockpit.DAL;
 using BoardCockpit.Models;
+using BoardCockpit.Helpers;
 
 namespace BoardCockpit.Controllers
 {
@@ -37,6 +38,7 @@ namespace BoardCockpit.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ChartTypes = formula.ChartType.ToSelectList();
             return View(formula);
         }
 
@@ -45,6 +47,8 @@ namespace BoardCockpit.Controllers
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
+            ChartType chartTypes = new ChartType();
+            ViewBag.ChartType = chartTypes.ToSelectList();
             return View();
         }
 
@@ -53,7 +57,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FormulaID,Name,Description")] Formula formula)
+        public ActionResult Create([Bind(Include = "FormulaID,Name,Description,ChartType")] Formula formula)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
@@ -63,6 +67,9 @@ namespace BoardCockpit.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ChartType chartTypes = formula.ChartType;
+            ViewBag.ChartType = chartTypes.ToSelectList();
 
             return View(formula);
         }
@@ -81,6 +88,8 @@ namespace BoardCockpit.Controllers
             {
                 return HttpNotFound();
             }
+            ChartType chartTypes = formula.ChartType;
+            ViewBag.ChartType = chartTypes.ToSelectList();
             return View(formula);
         }
 
@@ -89,7 +98,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FormulaID,Name,Description")] Formula formula)
+        public ActionResult Edit([Bind(Include = "FormulaID,Name,Description,ChartType")] Formula formula)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
@@ -99,6 +108,8 @@ namespace BoardCockpit.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ChartType chartTypes = formula.ChartType;
+            ViewBag.ChartType = chartTypes.ToSelectList();
             return View(formula);
         }
 
