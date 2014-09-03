@@ -164,6 +164,7 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\ContextContainersController.cs" />
     <Compile Include="Controllers\ContextsController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FinancialDatasController.cs" />
     <Compile Include="Controllers\FormulaDetailsController.cs" />
     <Compile Include="Controllers\FormulasController.cs" />
@@ -569,6 +570,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\ImportedFiles\Taxonomy\" />
     <Folder Include="Content\ImportedFiles\XBRL\" />
+    <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

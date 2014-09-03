@@ -6,10 +6,13 @@ using System.Web;
 
 namespace BoardCockpit.Models
 {
-    public enum ChartType
+    public enum ChartType : byte
     {
+        [Display(Name = "Drama!")]
         AjaxLoadedDataClickablePoints = 1,
+        [Display(Name = "Drama1")]
         FixedPlacementColumn = 2,
+        [Display(Name = "Drama2")]
         DualAxesLineAndColumn = 3
     }
     public class Formula
