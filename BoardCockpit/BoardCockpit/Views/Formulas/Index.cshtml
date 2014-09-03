@@ -40,16 +40,19 @@
 <table class="display" id="table_id">
     <thead>
         <tr>
-            <th>
+            <th style ="text-align:left">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th style="text-align:left">
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
+            <th style="text-align:left">
                 @Html.DisplayNameFor(model => model.ChartType)
-            </th>            
-            <th></th>
+            </th>
+            <th style="text-align:left">
+                @Html.DisplayNameFor(model => model.ToolTipDescription)
+            </th>
+            <th style="text-align:left">Aktionen</th>
         </tr>
     </thead>
     <tbody>
@@ -66,13 +69,16 @@
                     @Html.DisplayFor(modelItem => item.ChartType)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.ToolTipDescription)
+                </td>
+                <td>
                     <div class="toolbar transparent">
                         <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", new { id = item.FormulaID })'" data-hint="Öffnen|Klicken Sie zum Öffnen." data-hint-position="top">
                             <i class="icon-folder-2 on-left">
                             </i>
                         </button>
                         <span class="divider"></span>
-                        <button class="toolbar transparent" onclick="location.href='@Url.Action("Index", "FormulaDetails", new { id = item.FormulaID }, null)'">
+                        <button class="toolbar transparent" onclick="location.href='@Url.Action("Index", "FormulaDetails", new { id = item.FormulaID }, null)'" data-hint="Formelverknüpfung|Klicken Sie zum Verknüpfen von Formeln." data-hint-position="top">
                             <i class="icon-link-2 on-left">
                             </i>
                         </button>

@@ -186,6 +186,9 @@
   <data name="TaxonomyID" xml:space="preserve">
     <value>Taxonomie ID</value>
   </data>
+  <data name="ToolTipDescription" xml:space="preserve">
+    <value>ToolTip Beschreibung</value>
+  </data>
   <data name="UnitID" xml:space="preserve">
     <value>Einheiten ID</value>
   </data>

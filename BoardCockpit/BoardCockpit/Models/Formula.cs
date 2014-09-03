@@ -28,6 +28,9 @@ namespace BoardCockpit.Models
 
         public ChartType ChartType { get; set; }
 
+        [Display(Name = "ToolTipDescription", ResourceType = typeof(Resources.Model))]
+        public string ToolTipDescription { get; set; }
+
         public virtual ICollection<FormulaDetail> FormulaDetails { get; set; }
     }
 }
