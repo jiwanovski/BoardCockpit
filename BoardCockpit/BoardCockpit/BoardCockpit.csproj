@@ -568,12 +568,12 @@
     <Content Include="Views\ContextContainers\Edit.cshtml" />
     <Content Include="Views\ContextContainers\Index.cshtml" />
     <Content Include="Views\GeneralSetting\Setup.cshtml" />
+    <Content Include="Views\Dashboard\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\ImportedFiles\Taxonomy\" />
     <Folder Include="Content\ImportedFiles\XBRL\" />
-    <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -581,6 +581,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201408312059026_Initial.resx">
+      <DependentUpon>201408312059026_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CalcFormulaParser\CalcFormulaParser.csproj">
@@ -603,11 +608,6 @@
       <Project>{18750860-8423-4cc1-b4a8-e645cb11ccf2}</Project>
       <Name>Resources</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201408312059026_Initial.resx">
-      <DependentUpon>201408312059026_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

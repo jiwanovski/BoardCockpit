@@ -1,6 +1,9 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Dashboard";
 }
+
+<h2>Dashboard</h2>
 
 <div class="row">
     <div class="tile double text-center bg-lightBlue">
@@ -36,27 +39,52 @@
         </div>
     </div>
 </div>
+<div class=""
 <div class="row">
     <div class="span12">
+        <div>
+            <div class="panel" data-role="panel">
+                <div class="panel-header bg-lightBlue fg-white">
+                    Grafik 1
+                </div>
+                <div class="panel-content">
+                    @(ViewBag.Chart)
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="panel" data-role="panel">
+                <div class="panel-header bg-lightBlue fg-white">
+                    Grafik 1
+                </div>
+                <div class="panel-content">
+                    @(ViewBag.Chart)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div>
         <div class="panel" data-role="panel">
             <div class="panel-header bg-lightBlue fg-white">
                 Grafik 1
             </div>
             <div class="panel-content">
-                <img src="~/Images/2014_08_12_18_42_39_Highcharts_Basic_line.png" class="shadow">
+                @(ViewBag.Chart)
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="panel" data-role="panel">
+            <div class="panel-header bg-lightBlue fg-white">
+                Grafik 1
+            </div>
+            <div class="panel-content">
+                @(ViewBag.Chart)
             </div>
         </div>
     </div>
 </div>
-    <div class="row">
-        <div class="span12">
-            <div class="panel" data-role="panel">
-                <div class="panel-header bg-lightBlue fg-white">
-                    Grafik 2
-                </div>
-                <div class="panel-content">
-                    <img src="~/Images/2014_08_12_18_44_02_Highcharts_Column_with_negative_values.png" class="shadow">
-                </div>
-            </div>
-        </div>
-    </div>
+
+
