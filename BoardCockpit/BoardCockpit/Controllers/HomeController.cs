@@ -7,12 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using CalcFormulaParser;
 using System.Reflection;
-using DotNet.Highcharts;
-using DotNet.Highcharts.Options;
-using DotNet.Highcharts.Enums;
 using System.Drawing;
-using DotNet.Highcharts.Helpers;
 using BoardCockpit.Helpers;
+using DotNet.Highcharts;
+using DotNet.Highcharts.Enums;
+using DotNet.Highcharts.Options;
+using DotNet.Highcharts.Helpers;
 
 namespace BoardCockpit.Controllers
 {
