@@ -21,9 +21,18 @@
 
         <div class="form">
             <fieldset>
-                <legend>ContextContainer</legend>
+                <legend>Setup</legend>
                 @Html.ValidationSummary(true)
 
+                @*<div class="form-group">*@
+                    
+                    @*<div class="input-control text size10 block" data-role="input-control" id="GeneralSettingID">*@
+                        @if (Model != null)
+                        {
+                            <input id="GeneralSettingID" name="GeneralSettingID" type="hidden" value="@Model.GeneralSettingID" />
+                        }
+                    @*</div>*@
+                @*</div>*@
                 <div class="form-group">
                     <label>
                         @Html.LabelFor(model => model.CompanyID, "CompanyID", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -36,7 +45,7 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Setup" class="btn btn-default" />
+                        <input type="submit" value="Create" class="btn btn-default" />
                     </div>
                 </div>
             </fieldset>

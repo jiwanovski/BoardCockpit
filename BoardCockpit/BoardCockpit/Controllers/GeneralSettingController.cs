@@ -21,7 +21,9 @@ namespace BoardCockpit.Controllers
             GeneralSetting generalSetting;
             if (db.GeneralSetting.Count() == 0)
             {
+                generalSetting = new GeneralSetting();
                 ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name");
+                
                 return View();
             }
             else
@@ -34,18 +36,26 @@ namespace BoardCockpit.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Setup([Bind(Include = "CompanyID")] GeneralSetting generalSetting)
+        public ActionResult Setup([Bind(Include = "GeneralSettingID,CompanyID")] GeneralSetting generalSetting)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "GeneralSetting";
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name", generalSetting.CompanyID);
 
             if (ModelState.IsValid)
             {
-                db.Entry(generalSetting).State = EntityState.Modified;
+                if (generalSetting.GeneralSettingID == 0) 
+                {
+                    db.GeneralSetting.Add(generalSetting);
+                } 
+                else 
+                { 
+                    db.Entry(generalSetting).State = EntityState.Modified;
+                }
                 db.SaveChanges();
-                return RedirectToAction("Setup");
+                return View(generalSetting);
             }
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name", generalSetting.CompanyID);
+            
             return View(generalSetting);
         }
 
