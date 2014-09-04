@@ -1,11 +1,10 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Dashboard";
 }
 
 <h2>Dashboard</h2>
 
-<div class="row no-tablet no-phone">
+<div class="row no-tablet no-phone on-large on-desktop">
     <div class="span3">
         <div class="tile double text-center bg-lightBlue">
             <span class="name text-bold fg-white">Kennzahl 1</span>
@@ -47,7 +46,7 @@
         </div>
     </div>
 </div>
-<div class="row no-large ">
+<div class="row no-large no-desktop on-tablet no-phone">
     <div class="row">
         <div class="span12">
             <div class="span6">
@@ -97,7 +96,47 @@
         </div>
     </div>
 </div>
-
+<div class="row on-phone no-large no-desktop no-tablet">
+    <div class="span1"></div>
+    <div class="span8">
+        <div class="carousel" data-role="carousel" id="carouselPhone">
+            <div class="slide">                
+                <div class="tile double text-center bg-lightBlue">
+                    <span class="name text-bold fg-white">Kennzahl 1</span>                    
+                </div>                
+            </div>
+            <div class="slide">                
+                <div class="tile double text-center bg-lightGreen">
+                    <span class="name text-bold fg-white">Kennzahl 2</span>                    
+                </div>                
+            </div>
+            <div class="slide">                
+                <div class="tile double text-center bg-orange">
+                    <span class="name text-bold fg-white">Kennzahl 3</span>                    
+                </div>                
+            </div>
+            <div class="slide">                
+                <div class="tile double text-center bg-lightRed">
+                    <span class="name text-bold fg-white">Kennzahl 4</span>                    
+                </div>               
+            </div>
+            <a class="controls left"><i class="icon-arrow-left-3"></i></a>
+            <a class="controls right"><i class="icon-arrow-right-3"></i></a>
+        </div>
+        <script>
+            $(function () {
+                $("#carouselPhone").carousel({
+                    height: 120,
+                    width: 250,
+                    duration: 1000,
+                    effect: "slide",
+                    show: false
+                });
+            })
+        </script>
+    </div>
+    <div class="span1"></div>
+</div>
 <div class="no-tablet no-phone">
     <div class="row">
         <div class="span12">
