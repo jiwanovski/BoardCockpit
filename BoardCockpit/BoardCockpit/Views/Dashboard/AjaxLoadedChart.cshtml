@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "AjaxLoadedChart";
+}
+
+<h2>AjaxLoadedChart</h2>
+
+@(ViewBag.Graph)
+
+<script type="text/javascript">
+    var categories;
+    var chartdata;
+    var chartData2 = [];
+    allVisits = [];
+    //$.getJSON("GetPeriod", null, function (data) {
+    //    arr = JSON.parse(data);
+    //    alert(arr[0])
+    //});
+
+    $.getJSON("GetPeriod", { fromYear: "2008", toYear: "2009" }, function (data) {
+        //var items = [];
+        //$.each(data, function (key, val) {
+        //    items.push("<li id='" + key + "'>" + val + "</li>");
+        //});
+
+        //$("<ul/>", {
+        //    "class": "my-new-list",
+        //    html: items.join("")
+        //}).appendTo("body");
+        categories = data;
+        //alert(categories[0]);
+    });
+
+    $.getJSON("GetAjaxLoadedChartData", function (data) {
+        allVisits.push([
+                2008,
+                10
+        ]);        
+        
+        $.each(data, function (key, val) {
+            var point = [];
+            point.push(val.Year);
+            point.push(val.Value);
+            chartData2.push(point);
+        });
+        chart.series[0].setData(chartData2);
+
+    });
+    
+</script>
+
