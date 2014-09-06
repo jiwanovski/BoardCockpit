@@ -185,6 +185,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AjaxLoadedChart.cs" />
+    <Compile Include="Helpers\AjaxLoadedChartData.cs" />
     <Compile Include="Helpers\Calculator.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\ImportXBRL.cs" />
@@ -569,6 +571,7 @@
     <Content Include="Views\ContextContainers\Index.cshtml" />
     <Content Include="Views\GeneralSetting\Setup.cshtml" />
     <Content Include="Views\Dashboard\Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\AjaxLoadedChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
