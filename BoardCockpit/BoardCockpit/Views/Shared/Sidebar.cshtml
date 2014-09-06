@@ -1,6 +1,7 @@
 ﻿<nav class="sidebar light">
     <ul>
-        <li class="title">Einrichtung</li>
+        <li class="title no-desktop no-phone on-tablet"><small>Einrichtung</small></li>
+        <li class="title no-tablet no-phone on-desktop on-large">Einrichtung</li>
         @if (ViewBag.ActiveSidebar == "GeneralSetting")
         {
             <li class="active">
@@ -100,7 +101,7 @@
             <li class="active">
                 <a href="@Url.Action("Index", "Formulas")">
                     <i class="icon-pencil"></i>
-                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Kennzahlendefinition</small></span>
+                    <span class="no-tablet-portrait no-desktop no-phone"><small>Kennzahlendefinition</small></span>
                     <span class="on-desktop no-tablet-portrait no-phone no-tablet">Kennzahlendefinition</span>
                 </a>
             </li>
@@ -110,8 +111,8 @@
             <li>
                 <a href="@Url.Action("Index", "Formulas")">
                     <i class="icon-pencil"></i>
-                    <span class="on-tablet no-tablet-portrait no-desktop no-phone" ><small>Kennzahlendefinition</small></span>
-                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Kennzahlendefinition</span>
+                    <span class="no-tablet-portrait no-desktop no-large no-phone"><small>Kennzahlendefinition</small></span>
+                    <span class="on-desktop on-large no-phone no-tablet">Kennzahlendefinition</span>
                 </a>
             </li>
         }
