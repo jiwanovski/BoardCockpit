@@ -1,127 +1,128 @@
 ﻿<nav class="sidebar light">
-        <ul style=" position:fixed; top: 65px; left: 10px; border:inherit; background: border-box;">
-                <li class="title no-desktop no-phone on-tablet"><small>Einrichtung</small></li>
-                <li class="title no-tablet no-phone on-desktop on-large">Einrichtung</li>
-                @if (ViewBag.ActiveSidebar == "GeneralSetting")
-                {
-                    <li class="active">
-                        <a href="@Url.Action("Setup", "GeneralSetting")">
-                            <i class="icon-home"></i>
-                            <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Allgemein</small></span>
-                            <span class="on-desktop no-tablet-portrait no-phone no-tablet">Allgemein</span>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Setup", "GeneralSetting")">
-                            <i class="icon-home"></i>
-                            <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Allgemein</small></span>
-                            <span class="on-desktop no-tablet-portrait no-phone no-tablet">Allgemein</span>
-                        </a>
-                    </li>
-                }
-                @if (ViewBag.ActiveSidebar == "Taxonomies")
-                {
-                    <li class="active">
-                        <a href="@Url.Action("Index", "Taxonomies")">
-                            <i class="icon-newspaper"></i>
-                            <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Taxonomie</small></span>
-                            <span class="on-desktop no-tablet-portrait no-phone no-tablet">Taxonomie</span>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "Taxonomies")">
-                            <i class="icon-newspaper"></i>
-                            <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Taxonomie</small></span>
-                            <span class="on-desktop no-tablet-portrait no-phone no-tablet">Taxonomie</span>
-                        </a>
-                    </li>
-                }
-                @if (ViewBag.ActiveSidebar == "Imports")
-                {
-                    <li class="active">
-                        <a href="@Url.Action("Index", "ImportContainers")">
-                            <i class="icon-database"></i>
-                            <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Imports</small></span>
-                            <span class="on-desktop no-tablet-portrait no-phone no-tablet">Imports</span>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "ImportContainers")">
-                            <i class="icon-database"></i>
-                            <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Imports</small></span>
-                            <span class="on-desktop no-tablet-portrait no-phone no-tablet">Imports</span>
-                        </a>
-                    </li>
-                }
-                @if (ViewBag.ActiveSidebar == "Companies")
-                {
-                    <li class="active">
-                        <a href="@Url.Action("Index", "Companies")">
-                            <i class="icon-briefcase-2"></i>
-                            <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Companies</small></span>
-                            <span class="on-desktop no-tablet-portrait no-phone no-tablet">Companies</span>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "Companies")">
-                            <i class="icon-briefcase-2"></i>
-                            <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Companies</small></span>
-                            <span class="on-desktop no-tablet-portrait no-phone no-tablet">Companies</span>
-                        </a>
-                    </li>
-                }
+        <ul>
+
+            <li class="title no-desktop no-phone on-tablet"><small>Einrichtung</small></li>
+            <li class="title no-tablet no-phone on-desktop on-large">Einrichtung</li>
+            @if (ViewBag.ActiveSidebar == "GeneralSetting")
+            {
+                <li class="active">
+                    <a href="@Url.Action("Setup", "GeneralSetting")">
+                        <i class="icon-home"></i>
+                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Allgemein</small></span>
+                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Allgemein</span>
+                    </a>
+                </li>
+            }
+            else
+            {
                 <li>
-                    <a href="">
-                        <i class="icon-user"></i>
-                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Benutzer</small></span>
-                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Benutzer</span>
+                    <a href="@Url.Action("Setup", "GeneralSetting")">
+                        <i class="icon-home"></i>
+                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Allgemein</small></span>
+                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Allgemein</span>
                     </a>
                 </li>
+            }
+            @if (ViewBag.ActiveSidebar == "Taxonomies")
+            {
+                <li class="active">
+                    <a href="@Url.Action("Index", "Taxonomies")">
+                        <i class="icon-newspaper"></i>
+                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Taxonomie</small></span>
+                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Taxonomie</span>
+                    </a>
+                </li>
+            }
+            else
+            {
                 <li>
-                    <a href="">
-                        <i class="icon-accessibility"></i>
-                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Rollen</small></span>
-                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Rollen</span>
+                    <a href="@Url.Action("Index", "Taxonomies")">
+                        <i class="icon-newspaper"></i>
+                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Taxonomie</small></span>
+                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Taxonomie</span>
                     </a>
                 </li>
-                @if (ViewBag.ActiveSidebar == "Formulas")
-                {
-                    <li class="active">
-                        <a href="@Url.Action("Index", "Formulas")">
-                            <i class="icon-pencil"></i>
-                            <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Definition Kennzahlen</small></span>
-                            <span class="on-desktop no-tablet-portrait no-phone no-tablet">Definitionen Kennzahlen</span>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "Formulas")">
-                            <i class="icon-pencil"></i>
-                            <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Definition Kennzahlen</small></span>
-                            <span class="on-desktop no-tablet-portrait no-phone no-tablet">Definition Kennzahlen</span>
-                        </a>
-                    </li>
-                }
-                <li style=" border: none;">
-                    <a href="">
-                        <i class="icon-bars"></i>
-                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Visuelle Darstellung</small></span>
-                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Visuelle Darstellung</span>
+            }
+            @if (ViewBag.ActiveSidebar == "Imports")
+            {
+                <li class="active">
+                    <a href="@Url.Action("Index", "ImportContainers")">
+                        <i class="icon-database"></i>
+                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Imports</small></span>
+                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Imports</span>
                     </a>
                 </li>
-            </ul>
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Action("Index", "ImportContainers")">
+                        <i class="icon-database"></i>
+                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Imports</small></span>
+                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Imports</span>
+                    </a>
+                </li>
+            }
+            @if (ViewBag.ActiveSidebar == "Companies")
+            {
+                <li class="active">
+                    <a href="@Url.Action("Index", "Companies")">
+                        <i class="icon-briefcase-2"></i>
+                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Companies</small></span>
+                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Companies</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Action("Index", "Companies")">
+                        <i class="icon-briefcase-2"></i>
+                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Companies</small></span>
+                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Companies</span>
+                    </a>
+                </li>
+            }
+            <li>
+                <a href="">
+                    <i class="icon-user"></i>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Benutzer</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Benutzer</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i class="icon-accessibility"></i>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Rollen</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Rollen</span>
+                </a>
+            </li>
+            @if (ViewBag.ActiveSidebar == "Formulas")
+            {
+                <li class="active">
+                    <a href="@Url.Action("Index", "Formulas")">
+                        <i class="icon-pencil"></i>
+                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Definition Kennzahlen</small></span>
+                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Definitionen Kennzahlen</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Action("Index", "Formulas")">
+                        <i class="icon-pencil"></i>
+                        <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Definition Kennzahlen</small></span>
+                        <span class="on-desktop no-tablet-portrait no-phone no-tablet">Definition Kennzahlen</span>
+                    </a>
+                </li>
+            }
+            <li style=" border: none;">
+                <a href="">
+                    <i class="icon-bars"></i>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Visuelle Darstellung</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Visuelle Darstellung</span>
+                </a>
+            </li>
+        </ul>
 </nav>

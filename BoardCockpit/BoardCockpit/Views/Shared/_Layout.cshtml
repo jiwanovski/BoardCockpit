@@ -57,16 +57,18 @@
         </header>
         <div class="grid fluid">
             <div class="row">
-                @if (ViewBag.Sidebar == true)
-            {
-                <div class="span2">
+                                @if (ViewBag.Sidebar == true)
+                {
+                    <div class="span2" style=" position:fixed; top: 65px; left: 10px; border:inherit; background:border-box;">
                         @RenderPage("Sidebar.cshtml")
                     </div>
-                @*<div class="span9">*@
-                    <div id="MainBody" class="container body-content span9" style="left: 1000px;">
+                
+               @*<div class="span9">*@
+                    <div id="MainBody" class="container body-content span9 offset2">
                             @RenderBody()
                         </div>
                 @*</div>*@
+
             }
             else
             {
