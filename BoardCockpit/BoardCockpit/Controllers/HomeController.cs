@@ -45,16 +45,46 @@ namespace BoardCockpit.Controllers
             List<Formula> formulas = db.Formulas.ToList();
             List<SelectListItem> items = new List<SelectListItem>();
             //int i = 0;
+            Formula first = formulas.First();
             foreach (Formula item in formulas)
             {
+
+                if (item.Equals(first))
+                {
+                    Formulas = item.FormulaID.ToString();
+                    items.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.FormulaID.ToString(),
+                        Selected = true
+
+                    });
+                }
+                else
+                {
                 items.Add(new SelectListItem
-                                    {
-                                        Text = item.Name,
-                                        Value = item.FormulaID.ToString()
-                                    });
+                                  {
+                                		Text = item.Name,
+                                        Value = item.FormulaID.ToString()     
+                                        
+                                });
+                }
                 
             }
             ViewBag.Formulas = items;
+
+            string Formularname, Einheit = "INITIAL";
+            if (Formulas == null)
+            {
+                Formularname = "Bitte eine Kennzahl wählen.";
+                Einheit = "#";
+            }
+            else
+            {
+                Formula selectedformula = db.Formulas.Find(Convert.ToInt32(Formulas));
+                Formularname = selectedformula.Name.ToString();
+                Einheit = selectedformula.Unit.ToString();
+            };
 
             List<List<ReportingValues>> totalReportingValues = new List<List<ReportingValues>>();
             List<string> categories = new List<string>();
@@ -112,15 +142,18 @@ namespace BoardCockpit.Controllers
                 //List<ReportingValues> reportingValues2 = new List<ReportingValues>(reportingValues);
                 //totalReportingValues.Add(reportingValues2);
                 //reportingValues.Clear();
+
                 var nodeValues = from test2 in reportingValues
                                  select (object)test2.Value;
                 testSeries.Add(new Series
                 {
                     Name = company.Name,
-                    Data = new Data(nodeValues.ToArray())
+                    Data = new Data(nodeValues.ToArray()),
+               
                 });
                 reportingValues.Clear();
             }
+                
 
             Highcharts chart = new Highcharts("chart")
                 .InitChart(new Chart
@@ -132,18 +165,18 @@ namespace BoardCockpit.Controllers
                 })
                 .SetTitle(new Title
                 {
-                    Text = "Monthly Average Temperature",
+                    Text = Formularname,
                     X = -20
                 })
                 .SetSubtitle(new Subtitle
                 {
-                    Text = "Source: WorldClimate.com",
+                    Text = "Source: Bundesanzeigerverla",
                     X = -20
                 })
                 .SetXAxis(new XAxis { Categories = categories.ToArray() })
                 .SetYAxis(new YAxis
                 {
-                    Title = new YAxisTitle { Text = "Temperature (°C)" },
+                    Title = new YAxisTitle { Text = Einheit },
                     PlotLines = new[]
                     {
                         new YAxisPlotLines
@@ -158,7 +191,7 @@ namespace BoardCockpit.Controllers
                 {
                     Formatter = @"function() {
                                         return '<b>'+ this.series.name +'</b><br/>'+
-                                    this.x +': '+ this.y +'°C';
+                                    this.x +': '+ this.y + ' ' + this.series.ValuePrefix ;
                                 }"
                 })
                 .SetLegend(new Legend

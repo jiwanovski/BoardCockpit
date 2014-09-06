@@ -6,7 +6,8 @@
             <li class="active">
                 <a href="@Url.Action("Setup", "GeneralSetting")">
                     <i class="icon-home"></i>
-                    <span class="no-phone">Allgemein</span>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Allgemein</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Allgemein</span>
                 </a>
             </li>
         }
@@ -15,7 +16,8 @@
             <li>
                 <a href="@Url.Action("Setup", "GeneralSetting")">
                     <i class="icon-home"></i>
-                    <span class="no-phone">Allgemein</span>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Allgemein</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Allgemein</span>
                 </a>
             </li>
         }
@@ -24,7 +26,8 @@
             <li class="active">
                 <a href="@Url.Action("Index", "Taxonomies")">
                     <i class="icon-newspaper"></i>
-                    <span class="no-phone">Taxonomie</span>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Taxonomie</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Taxonomie</span>
                 </a>
             </li>
         }
@@ -33,7 +36,8 @@
             <li>
                 <a href="@Url.Action("Index", "Taxonomies")">
                     <i class="icon-newspaper"></i>
-                    <span class="no-phone">Taxonomie</span>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Taxonomie</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Taxonomie</span>
                 </a>
             </li>
         }
@@ -42,7 +46,8 @@
             <li class="active">
                 <a href="@Url.Action("Index", "ImportContainers")">
                     <i class="icon-database"></i>
-                    <span class="no-phone">Imports</span>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Imports</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Imports</span>
                 </a>
             </li>
         }
@@ -51,7 +56,8 @@
             <li>
                 <a href="@Url.Action("Index", "ImportContainers")">
                     <i class="icon-database"></i>
-                    <span class="no-phone">Imports</span>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Imports</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Imports</span>
                 </a>
             </li>
         }
@@ -60,7 +66,8 @@
             <li class="active">
                 <a href="@Url.Action("Index", "Companies")">
                     <i class="icon-briefcase-2"></i>
-                    <span class="no-phone">Companies</span>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Companies</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Companies</span>
                 </a>
             </li>
         }
@@ -69,28 +76,32 @@
             <li>
                 <a href="@Url.Action("Index", "Companies")">
                     <i class="icon-briefcase-2"></i>
-                    <span class="no-phone">Companies</span>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Companies</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Companies</span>
                 </a>
             </li>
         }
         <li>
             <a href="">
                 <i class="icon-user"></i>
-                <span class="no-phone">Benutzerverwaltung</span>
+                <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Benutzerverwaltung</small></span>
+                <span class="on-desktop no-tablet-portrait no-phone no-tablet">Benutzerverwaltung</span>
             </a>
         </li>
         <li>
             <a href="">
                 <i class="icon-accessibility"></i>
-                <span class="no-phone">Rollenverwaltung</span>
+                <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Rollenverwaltung</small></span>
+                <span class="on-desktop no-tablet-portrait no-phone no-tablet">Rollenverwaltung</span>
             </a>
         </li>
         @if (ViewBag.ActiveSidebar == "Formulas")
-        {
+{
             <li class="active">
                 <a href="@Url.Action("Index", "Formulas")">
                     <i class="icon-pencil"></i>
-                    <span class="no-phone">Kennzahlendefinition</span>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Kennzahlendefinition</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Kennzahlendefinition</span>
                 </a>
             </li>
         }
@@ -99,14 +110,16 @@
             <li>
                 <a href="@Url.Action("Index", "Formulas")">
                     <i class="icon-pencil"></i>
-                    <span class="no-phone">Kennzahlendefinition</span>
+                    <span class="on-tablet no-tablet-portrait no-desktop no-phone" ><small>Kennzahlendefinition</small></span>
+                    <span class="on-desktop no-tablet-portrait no-phone no-tablet">Kennzahlendefinition</span>
                 </a>
             </li>
         }
         <li>
             <a href="">
                 <i class="icon-bars"></i>
-                <span class="no-phone">Visuelle Darstellung</span>
+                <span class="on-tablet no-tablet-portrait no-desktop no-phone"><small>Visuelle Darstellung</small></span>
+                <span class="on-desktop no-tablet-portrait no-phone no-tablet">Visuelle Darstellung</span>
             </a>
         </li>
     </ul>

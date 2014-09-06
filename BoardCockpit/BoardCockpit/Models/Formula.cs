@@ -18,9 +18,9 @@ namespace BoardCockpit.Models
 
     public enum UnitEnum : byte
     {
-        [Display(Name = "Prozent")]
+        [Display(Name = "%")]
         PerCent = 1,
-        [Display(Name = "Währung")]
+        [Display(Name = "€")]
         Currency = 2,
         [Display(Name = "Tage")]
         Days = 3
