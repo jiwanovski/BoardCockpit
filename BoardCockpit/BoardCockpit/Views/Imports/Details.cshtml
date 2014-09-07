@@ -5,12 +5,34 @@
 @{
     ViewBag.Title = "Details";
 }
+@section CustomJS{
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    @*<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>*@
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                searching: true,
+                ordering: true,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/725b2a2115b/i18n/German.json'
+                }
+            });
+        });
+    </script>
+}
 
 <h2>Details</h2>
 <div class="row">
     <div class="tile half bg-cyan">
         <div class="tile-content icon">
-            <a href="@Url.Action("Index")">
+            <a href="@Url.Action("IndexForContainer", "Imports", new { importContainerId = Model.Import.ImportContainerID}, null)">
                 <i class="icon-undo"></i>
             </a>
         </div>
@@ -52,25 +74,32 @@
 
 @if (Model.ImportNodes != null)
 {
-    <h3>Knoten des Imports:</h3>
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>ContextRef</th>
-            <th>UnitRef</th>
-            <th>Precision</th>
-            <th>Value</th>
-        </tr>
-        @foreach (var item in Model.ImportNodes)
-        {            
+    <legend>Knoten des Imports:</legend>
+
+    <div class="row"> 
+    <table class="display" id="table_id">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.ContextRef</td>
-                <td>@item.UnitRef</td>
-                <td>@item.Precision</td>
-                <td>@item.Value</td>
+                <th>Name</th>
+                <th>ContextRef</th>
+                <th>UnitRef</th>
+                <th>Precision</th>
+                <th>Value</th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ImportNodes)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.ContextRef</td>
+                    <td>@item.UnitRef</td>
+                    <td>@item.Precision</td>
+                    <td>@item.Value</td>
+                </tr>
+            }
+        </tbody>
     </table>
+</div>
 }
 

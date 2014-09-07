@@ -53,7 +53,7 @@ namespace BoardCockpit.Controllers
                     db.Entry(generalSetting).State = EntityState.Modified;
                 }
                 db.SaveChanges();
-                return View(generalSetting);
+                return RedirectToAction("Setup", new { status = "edit" });
             }
             
             return View(generalSetting);

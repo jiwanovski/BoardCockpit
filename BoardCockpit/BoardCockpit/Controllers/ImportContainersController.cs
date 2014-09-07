@@ -69,7 +69,7 @@ namespace BoardCockpit.Controllers
                 db.ImportContainers.Add(importContainer);
                 db.SaveChanges();
                 //return RedirectToAction("Index");
-                return RedirectToAction("Upload", new { ImportContainerID = importContainer.ImportContainerID });
+                return RedirectToAction("Upload", new { ImportContainerID = importContainer.ImportContainerID, status = "new" });
             }
 
             return View(importContainer);

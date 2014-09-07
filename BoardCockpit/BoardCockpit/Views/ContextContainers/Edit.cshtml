@@ -8,7 +8,7 @@
 <div class="row">
     <div class="tile half bg-cyan">
         <div class="tile-content icon">
-            <a href="@Url.Action("Index")">
+            <a href="@Url.Action("Details", new { id = Model.ContextContainerID })">
                 <i class="icon-undo"></i>
             </a>
         </div>
@@ -56,6 +56,3 @@
 </div>
     }
 </div>
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>

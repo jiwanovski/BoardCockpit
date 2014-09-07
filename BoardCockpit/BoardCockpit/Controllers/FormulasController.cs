@@ -68,7 +68,7 @@ namespace BoardCockpit.Controllers
             {
                 db.Formulas.Add(formula);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new {status = "new" });
             }
 
             ChartType chartTypes = formula.ChartType;
@@ -115,7 +115,7 @@ namespace BoardCockpit.Controllers
             {
                 db.Entry(formula).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { status = "edit" });
             }
             ChartType chartTypes = formula.ChartType;
             ViewBag.ChartType = chartTypes.ToSelectList();
@@ -151,7 +151,7 @@ namespace BoardCockpit.Controllers
             Formula formula = db.Formulas.Find(id);
             db.Formulas.Remove(formula);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { status = "delete" });
         }
 
         protected override void Dispose(bool disposing)

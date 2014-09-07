@@ -26,53 +26,61 @@
     </script>
 }
 <h2>Index</h2>
-
-<div class="tile half bg-cyan">
-    <div class="tile-content icon">
-        <a href="@Url.Action("Create",new { formulaID = ViewBag.FormulaID })">
-            <i class="icon-plus-2"></i>
-        </a>
+<div class="row">
+    <div class="tile half bg-cyan">
+        <div class="tile-content icon">
+            <a href="@Url.Action("Index","Formulas")">
+                <i class="icon-undo"></i>
+            </a>
+        </div>
+    </div>
+    <div class="tile half bg-cyan">
+        <div class="tile-content icon">
+            <a href="@Url.Action("Create",new { formulaID = ViewBag.FormulaID })">
+                <i class="icon-plus-2"></i>
+            </a>
+        </div>
     </div>
 </div>
-<br />
+    <br />
 
 
-<table class="display" id="table_id">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Formula.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FormulaExpression)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="display" id="table_id">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Formula.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FormulaExpression)
-                </td>
-                <td>
-                    <div class="toolbar transparent">
-                        <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", new { id = item.FormulaDetailID })'" data-hint="Öffnen|Klicken Sie zum Öffnen." data-hint-position="top">
-                            <i class="icon-folder-2 on-left">
-                            </i>
-                        </button>
-                        <span class="divider"></span>
-                        <button class="toolbar fg-red" onclick="location.href='@Url.Action("Delete", new { id = item.FormulaDetailID })'" data-hint="Löschen|Klicken Sie zum Löschen." data-hint-position="top">
-                            <i class="icon-remove">
-                            </i>
-                        </button>
-                    </div>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Formula.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FormulaExpression)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Formula.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FormulaExpression)
+                    </td>
+                    <td>
+                        <div class="toolbar transparent">
+                            <button class="toolbar transparent" onclick="location.href='@Url.Action("Edit", new { id = item.FormulaDetailID })'" data-hint="Ändern|Klicken Sie zum Ändern." data-hint-position="top">
+                                <i class="icon-pencil on-left">
+                                </i>
+                            </button>
+                            <span class="divider"></span>
+                            <button class="toolbar fg-red" onclick="location.href='@Url.Action("Delete", new { id = item.FormulaDetailID })'" data-hint="Löschen|Klicken Sie zum Löschen." data-hint-position="top">
+                                <i class="icon-remove">
+                                </i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

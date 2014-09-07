@@ -29,60 +29,70 @@
     Index
 </h2>
 
-<div class="tile half bg-cyan">
-    <div class="tile-content icon">
-        <a href="@Url.Action("Create")">
-            <i class="icon-plus-2"></i>
-        </a>
+<div class="row">
+    <div class="tile half bg-cyan">
+        <div class="tile-content icon">
+            <a href="@Url.Action("Index", "ImportContainers")">
+                <i class="icon-undo"></i>
+            </a>
+        </div>
+    </div>
+    <div class="tile half bg-cyan">
+        <div class="tile-content icon">
+            <a href="@Url.Action("Create")">
+                <i class="icon-plus-2"></i>
+            </a>
+        </div>
     </div>
 </div>
 <br />
 
-
-<table class="display" id="table_id">
-    <thead>
-        <tr>
-            <th style="text-align:left">
-                @Html.DisplayNameFor(model => model.FileName)
-            </th>
-            <th style="text-align:left">
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th style="text-align:left">
-                @Html.DisplayNameFor(model => model.Error)
-            </th>
-            <th style="text-align:left">
-                Aktionen
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="row">
+    <table class="display" id="table_id">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FileName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Error)
-                </td>
-                <td>
-                    <div class="toolbar transparent">
-                        <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", new { id = item.ImportID })'" data-hint="Öffnen|Klicken Sie zum Öffnen." data-hint-position="top">
-                            <i class="icon-folder-2 on-left">
-                            </i>
-                        </button>
-                        <span class="divider"></span>
-                        <button class="toolbar fg-red" onclick="location.href='@Url.Action("Delete", new { id = item.ImportID })'" data-hint="Löschen|Klicken Sie zum Löschen." data-hint-position="top">
-                            <i class="icon-remove">
-                            </i>
-                        </button>
-                    </div>
-                </td>
+                <th style="text-align:left">
+                    @Html.DisplayNameFor(model => model.FileName)
+                </th>
+                <th style="text-align:left">
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th style="text-align:left">
+                    @Html.DisplayNameFor(model => model.Error)
+                </th>
+                <th style="text-align:left">
+                    Aktionen
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FileName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Error)
+                    </td>
+                    <td>
+                        <div class="toolbar transparent">
+                            <button class="toolbar transparent" onclick="location.href='@Url.Action("Details", new { id = item.ImportID })'" data-hint="Öffnen|Klicken Sie zum Öffnen." data-hint-position="top">
+                                <i class="icon-folder-2 on-left">
+                                </i>
+                            </button>
+                            <span class="divider"></span>
+                            <button class="toolbar fg-red" onclick="location.href='@Url.Action("Delete", new { id = item.ImportID })'" data-hint="Löschen|Klicken Sie zum Löschen." data-hint-position="top">
+                                <i class="icon-remove">
+                                </i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
