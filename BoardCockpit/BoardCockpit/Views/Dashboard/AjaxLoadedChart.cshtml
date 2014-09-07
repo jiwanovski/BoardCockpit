@@ -27,25 +27,25 @@
     var fromYear = 2008;
     allVisits = [];
 
-    
+
     //$.getJSON("GetPeriod", null, function (data) {
     //    arr = JSON.parse(data);
     //    alert(arr[0])
     //});
-    $.ajax({
-        type: "POST",
-        url: "/Dashboard/SetPeriod",
-        data: { _fromYear: fromYear, _toYear: toYear },
-        dataType: 'html',
-        success: function (html) {
-            // never gets hit if EmptyResult();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            // never gets hit until page navigation, which aborts this call
-        }
-    });
+    //$.ajax({
+    //    type: "POST",
+    //    url: "/Dashboard/SetPeriod",
+    //    data: { _fromYear: fromYear, _toYear: toYear },
+    //    dataType: 'html',
+    //    success: function (html) {
+    //        // never gets hit if EmptyResult();
+    //    },
+    //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //        // never gets hit until page navigation, which aborts this call
+    //    }
+    //});
 
-    $.getJSON("GetPeriod", { fromYear: "2008", toYear: "2010" }, function (data) {
+    @*$.getJSON("GetPeriod", { fromYear: "2008", toYear: "2010" }, function (data) {
         //var items = [];
         //$.each(data, function (key, val) {
         //    items.push("<li id='" + key + "'>" + val + "</li>");
@@ -56,9 +56,9 @@
         //    html: items.join("")
         //}).appendTo("body");
         categories = data;
-        chart.xAxis[0].setCategories(data);
+        @ViewBag.ChartName@:.xAxis[0].setCategories(data);
         //alert(categories[0]);
-    });
+    });*@
 
     //$.getJSON("GetCompanies", function (data2) {
 
@@ -72,11 +72,12 @@
                 @:point.push(val.Value);
                 @:chartData2.push(point);
             @:});
+
             @:if (chartData2.length > 0) {
-            @:  chart.addSeries({ name: '@Model.Companies.ElementAt(i).Name', data: chartData2 });
+                @ViewBag.ChartName@:.addSeries({ name: '@Model.Companies.ElementAt(i).Name', data: chartData2 });
             @:}
             @:chartData2 = [];
         @:});
-    }    
+    }
 </script>
 

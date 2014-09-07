@@ -32,13 +32,27 @@ namespace BoardCockpit.Controllers
             viewModel.Companies = db.Companies.Include(i => i.ContextContainers).ToList();
             viewModel.ContextContainers = db.ContextContainers.Include(i => i.CalculatedKPIs).Include(i => i.Contexts).Include(i => i.Company).ToList();
 
+            List<Formula> formulas = db.Formulas.ToList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            //int i = 0;
+            foreach (Formula item in formulas)
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.FormulaID.ToString()
+                });
+
+            }
+            ViewBag.Formulas = items;
+
             Highcharts chart = new Highcharts("chart");
-            ViewBag.Chart = AjaxLoadedChart();
+            //ViewBag.Chart = AjaxLoadedChart();
             return View(viewModel);
         }
 
-        //public ActionResult AjaxLoadedChart()
-        public Highcharts AjaxLoadedChart()
+        public ActionResult AjaxLoadedChart(string chartName)
+        //public Highcharts AjaxLoadedChart()
         {
             List<Formula> formulas = db.Formulas.ToList();
             List<SelectListItem> items = new List<SelectListItem>();
@@ -73,8 +87,9 @@ namespace BoardCockpit.Controllers
             List<DotNet.Highcharts.Options.Series> test = new List<DotNet.Highcharts.Options.Series>();
             //test.Add(new DotNet.Highcharts.Options.Series { Name = "Test" });
             chart.DataSeries = test;
-            ViewBag.Graph = chart.GetChart();
-            return chart.GetChart();
+            ViewBag.Graph = chart.GetChart(chartName);
+            ViewBag.ChartName = chartName;
+            return PartialView(viewModel);
         }
 
         public EmptyResult SetPeriod(string _fromYear, string _toYear)

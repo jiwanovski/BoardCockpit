@@ -139,12 +139,15 @@
             <div class="span6">
                 <div class="panel" data-role="panel">
                     <div class="panel-header bg-lightBlue fg-white">
-                        Grafik 1
+                        Grafik 1                        
                     </div>
                     <div class="panel-content">
-                        @*@Html.Action("AjaxLoadedChart")*@
-                        @(ViewBag.Chart)
-                    </div>
+                        <div class="input-control select">
+                            @Html.DropDownList("Formulas", null, new { @id = "Formulas1" })
+                        </div>
+                            @Html.Action("AjaxLoadedChart", new { chartName = "chart" })
+                            @*@(ViewBag.Chart)*@
+                        </div>
                 </div>
             </div>
             <div class="span6">
@@ -153,7 +156,8 @@
                         Grafik 2
                     </div>
                     <div class="panel-content">
-                        @(ViewBag.Chart)
+                        @Html.Action("AjaxLoadedChart", new { chartName = "chart2" })
+                        @*@(ViewBag.Chart)*@
                     </div>
                 </div>
             </div>
@@ -236,6 +240,14 @@
 </div>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#Formulas1').change(function () {
+            alert(this.value);
+        });
+    });
+</script>
+    @*<script type="text/javascript">
     var categories;
     var chartdata;
     var chartData2 = [];
@@ -262,36 +274,31 @@
     });
 
     $.getJSON("GetPeriod", { fromYear: "2008", toYear: "2010" }, function (data) {
-        //var items = [];
-        //$.each(data, function (key, val) {
-        //    items.push("<li id='" + key + "'>" + val + "</li>");
-        //});
 
-        //$("<ul/>", {
-        //    "class": "my-new-list",
-        //    html: items.join("")
-        //}).appendTo("body");
         categories = data;
         chart.xAxis[0].setCategories(data);
-        //alert(categories[0]);
+
     });
 
     //$.getJSON("GetCompanies", function (data2) {
 
     //$.each(data2, function (key2, val2 ) {
-    @for(int i = 0; i < Model.Companies.Count(); i ++)
+    SetChartData(chart);
+    SetChartData(chart2);
+    function SetChartData(chartName)
+        @for(int i = 0; i < Model.Companies.Count(); i ++)
     {
         @:$.getJSON("GetAjaxLoadedChartData", { companyID: @Model.Companies.ElementAt(i).CompanyID, formulaID: "2", fromYear: "2008", toYear: "2010" },function (data) {
-                    @:$.each(data, function (key, val) {
-                            @:var point = [];
-                            @:point.push(val.Year);
-                            @:point.push(val.Value);
-                            @:chartData2.push(point);
-                        @:});
-                    @:if (chartData2.length > 0) {
-                        @:  chart.addSeries({ name: '@Model.Companies.ElementAt(i).Name', data: chartData2 });
-                        @:}
-                    @:chartData2 = [];
-                @:});
-        }
-</script>
+                                @:$.each(data, function (key, val) {
+                                            @:var point = [];
+                                            @:point.push(val.Year);
+                                            @:point.push(val.Value);
+                                            @:chartData2.push(point);
+                                        @:});
+                                @:if (chartData2.length > 0) {
+                                        @:  chartname.addSeries({ name: '@Model.Companies.ElementAt(i).Name', data: chartData2 });//chart.addSeries({ name: '@Model.Companies.ElementAt(i).Name', data: chartData2 });
+                                        @:}
+                                @:chartData2 = [];
+                            @:});
+                }
+</script>*@

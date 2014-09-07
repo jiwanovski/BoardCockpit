@@ -43,9 +43,9 @@ namespace BoardCockpit.Helpers
         #endregion
 
         #region global functions
-        public Highcharts GetChart()
+        public Highcharts GetChart(string chartName)
         {
-            chart = new Highcharts("chart")
+            chart = new Highcharts(chartName)
                 // OK
                 .SetTitle(new Title { Text = title })
                 // OK
