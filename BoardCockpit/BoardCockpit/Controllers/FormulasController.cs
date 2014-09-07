@@ -96,7 +96,9 @@ namespace BoardCockpit.Controllers
             ChartType chartTypes = formula.ChartType;
             ViewBag.ChartType = chartTypes.ToSelectList();
             UnitEnum unitEnum = new UnitEnum();
-            ViewBag.Unit = unitEnum.ToSelectList();
+            SelectList unitSelectList = unitEnum.ToSelectList();
+            //unitSelectList.SelectedValue = formula.Unit;
+            //ViewBag.Unit = unitSelectList;
             return View(formula);
         }
 
@@ -117,8 +119,8 @@ namespace BoardCockpit.Controllers
             }
             ChartType chartTypes = formula.ChartType;
             ViewBag.ChartType = chartTypes.ToSelectList();
-            UnitEnum unitEnum = new UnitEnum();
-            ViewBag.Unit = unitEnum.ToSelectList();
+            //UnitEnum unitEnum = new UnitEnum();
+            //ViewBag.Unit = unitEnum.ToSelectList();
             return View(formula);
         }
 
