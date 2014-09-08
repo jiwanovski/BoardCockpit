@@ -100,7 +100,7 @@ namespace BoardCockpit.Controllers
             {
                 db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new {status = "edit" });
+                return RedirectToAction("Details", new { id = company.CompanyID , status = "edit" });
             }
             return View(company);
         }
