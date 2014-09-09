@@ -44,14 +44,19 @@ namespace BoardCockpit.Controllers
                 });
 
             }
-            ViewBag.Formulas = items;
+            ViewBag.Formulas1 = items;
+            ViewBag.Formulas2 = items;
+            ViewBag.Formulas3 = items;
+            ViewBag.Formulas4 = items;
+            ViewBag.FromPeriod = "2008";
+            ViewBag.ToPeriod = "2009";
 
             Highcharts chart = new Highcharts("chart");
             //ViewBag.Chart = AjaxLoadedChart();
             return View(viewModel);
         }
 
-        public ActionResult AjaxLoadedChart(string chartName)
+        public ActionResult AjaxLoadedChart(string chartName, string formulaID)
         //public Highcharts AjaxLoadedChart()
         {
             List<Formula> formulas = db.Formulas.ToList();
@@ -66,7 +71,11 @@ namespace BoardCockpit.Controllers
                 });
 
             }
-            ViewBag.Formulas = items;
+            ViewBag.Formulas1 = items;
+            ViewBag.Formulas2 = items;
+            ViewBag.Formulas3 = items;
+            ViewBag.Formulas4 = items;
+            ViewBag.FormulaID = formulaID;
 
             var viewModel = new DashboardData();
             viewModel.Companies = db.Companies.Include(i => i.ContextContainers).ToList();
