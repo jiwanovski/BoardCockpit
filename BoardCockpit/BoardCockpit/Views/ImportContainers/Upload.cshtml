@@ -6,13 +6,14 @@
     var toggleUi = ui == UploadUI.Bootstrap ? "jquery" : "bootstrap";
 }
 
-<h2>Upload</h2>
+<legend>Upload</legend>
+
 
 <div class="well">
-    <legend>Upload Dialog with return url on closing</legend>
-    <p class="help-block">jpg/png size max 5 MB</p>
-    @(
-         Html.MvcFileUpload()
+    <p class ="help-block"> Upload Dialog with return url on closing</p>
+    <p>jpg/png size max 5 MB</p>
+        @(
+ Html.MvcFileUpload()
                             .UploadAt(Url.Action("UploadFile"))
                             .UIStyle(ui)
                             .ReturnAt("/ImportContainers/Index")
@@ -21,9 +22,13 @@
                             .AddFormField("entityId", "13")
                             .AddFormField("importContainerID", ViewBag.ImportContainerID.ToString())
                             .RenderInline("_MvcFileupload")
-                //.RenderPopup("Upload Button Label", "#dlgFileUpload", new { @class = "btn btn-large btn-primary" })
-    )
+        //.RenderPopup("Upload Button Label", "#dlgFileUpload", new { @class = "btn btn-large btn-primary" })
+        )
 </div>
+
+
+
+
 
 
 

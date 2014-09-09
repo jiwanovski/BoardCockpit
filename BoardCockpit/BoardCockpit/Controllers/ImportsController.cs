@@ -143,7 +143,7 @@ namespace BoardCockpit.Controllers
             Import import = db.Imports.Find(id);
             db.Imports.Remove(import);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Details", new { status = "delete" });
         }
 
         protected override void Dispose(bool disposing)

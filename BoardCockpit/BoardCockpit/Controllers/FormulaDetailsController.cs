@@ -87,7 +87,7 @@ namespace BoardCockpit.Controllers
                         db.Entry(formulaDetail).State = EntityState.Modified;
                         db.SaveChanges();
 
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index", "FormulaDetails", new {id = formulaDetail.FormulaID, status = "new" });
                     }
                     catch (RetryLimitExceededException /* dex */)
                     {
@@ -178,7 +178,7 @@ namespace BoardCockpit.Controllers
                     db.Entry(formulaDetailToUpdate).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { id = formulaDetailToUpdate.FormulaID});
                 }
                 catch (RetryLimitExceededException /* dex */)
                 {
@@ -248,7 +248,7 @@ namespace BoardCockpit.Controllers
             FormulaDetail formulaDetail = db.FormulaDetails.Find(id);
             db.FormulaDetails.Remove(formulaDetail);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "FormulaDetails", new {id = formulaDetail.FormulaID, status = "delete" });
         }
 
         protected override void Dispose(bool disposing)

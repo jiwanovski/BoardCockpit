@@ -101,7 +101,7 @@ namespace BoardCockpit.Controllers
             {
                 db.Entry(contextContainer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = contextContainer.ContextContainerID, status = "edit" });
             }
             ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "Name", contextContainer.CompanyID);
             return View(contextContainer);

@@ -62,7 +62,7 @@ namespace BoardCockpit.Controllers
             {
                 db.Companies.Add(company);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { status = "new" });
             }
             
 
@@ -100,7 +100,7 @@ namespace BoardCockpit.Controllers
             {
                 db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = company.CompanyID , status = "edit" });
             }
             return View(company);
         }
@@ -131,7 +131,7 @@ namespace BoardCockpit.Controllers
             Company company = db.Companies.Find(id);
             db.Companies.Remove(company);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { status = "delete" });
         }
 
         protected override void Dispose(bool disposing)
