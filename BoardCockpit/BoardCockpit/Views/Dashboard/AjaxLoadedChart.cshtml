@@ -65,7 +65,7 @@
     //$.each(data2, function (key2, val2 ) {
     @for(int i = 0; i < Model.Companies.Count(); i ++)
     {
-        @:$.getJSON("GetAjaxLoadedChartData", { companyID: @Model.Companies.ElementAt(i).CompanyID, formulaID: "2", fromYear: "2008", toYear: "2010" },function (data) {
+        @:$.getJSON("GetAjaxLoadedChartData", { companyID: @Model.Companies.ElementAt(i).CompanyID, formulaID: @ViewBag.FormulaID, fromYear: "2008", toYear: "2010" },function (data) {
             @:$.each(data, function (key, val) {
                 @:var point = [];
                 @:point.push(val.Year);

@@ -143,9 +143,11 @@
                     </div>
                     <div class="panel-content">
                         <div class="input-control select">
-                            @Html.DropDownList("Formulas", null, new { @id = "Formulas1" })
+                            @Html.DropDownList("Formulas1", null, new { @id = "Formulas1" })
                         </div>
+                        <div id="divGraph1">
                             @Html.Action("AjaxLoadedChart", new { chartName = "chart" })
+                        </div>
                             @*@(ViewBag.Chart)*@
                         </div>
                 </div>
@@ -156,9 +158,14 @@
                         Grafik 2
                     </div>
                     <div class="panel-content">
-                        @Html.Action("AjaxLoadedChart", new { chartName = "chart2" })
-                        @*@(ViewBag.Chart)*@
-                    </div>
+                        <div class="input-control select">
+                            @Html.DropDownList("Formulas2", null, new { @id = "Formulas2" })
+                        </div>
+                        <div id="divGraph2">
+                            @Html.Action("AjaxLoadedChart", new { chartName = "chart2" })
+                        </div>
+                            @*@(ViewBag.Chart)*@
+                        </div>
                 </div>
             </div>
         </div>
@@ -170,7 +177,12 @@
                     Grafik 3
                 </div>
                 <div class="panel-content">
-                    @(ViewBag.Chart)
+                    <div class="input-control select">
+                        @Html.DropDownList("Formulas3", null, new { @id = "Formulas3" })
+                    </div>
+                    <div id="divGraph3">
+                        @(ViewBag.Chart)
+                    </div>
                 </div>
             </div>
         </div>
@@ -180,7 +192,12 @@
                     Grafik 4
                 </div>
                 <div class="panel-content">
-                    @(ViewBag.Chart)
+                    <div class="input-control select">
+                        @Html.DropDownList("Formulas4", null, new { @id = "Formulas4" })
+                    </div>
+                    <div id="divGraph4">
+                        @(ViewBag.Chart)
+                    </div>
                 </div>
             </div>
         </div>
@@ -195,7 +212,13 @@
                     Grafik 1
                 </div>
                 <div class="panel-content">
-                    @(ViewBag.Chart)
+                    <div class="input-control select">
+                        @Html.DropDownList("Formulas1", null, new { @id = "Formulas1" })
+                    </div>
+                    <div id="divGraph1">
+                        @*@(ViewBag.Chart)*@
+                        @Html.Action("AjaxLoadedChart", new { chartName = "chart" })
+                    </div>
                 </div>
             </div>
         </div>
@@ -207,7 +230,12 @@
                     Grafik 2
                 </div>
                 <div class="panel-content">
-                    @(ViewBag.Chart)
+                    <div class="input-control select">
+                        @Html.DropDownList("Formulas2", null, new { @id = "Formulas2" })
+                    </div>
+                    <div id="divGraph2">
+                        @(ViewBag.Chart)
+                    </div>
                 </div>
             </div>
         </div>
@@ -220,7 +248,12 @@
                     Grafik 3
                 </div>
                 <div class="panel-content">
-                    @(ViewBag.Chart)
+                    <div class="input-control select">
+                        @Html.DropDownList("Formulas3", null, new { @id = "Formulas3" })
+                    </div>
+                    <div id="divGraph3">
+                        @(ViewBag.Chart)
+                    </div>
                 </div>
             </div>
         </div>
@@ -232,7 +265,12 @@
                     Grafik 4
                 </div>
                 <div class="panel-content">
-                    @(ViewBag.Chart)
+                    <div class="input-control select">
+                        @Html.DropDownList("Formulas4", null, new { @id = "Formulas4" })
+                    </div>
+                    <div id="divGraph4">
+                        @(ViewBag.Chart)
+                    </div>
                 </div>
             </div>
         </div>
@@ -243,7 +281,31 @@
     $(document).ready(function () {
 
         $('#Formulas1').change(function () {
-            alert(this.value);
+            var formulaId = $("#Formulas1").val();
+            @*$("divGraph1").load('@Url.Action("AjaxLoadedChart", "Dashboard", new { chartName: "chart1", formulaID: formulaId })');*@
+            @*$("divGraph1").load('@Url.Action("AjaxLoadedChart", "Dashboard", null, new { chartName: "chart1", formulaID: formulaId })')*@
+            //$.post("/Dashboard/AjaxLoadedChart", { "chartName": "chart1", "formulaID": formulaId }, function (result) {
+
+            //    $("divGraph1").append($(result));
+            //    alert(formulaId);
+            //});
+            
+
+            @*var $detailDiv = $('#divGraph1')
+            url = $(this).data('@Url.Action("AjaxLoadedChart", "Dashboard", new { chartName = "chart1", formulaID = 1 })');
+
+            $.get(url, function(data) {
+                $detailsDiv.replaceWith(data);*@
+            $.ajax({
+                url: "/Dashboard/AjaxLoadedChart",
+                type: "GET",
+                data: { chartName: "chart1", formulaID: formulaId }
+            })
+            .done(function (partialViewResult) {
+                $("#divGraph1").html(partialViewResult);
+            });
+
+            
         });
     });
 </script>

@@ -1,0 +1,65 @@
+﻿
+@model BoardCockpit.ViewModels.DashboardData
+@{
+    ViewBag.Title = "DualAxesAndColumnChart";
+}
+
+<h2>AjaxLoadedChart</h2>
+
+@(ViewBag.Graph)
+
+<script type="text/javascript">
+    var categories;
+    var chartdata;
+    var chartData2 = [];
+    var toYear = 2010;
+    var fromYear = 2008;
+
+
+    @*$.getJSON("GetDualAxesLineAndColumnChartCatagories", {year: "2008"}, function (data2) {
+            @{
+
+                @ViewBag.ChartName@:.xAxis[0].update({categories: data2},true);
+            }
+    });*@
+
+
+    $.getJSON("GetDualAxesLineAndColumnChartData", {companyID: "7", formulaID: @ViewBag.FormulaID, fromYear: "2008", toYear: "2009" },function (data) {
+        var gType;
+        $.each(data, function (key, val) {
+            //alert(val);
+            @{
+            @:  
+            @:  var chartData2 = [];
+            @:  if (val.Type == 4)
+            @:  {
+            @:      gType = 'column';
+            @:  }
+            @:  if (val.Type == 1)
+            @:  {
+            @:      gType = 'spline';
+            @:  }
+            @:  var arr = val.Data;
+            @:  $.each(arr, function (key2, val2) {
+            @:      var arr2 = val2;
+            @:      if (arr2 != null) {
+            @:          $.each(arr2, function (key3, val3) {                
+            @:              var point = [];
+            @:              point.push(val3.Year);
+            @:              point.push(val3.Value);
+            @:              chartData2.push(point);
+            @:          });
+            @:      };
+            @:  });              
+            @: if (val.YAxis == null) {            
+                @ViewBag.ChartName@:.addSeries({ name: val.Name, data: chartData2, color: val.color, type: gType});            
+            @: } else {
+                @ViewBag.ChartName@:.addSeries({ name: val.Name, data: chartData2, color: val.color, type: gType, yAxis: parseInt(val.YAxis) });
+            @:}
+            }
+
+        });
+    });
+
+    // }
+</script>

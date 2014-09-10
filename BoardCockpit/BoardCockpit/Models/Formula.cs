@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -10,9 +11,9 @@ namespace BoardCockpit.Models
     {
         [Display(Name = "Liniendiagramm")]
         AjaxLoadedDataClickablePoints = 1,
-        [Display(Name = "Linien- und Balkendiagramm")]
-        FixedPlacementColumn = 2,
         [Display(Name = "Balkendiagramm")]
+        FixedPlacementColumn = 2,
+        [Display(Name = "Linien- und Balkendiagramm")]
         DualAxesLineAndColumn = 3
     }
 
@@ -40,9 +41,14 @@ namespace BoardCockpit.Models
 
         public UnitEnum Unit { get; set; }
 
+        //[ForeignKey("LinkedFormula")]
+        public int? LinkedFormulaID {get; set;}
+
         [Display(Name = "ToolTipDescription", ResourceType = typeof(Resources.Model))]
         public string ToolTipDescription { get; set; }
 
+        [ForeignKey("LinkedFormulaID")]
+        public virtual Formula LinkedFormula { get; set; }
         public virtual ICollection<FormulaDetail> FormulaDetails { get; set; }
     }
 }
