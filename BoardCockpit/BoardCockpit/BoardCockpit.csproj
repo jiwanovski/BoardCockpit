@@ -167,7 +167,6 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FinancialDatasController.cs" />
     <Compile Include="Controllers\FormulaDetailsController.cs" />
-    <Compile Include="Controllers\Formulae2Controller.cs" />
     <Compile Include="Controllers\FormulasController.cs" />
     <Compile Include="Controllers\GeneralSettingController.cs" />
     <Compile Include="Controllers\GenInfoDocumentsController.cs" />
