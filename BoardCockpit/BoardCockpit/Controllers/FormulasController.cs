@@ -21,7 +21,8 @@ namespace BoardCockpit.Controllers
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
-            return View(db.Formulas.ToList());
+            var formulas = db.Formulas.Include(f => f.LinkedFormula);
+            return View(formulas.ToList());
         }
 
         // GET: Formulas/Details/5
@@ -48,6 +49,7 @@ namespace BoardCockpit.Controllers
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
+            ViewBag.LinkedFormulaID = new SelectList(db.Formulas, "FormulaID", "Name");
             ChartType chartTypes = new ChartType();
             ViewBag.ChartType = chartTypes.ToSelectList();
             UnitEnum unitEnum = new UnitEnum();
@@ -60,7 +62,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FormulaID,Name,Description,ChartType,ToolTipDescription,Unit")] Formula formula)
+        public ActionResult Create([Bind(Include = "FormulaID,Name,Description,ChartType,Unit,LinkedFormulaID,ToolTipDescription")] Formula formula)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
@@ -71,6 +73,7 @@ namespace BoardCockpit.Controllers
                 return RedirectToAction("Index", new {status = "new" });
             }
 
+            ViewBag.LinkedFormulaID = new SelectList(db.Formulas, "FormulaID", "Name",formula.LinkedFormulaID);
             ChartType chartTypes = formula.ChartType;
             ViewBag.ChartType = chartTypes.ToSelectList();
             UnitEnum unitEnum = new UnitEnum();
@@ -93,6 +96,7 @@ namespace BoardCockpit.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.LinkedFormulaID = new SelectList(db.Formulas, "FormulaID", "Name", formula.LinkedFormulaID);
             ChartType chartTypes = formula.ChartType;
             ViewBag.ChartType = chartTypes.ToSelectList();
             UnitEnum unitEnum = new UnitEnum();
@@ -107,7 +111,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FormulaID,Name,Description,ChartType,ToolTipDescription,Unit")] Formula formula)
+        public ActionResult Edit([Bind(Include = "FormulaID,Name,Description,ChartType,Unit,LinkedFormulaID,ToolTipDescription")] Formula formula)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
@@ -121,6 +125,7 @@ namespace BoardCockpit.Controllers
             ViewBag.ChartType = chartTypes.ToSelectList();
             //UnitEnum unitEnum = new UnitEnum();
             //ViewBag.Unit = unitEnum.ToSelectList();
+            ViewBag.LinkedFormulaID = new SelectList(db.Formulas, "FormulaID", "Name", formula.LinkedFormulaID);
             return View(formula);
         }
 
