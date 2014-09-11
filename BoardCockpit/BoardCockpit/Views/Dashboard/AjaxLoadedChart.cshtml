@@ -3,20 +3,6 @@
     ViewBag.Title = "AjaxLoadedChart";
 }
 
-<h2>AjaxLoadedChart</h2>
-
-@*@using (Html.BeginForm("Index", "Home"))
-{
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.DropDownList("Formulas")
-        </div>
-    </div>
-    <p>
-        <input type="submit" value="Submit" />
-    </p>
-}*@
-
 @(ViewBag.Graph)
 
 <script type="text/javascript">
@@ -26,7 +12,6 @@
     var toYear = 2010;
     var fromYear = 2008;
     allVisits = [];
-
 
     //$.getJSON("GetPeriod", null, function (data) {
     //    arr = JSON.parse(data);
