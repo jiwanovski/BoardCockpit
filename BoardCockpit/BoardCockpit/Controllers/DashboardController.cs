@@ -101,7 +101,9 @@ namespace BoardCockpit.Controllers
             List<DotNet.Highcharts.Options.Series> test = new List<DotNet.Highcharts.Options.Series>();
             //test.Add(new DotNet.Highcharts.Options.Series { Name = "Test" });
             chart.DataSeries = new List<DotNet.Highcharts.Options.Series>(); //test;
-            ViewBag.Graph = chart.GetChart(chartName);
+            chart.ChartName = chartName;
+            ViewBag.Graph = chart.Chart;
+            //ViewBag.Graph = chart.GetChart(chartName);
             ViewBag.ChartName = chartName;
             return PartialView(viewModel);
         }
@@ -110,7 +112,7 @@ namespace BoardCockpit.Controllers
         {
             formulaID = "1";
             chartName = "graph2";
-            DualAxesLineAndColumnChart chart;
+            IChart chart;
             List<Formula> formulas = db.Formulas.ToList();
             List<SelectListItem> items = new List<SelectListItem>();
             Formula selectedFormula = db.Formulas.Find(Convert.ToInt16(formulaID));
@@ -193,7 +195,8 @@ namespace BoardCockpit.Controllers
             List<DotNet.Highcharts.Options.Series> test = new List<DotNet.Highcharts.Options.Series>();
             
             chart.DataSeries = test;
-            ViewBag.Graph = chart.GetChart(chartName);
+            chart.ChartName = chartName;
+            ViewBag.Graph = chart.Chart;
             ViewBag.ChartName = chartName;
 
             return View(viewModel);

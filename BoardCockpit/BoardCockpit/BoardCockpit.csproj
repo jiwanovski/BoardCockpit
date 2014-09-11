@@ -191,6 +191,8 @@
     <Compile Include="Helpers\Calculator.cs" />
     <Compile Include="Helpers\DualAxesLineAndColumnChart.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\GeneralChartInformation.cs" />
+    <Compile Include="Helpers\IChart.cs" />
     <Compile Include="Helpers\ImportXBRL.cs" />
     <Compile Include="Helpers\JSONHelper.cs" />
     <Compile Include="Helpers\ReportingValues.cs" />
