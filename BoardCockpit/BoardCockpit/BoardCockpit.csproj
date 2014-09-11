@@ -347,6 +347,8 @@
     <Content Include="Content\metro\less\variables\variables.less" />
     <Content Include="Content\metro\less\variables\window.less" />
     <Content Include="Content\metro\less\variables\wizard.less" />
+    <None Include="Properties\PublishProfiles\boardcockpit - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\boardcockpit - Web Deploy %283%29.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Highcharts\highcharts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -578,11 +580,6 @@
     <Content Include="Views\Dashboard\AjaxLoadedChart.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
     <Content Include="Views\Dashboard\DualAxesLineAndColumnChart.cshtml" />
-    <Content Include="Views\Formulae2\Create.cshtml" />
-    <Content Include="Views\Formulae2\Delete.cshtml" />
-    <Content Include="Views\Formulae2\Details.cshtml" />
-    <Content Include="Views\Formulae2\Edit.cshtml" />
-    <Content Include="Views\Formulae2\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
