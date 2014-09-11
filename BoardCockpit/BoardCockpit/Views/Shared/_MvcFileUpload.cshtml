@@ -88,7 +88,7 @@
     </div>
 }
 
-else //inline
+else //inline -- hier die Menübar. 
 {
     <form id="@formId" action="@Model.UploadUrl" method="POST" enctype="multipart/form-data">        
         <div class="row fileupload-buttonbar">                    
@@ -97,7 +97,7 @@ else //inline
                 <span class="image-button primary fileinput-button image-left large">
                     <!---class="btn btn-success fileinput-button">-->
                     <i class="icon-plus-2 bg-cobalt"></i>
-                    <span>Add files...</span>
+                    <span>Dateien uploaden...</span>
                     
                     @if (Model.MaxNumberOfFiles == 1)
                     {
@@ -109,15 +109,15 @@ else //inline
                     }
                 </span>
                 <button type="submit" class="image-button bg-darkGreen start image-left large">
-                    <span>Start upload</span>
+                    <span>Upload starten</span>
                     <i class="icon-upload-3 bg-green"></i>
                 </button>
                 <button type="reset" class="image-button warning cancel image-left large">
-                    <span>Cancel upload</span>
+                    <span>Upload abbrechen</span>
                     <i class="icon-cancel-2 bg-amber"></i>
                 </button>
                 <button type="button" class="image-button danger delete image-left large">
-                    <span>Delete</span>
+                    <span>Löschen</span>
                     <i class="icon-remove bg-red"></i>
                 </button>                    
                 @*<input type="checkbox" class="toggle">*@ 
@@ -261,7 +261,7 @@ else //inline
     }
     else
     {
-        <!-- The template to display files available for upload -->
+        <!-- The template to display files available for upload ---- hier wird die Datei gelistet, vor dem Upload (kleine Button)-->
         <script id="template-upload" type="text/x-tmpl">
             {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-upload fade">
@@ -283,22 +283,24 @@ else //inline
                         <i class="glyphicon glyphicon-upload"></i>
                         <span>Start</span>
                     </button>*@
-                    <button class="image-button bg-darkGreen image-left start" disabled>
-                        <span>Start</span>
+                    
+                    <button id="form-submit" class=" btn btn-primary btn-lg ladda-button image-button bg-darkGreen image-left start" data-style="expand-right" data-size="l" disabled>
+                        <span class="ladda-label">Start</span>
                         <i class="icon-upload-3 bg-green"></i>
                     </button>
-                    {% } %}
-                    {% if (!i) { %}
-                    @*<button class="btn btn-warning cancel">
-                        <i class="glyphicon glyphicon-ban-circle"></i>
-                        <span>Cancel</span>
-                    </button>*@
-                    <button class="image-button warning image-left cancel">
-                        <span>Cancel</span>
-                        <i class="icon-cancel-2 bg-amber"></i>
-                    </button>
-                    {% } %}
-                </td>
+                    
+                        {% } %}
+                        {% if (!i) { %}
+                        @*<button class="btn btn-warning cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>Cancel</span>
+            </button>*@
+                        <button class="image-button warning image-left cancel">
+                            <span>Abbrechen</span>
+                            <i class="icon-cancel-2 bg-amber"></i>
+                        </button>
+                        {% } %}
+</td>
             </tr>
             {% } %}
         </script>
