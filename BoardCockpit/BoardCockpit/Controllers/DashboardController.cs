@@ -25,7 +25,11 @@ namespace BoardCockpit.Controllers
         private BoardCockpitContext db = new BoardCockpitContext();
         
         //List<ContextContainer> contextContailers;
+        IChart chart;
         List<Company> companies;
+        List<DotNet.Highcharts.Options.Series> series;
+        List<string> categories;
+        List<YAxis> yAxis;
         private int fromYear;
         private int toYear;
 
@@ -58,6 +62,84 @@ namespace BoardCockpit.Controllers
             Highcharts chart = new Highcharts("chart");
             //ViewBag.Chart = AjaxLoadedChart();
             return View(viewModel);
+        }
+
+        public ActionResult GetChartPartialView(string chartName, string formulaID)
+        {
+            string viewName;
+            int formulaID2 = Convert.ToInt16(formulaID);
+            var viewModel = new DashboardData();
+            viewModel.Companies = db.Companies.Include(i => i.ContextContainers).ToList();
+            viewModel.ContextContainers = db.ContextContainers.Include(i => i.CalculatedKPIs).Include(i => i.Contexts).Include(i => i.Company).ToList();
+
+            companies = db.Companies.Include(n => n.ContextContainers).ToList();
+            var data = from company in companies
+                       select company.CompanyID;
+            ViewBag.Companies = data.ToArray();
+            
+            Formula formula = db.Formulas.Find(formulaID2);
+            
+            switch (formula.ChartType) 
+            {
+                case ChartType.AjaxLoadedDataClickablePoints:
+                    chart = new Helpers.AjaxLoadedChart();
+                    viewName = "AjaxLoadedChart";
+                    break;
+                case ChartType.DualAxesLineAndColumn:
+                    chart = new Helpers.DualAxesLineAndColumnChart();
+                    viewName = "DualAxesLineAndColumnChart";
+                    Formula relatedFormula = formula.LinkedFormula;
+                    yAxis = new List<YAxis>();
+
+                    YAxis selectedYAxes = new YAxis
+                        {
+                            Labels = new YAxisLabels 
+                            {  
+                                Formatter = "function() { return this.value; }",
+                                Style = "color: '#89A54E'"
+                            },
+                            Title = new YAxisTitle
+                            {
+                                Text = formula.Name,
+                                Style = "color: '#89A54E'"
+                            }
+                        };                
+
+                    YAxis relatedYAxes = new YAxis
+                        {
+                            Labels = new YAxisLabels
+                            {
+                                Formatter = "function() { return this.value; }",
+                                Style = "color: '#4572A7'"
+                            },
+                            Title = new YAxisTitle
+                                {
+                                    Text = relatedFormula.Name,
+                                    Style = "color: '#4572A7'"
+                                },
+                            Opposite = true
+                        };
+                    yAxis.Add(selectedYAxes);
+                    yAxis.Add(selectedYAxes);
+
+                    chart.YAxisSeries = yAxis;                    
+                    break;
+                default: 
+                    throw new Exception("ChartType is not supported");
+                    break;
+            }
+
+            categories = new List<string>();
+            series = new List<Series>();
+            chart.Categories = categories;
+            chart.DataSeries = series;
+            chart.ChartName = chartName;
+
+            ViewBag.FormulaID = formulaID;
+            ViewBag.ChartName = chartName;
+            ViewBag.Graph = chart.Chart;
+
+            return PartialView(viewName, viewModel);           
         }
 
         public ActionResult AjaxLoadedChart(string chartName, string formulaID)
@@ -199,7 +281,7 @@ namespace BoardCockpit.Controllers
             ViewBag.Graph = chart.Chart;
             ViewBag.ChartName = chartName;
 
-            return View(viewModel);
+            return PartialView(viewModel);
         }
 
         public EmptyResult SetPeriod(string _fromYear, string _toYear)
