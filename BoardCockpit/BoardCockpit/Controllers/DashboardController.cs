@@ -121,7 +121,7 @@ namespace BoardCockpit.Controllers
             // TODO !!!JIW CHANGE URGENT!!!
             if ((filter.IndustryNo != null) && (filter.IndustryNo != 0))
             {
-                Industry industry = db.Industries.Find(filter.IndustryNo);
+                Industry industry = db.Industries.Where(n => n.IndustryKey == filter.IndustryNo).First();//Find(filter.IndustryNo);
                 viewModel.Companies = viewModel.Companies.Where(n => n.Industies.Contains(industry)).ToList();
             }
 
