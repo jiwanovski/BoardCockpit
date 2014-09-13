@@ -29,8 +29,41 @@ namespace BoardCockpit.Controllers
         List<Company> companies;
         List<DotNet.Highcharts.Options.Series> series;
         List<string> categories;
-        List<YAxis> yAxis;        
+        List<YAxis> yAxis;
 
+        public ActionResult Dashboard2(string fromYear, string toYear, string fromSizeClass, string toSizeClass, string industryID)
+        {
+            int firstYear = Convert.ToInt16(fromYear);
+            int lastYear = Convert.ToInt16(toYear);
+            int smallestSize = Convert.ToInt16(fromSizeClass);
+            int biggestSize = Convert.ToInt16(toSizeClass);
+            int industryNo = Convert.ToInt16(industryID);
+
+            FilterCriteria filter = new FilterCriteria(firstYear, lastYear, smallestSize, biggestSize);
+            filter.IndustryNo = industryNo;
+
+            var viewModel = GetViewModel(filter);
+
+            List<Formula> formulas = db.Formulas.ToList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            //int i = 0;
+            foreach (Formula item in formulas)
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.FormulaID.ToString()
+                });
+
+            }
+            ViewBag.Formulas1 = items;
+            ViewBag.Formulas2 = items;
+            ViewBag.Formulas3 = items;
+            ViewBag.Formulas4 = items;
+            ViewBag.IndustryID = new SelectList(viewModel.Industries, "IndustryID", "Name",industryNo);
+
+            return View("Dashboard", viewModel);
+        }
         // GET: Dashboard
         public ActionResult Dashboard()
         {            
@@ -76,7 +109,7 @@ namespace BoardCockpit.Controllers
             viewModel.ContextContainers = db.ContextContainers.Include(i => i.CalculatedKPIs).Include(i => i.Contexts).Include(i => i.Company).ToList();
             viewModel.Industries = db.Industries.Include(i => i.Companies).ToList();
             viewModel.Industries = viewModel.Industries.Where(i => i.NoOfCompanies > 0);
-            if ((filter.FromYear != null) && (filter.ToYear != null))
+            if ((filter.FromYear != null) && (filter.ToYear != null) && (filter.FromYear != 0) && (filter.ToYear != 0))
             {
                 viewModel.ContextContainers = viewModel.ContextContainers
                                                             .Where(n => n.Year >= filter.FromYear)
@@ -84,17 +117,17 @@ namespace BoardCockpit.Controllers
             }
 
             // TODO !!!JIW CHANGE URGENT!!!
-            if (filter.IndustryNo != null)
+            if ((filter.IndustryNo != null) && (filter.IndustryNo != 0))
             {
                 Industry industry = db.Industries.Find(filter.IndustryNo);
-                viewModel.Companies = viewModel.Companies.Where(n => n.Industies.Contains(industry));
+                viewModel.Companies = viewModel.Companies.Where(n => n.Industies.Contains(industry)).ToList();
             }
 
-            if ((filter.FromSizeClass != null) && (filter.ToSizeClass != null))
+            if ((filter.FromSizeClass != null) && (filter.ToSizeClass != null) && (filter.FromSizeClass != 0) && (filter.ToSizeClass != 0))
             {
                 viewModel.Companies = viewModel.Companies
                                                     .Where(n => n.SizeClass >= filter.FromSizeClass)
-                                                    .Where(n => n.SizeClass <= filter.ToSizeClass);
+                                                    .Where(n => n.SizeClass <= filter.ToSizeClass).ToList();
             }
 
             return viewModel;
@@ -133,9 +166,9 @@ namespace BoardCockpit.Controllers
 
             var viewModel = GetViewModel(filter);
                                     
-            var data = from company in viewModel.Companies
-                       select company.CompanyID;
-            ViewBag.Companies = data.ToArray();
+            //var data = from company in viewModel.Companies
+            //           select company.CompanyID;
+            //ViewBag.Companies = data.ToArray();
                                     
             switch (formula.ChartType) 
             {

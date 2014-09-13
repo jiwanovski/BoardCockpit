@@ -400,7 +400,7 @@
             padding: 10,
             onShow: function (_dialog) {
                 var content =
-                    '<form>' +
+                    '<form name="FilterForm" action="Dashboard2">' +
                         '<table>' +
                             '<tbody>' +
                                 '<tr>' +
@@ -410,7 +410,7 @@
                                     '<td>Von</td>' +
                                     '<td>' +
                                         '<div class="input-control text size3 block" data-role="input-control">' +
-                                            '<input type="text" name="fromPeriod" value="@Model.Filter.FromYear">' +
+                                            '<input class="text-box single-line" data-val="true" id="Filter_FromYear" name="FromYear" type="number" value="@Model.Filter.FromYear">' +
                                             '<button class="btn-clear"></button>' +
                                         '</div>' +
                                     '</td>' +
@@ -419,48 +419,48 @@
                                     '<td>bis</td>' +
                                     '<td>' +
                                         '<div class="input-control text size3 block" data-role="input-control">' +
-                                            '<input type="text" name="toPeriod" value="@Model.Filter.ToYear">' +
+                                            '<input class="text-box single-line" data-val="true" id="Filter_ToYear" name="ToYear" type="number" value="@Model.Filter.ToYear">' +
                                             '<button class="btn-clear"></button>' +
                                         '</div>' +
                                     '</td>' +
-                                '</tr>' +
-                                '<tr>' +
-                                    '<td colspan="2"><strong>Firmengröße</strong></td>' +
-                                '</tr>' +
-                                '<tr>' +
-                                    '<td>Von</td>' +
-                                    '<td>' +
-                                        '<div class="input-control text size3 block" data-role="input-control">' +
-                                            '<input type="text" name="fromSizeClass" value="@Model.Filter.FromSizeClass">' +
-                                            '<button class="btn-clear"></button>' +
-                                        '</div>' +
-                                    '</td>' +
-                                '</tr>' +
-                                '<tr>' +
-                                    '<td>bis</td>' +
-                                    '<td>' +
-                                        '<div class="input-control text size3 block" data-role="input-control">' +
-                                            '<input type="text" name="toPeriod" value="@Model.Filter.ToSizeClass">' +
-                                            '<button class="btn-clear"></button>' +
-                                        '</div>' +
-                                    '</td>' +
-                                '</tr>' +
-                                '<tr>' +
-                                    '<td><strong>Branche</strong></td>' +
-                                    '<td>' +
-                                        '<div class="input-control select size3 block" data-role="input-control">' +
-                                            '<select id="IndustryID" name="IndustryID"><option value=""></option>' +
-                                            @foreach (var item in @Model.Industries)
-                                            {
-                                                if (@Model.Filter.IndustryNo == @item.IndustryKey) {
-                                                    @:'<option selected value="@item.IndustryKey">@item.Name</option>' +
-                                                }
-                                                else
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td colspan="2"><strong>Firmengröße</strong></td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>Von</td>' +
+                                        '<td>' +
+                                            '<div class="input-control text size3 block" data-role="input-control">' +
+                                                '<input class="text-box single-line" data-val="true" id="Filter_FromSizeClass" name="FromSizeClass" type="number" value="@Model.Filter.FromSizeClass">' +
+                                                '<button class="btn-clear"></button>' +
+                                            '</div>' +
+                                        '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>bis</td>' +
+                                        '<td>' +
+                                            '<div class="input-control text size3 block" data-role="input-control">' +
+                                                '<input class="text-box single-line" data-val="true" id="Filter_ToSizeClass" name="ToSizeClass" type="number" value="@Model.Filter.ToSizeClass">' +
+                                                '<button class="btn-clear"></button>' +
+                                            '</div>' +
+                                        '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td><strong>Branche</strong></td>' +
+                                        '<td>' +
+                                            '<div class="input-control select size3 block" data-role="input-control">' +
+                                                '<select id="IndustryID" name="IndustryID"><option value=""></option>' +
+                                                @foreach (var item in @Model.Industries)
                                                 {
-                                                    @:'<option value="@item.IndustryKey">@item.Name</option>' +
+                                                    if (@Model.Filter.IndustryNo == @item.IndustryKey) {
+                                                        @:'<option selected value="@item.IndustryKey">@item.Name</option>' +
+                                                                    }
+                                                    else
+                                                    {
+                                                        @:'<option value="@item.IndustryKey">@item.Name</option>' +
+                                                                    }
                                                 }
-                                            }
-                                            '</select>' +
+                                                '</select>' +
                                         '</div>' +
                                     '</td>' +
                                 '</tr>' +
@@ -477,7 +477,10 @@
             }
         })
     }
-    </script>
+    function testAction(fromYear, toYear) {
+        alert(fromYear);
+    }
+</script>
     @*<script type="text/javascript">
     var categories;
     var chartdata;
