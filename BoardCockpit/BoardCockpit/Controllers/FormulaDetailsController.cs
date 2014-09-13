@@ -178,7 +178,7 @@ namespace BoardCockpit.Controllers
                     db.Entry(formulaDetailToUpdate).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    return RedirectToAction("Index", new { id = formulaDetailToUpdate.FormulaID});
+                    return RedirectToAction("Index", new { id = formulaDetailToUpdate.FormulaID, status = "edit" });
                 }
                 catch (RetryLimitExceededException /* dex */)
                 {

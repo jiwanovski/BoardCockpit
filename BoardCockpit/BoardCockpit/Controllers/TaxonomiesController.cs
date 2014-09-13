@@ -121,7 +121,7 @@ namespace BoardCockpit.Controllers
             {
                 db.Entry(taxonomy).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Taxonomies", new { id=taxonomy.TaxonomyID,status="edit"});
             }
 
             return View(taxonomy);
