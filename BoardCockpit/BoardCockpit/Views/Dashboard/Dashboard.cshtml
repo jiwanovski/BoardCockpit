@@ -280,26 +280,26 @@
 <script type="text/javascript">
     //$(document).ready(function () {
 
-        //$('#Formulas1').change(function () {
-        //    var formulaId = $("#Formulas1").val();
-        //    replaceChart("chart1", formulaId);
-        //    replaceChart("chart1s", formulaId);        
-        //});
-        //$('#Formulas2').change(function () {
-        //    var formulaId = $("#Formulas2").val();
-        //    replaceChart("chart2", formulaId);
-        //    replaceChart("chart2s", formulaId);
-        //});
-        //$('#Formulas3').change(function () {
-        //    var formulaId = $("#Formulas3").val();
-        //    replaceChart("chart3", formulaId);
-        //    replaceChart("chart3s", formulaId);
-        //});
-        //$('#Formulas4').change(function () {
-        //    var formulaId = $("#Formulas4").val();
-        //    replaceChart("chart4", formulaId);
-        //    replaceChart("chart4s", formulaId);
-        //});
+    //$('#Formulas1').change(function () {
+    //    var formulaId = $("#Formulas1").val();
+    //    replaceChart("chart1", formulaId);
+    //    replaceChart("chart1s", formulaId);
+    //});
+    //$('#Formulas2').change(function () {
+    //    var formulaId = $("#Formulas2").val();
+    //    replaceChart("chart2", formulaId);
+    //    replaceChart("chart2s", formulaId);
+    //});
+    //$('#Formulas3').change(function () {
+    //    var formulaId = $("#Formulas3").val();
+    //    replaceChart("chart3", formulaId);
+    //    replaceChart("chart3s", formulaId);
+    //});
+    //$('#Formulas4').change(function () {
+    //    var formulaId = $("#Formulas4").val();
+    //    replaceChart("chart4", formulaId);
+    //    replaceChart("chart4s", formulaId);
+    //});
     //});
 
     function replaceChart(chartName, formulaId) {
@@ -310,7 +310,7 @@
                 data: { chartName: chartName, formulaID: formulaId }
             }).done(function (partialViewResult) {
                 $("#div" + chartName).html(partialViewResult);
-            });    
+            });
     };
 
     $("#Formulas1s").bind("change", function () {
@@ -358,15 +358,15 @@
     });
 
     @*$("divGraph1").load('@Url.Action("AjaxLoadedChart", "Dashboard", new { chartName: "chart1", formulaID: formulaId })');*@
-            @*$("divGraph1").load('@Url.Action("AjaxLoadedChart", "Dashboard", null, new { chartName: "chart1", formulaID: formulaId })')*@
-            //$.post("/Dashboard/AjaxLoadedChart", { "chartName": "chart1", "formulaID": formulaId }, function (result) {
+    @*$("divGraph1").load('@Url.Action("AjaxLoadedChart", "Dashboard", null, new { chartName: "chart1", formulaID: formulaId })')*@
+    //$.post("/Dashboard/AjaxLoadedChart", { "chartName": "chart1", "formulaID": formulaId }, function (result) {
 
-            //    $("divGraph1").append($(result));
-            //    alert(formulaId);
-            //});
-            
+    //    $("divGraph1").append($(result));
+    //    alert(formulaId);
+    //});
 
-            @*var $detailDiv = $('#divGraph1')
+
+    @*var $detailDiv = $('#divGraph1')
     url = $(this).data('@Url.Action("AjaxLoadedChart", "Dashboard", new { chartName = "chart1", formulaID = 1 })');
 
     $.get(url, function(data) {
@@ -384,7 +384,7 @@
     //    //$(this).html(partialViewResult);
     //    $(val).html(partialViewResult);
     //});
-@*</script>
+    @*</script>
 
 <script>*@
     var $img = $('<i class="child-opener-image icon-search icon-filter"></i>');
@@ -448,13 +448,18 @@
                                 '<tr>' +
                                     '<td><strong>Branche</strong></td>' +
                                     '<td>' +
-                                        '<div class="input-control select size3 block" data-role="input-control">' +                                            
-                                           
+                                        '<div class="input-control select size3 block" data-role="input-control">' +
                                             '<select id="IndustryID" name="IndustryID"><option value=""></option>' +
                                             @foreach (var item in @Model.Industries)
                                             {
-                                                @:'<option value="@item.IndustryKey">@item.Name</option>' +
-                                            }                                            
+                                                if (@Model.Filter.IndustryNo == @item.IndustryKey) {
+                                                    @:'<option selected value="@item.IndustryKey">@item.Name</option>' +
+                                                }
+                                                else
+                                                {
+                                                    @:'<option value="@item.IndustryKey">@item.Name</option>' +
+                                                }
+                                            }
                                             '</select>' +
                                         '</div>' +
                                     '</td>' +
@@ -467,11 +472,11 @@
                         '</div>' +
                     '</form>'
 
-                    $.Dialog.title("Filter")
-                    $.Dialog.content(content)
-                }
-            })
-        }
+                $.Dialog.title("Filter")
+                $.Dialog.content(content)
+            }
+        })
+    }
     </script>
     @*<script type="text/javascript">
     var categories;
