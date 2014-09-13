@@ -7,98 +7,126 @@
 
 <div class="row no-phone no-tablet">
     @*<div class="span12">*@
+    @{if (@Model.TileKPIs.Count() >= 1) {
     <div class="span3">
         <div class="tile double text-center bg-lightBlue" >
-            <h4 class="text fg-white">Kurzerklärung der Kennzahl</h4>
+            <h4 class="text fg-white">@Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Description</h4>
             <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">Kennzahl 1</h2>
+                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
+                <div class="display-field">
+                    
+                </div>
             </div>
         </div>
     </div>
+    }}
+    @{if (@Model.TileKPIs.Count() >= 2) {
     <div class="span3">
         <div class="tile double text-center bg-lightGreen">
-            <h4 class="text fg-white">Kurzerklärung der Kennzahl</h4>
+            <h4 class="text fg-white">@Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Description</h4>
             <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">Kennzahl 2</h2>
+                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
+    }}
+    @{if (@Model.TileKPIs.Count() >= 3) {
     <div class="span3">
         <div class="tile double text-center bg-orange">
-            <h4 class="text fg-white">Kurzerklärung der Kennzahl</h4>
+            <h4 class="text fg-white">@Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Description</h4>
             <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">Kennzahl 3</h2>
+                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
+    }}
+    @{if (@Model.TileKPIs.Count() >= 4) {
     <div class="span3">
         <div class="tile double text-center bg-lightRed">
-            <h4 class="text fg-white">Kurzerklärung der Kennzahl</h4>
+            <h4 class="text fg-white">@Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Description</h4>
             <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">Kennzahl 4</h2>
+                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
+    }}
 @*</div>*@
 </div>
 <div class="row on-tablet no-phone no-large no-desktop">
+@{if (@Model.TileKPIs.Count() >= 1) {
     <div class="span3">
         <div class="tile text-center bg-lightBlue span12">
-            <h4 class="text fg-white">Kurzerklärung der Kennzahl</h4>
+            <h4 class="text fg-white">@Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Description</h4>
             <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">Kennzahl 1</h2>
+                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
+}}
+@{if (@Model.TileKPIs.Count() >= 2) {
     <div class="span3">
         <div class="tile text-center bg-lightGreen span12">
-            <h4 class="text fg-white">Kurzerklärung der Kennzahl</h4>
+            <h4 class="text fg-white">@Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Description</h4>
             <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">Kennzahl 2</h2>
+                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
+}}
+@{if (@Model.TileKPIs.Count() >= 3) {
     <div class="span3">
         <div class="tile text-center bg-orange span12">
-            <h4 class="text fg-white">Kurzerklärung der Kennzahl</h4>
+            <h4 class="text fg-white">@Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Description</h4>
             <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">Kennzahl 3</h2>
+                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
+}}
+@{if (@Model.TileKPIs.Count() >= 4) {
     <div class="span3">
         <div class="tile text-center bg-lightRed span12">
-            <h4 class="text fg-white">Kurzerklärung der Kennzahl</h4>
+            <h4 class="text fg-white">@Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Description</h4>
             <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">Kennzahl 4</h2>
+                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
+  }}
 </div>
+
 <div class="row on-phone no-large no-desktop no-tablet">
     <div class="span1"></div>
     <div class="span8">
         <div class="carousel" data-role="carousel" id="carouselPhone">
+            @{if (@Model.TileKPIs.Count() >= 1) {
             <div class="slide">                
                 <div class="tile double text-center bg-lightBlue" style="padding-top:8px">
-                    <h2 class="name text-bold fg-white">Kennzahl 1</h2>
+                    <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
                 </div>                
             </div>
+            }}
+@{if (@Model.TileKPIs.Count() >= 2) {
             <div class="slide">                
                 <div class="tile double text-center bg-lightGreen" style="padding-top:8px">
-                    <h2 class="name text-bold fg-white">Kennzahl 2</h2>
+                    <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
                 </div>                
             </div>
+}}
+@{if (@Model.TileKPIs.Count() >= 3) {
             <div class="slide">                
                 <div class="tile double text-center bg-orange" style="padding-top:8px">
-                    <h2 class="name text-bold fg-white">Kennzahl 3</h2>
+                    <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
                 </div>                
             </div>
+}}
+@{if (@Model.TileKPIs.Count() >= 4) {
             <div class="slide">                
                 <div class="tile double text-center bg-lightRed" style="padding-top:8px">
-                    <h2 class="name text-bold fg-white">Kennzahl 4</h2>
+                    <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
                 </div>               
             </div>
+}}
             <a class="controls left"><i class="icon-arrow-left-3"></i></a>
             <a class="controls right"><i class="icon-arrow-right-3"></i></a>
         </div>
@@ -262,6 +290,29 @@
 </div>
 
 <script type="text/javascript">
+    @*$(document).ready(function() {
+        var fromYear = $('#Filter_FromYear').val();
+        var toYear = $('#Filter_ToYear').val();
+        var fromSize = $('#Filter_FromSizeClass').val();
+        var toSize = $('#Filter_ToSizeClass').val();
+        var industryNo = $('#Filter_IndustryNo').val();
+        var formulaID_1 = $('#Formulas1').val();
+        var formulaID_2 = $('#Formulas2').val();
+        var formulaID_3 = $('#Formulas3').val();
+        var formulaID_4 = $('#Formulas4').val();
+
+        alert(formulaID_1);
+
+        $.ajax
+            ({
+                url: "/Dashboard/Dashboard2",
+                type: "POST",
+                data: { chartName: "chart", formulaID: formulaId, fromYear: @Model.Filter.FromYear, toYear: @Model.Filter.ToYear, fromSize: @Model.Filter.FromSizeClass, toSize: @Model.Filter.ToSizeClass, industryNo: @Model.Filter.IndustryNo, formulas1: formulaID_1 }
+            }).done(function (partialViewResult) {
+                $("#div" + chartName).html(partialViewResult);
+            });
+
+    });*@
     //$(document).ready(function () {
 
     //$('#Formulas1').change(function () {
@@ -299,6 +350,7 @@
 
     $("#Formulas1s").bind("change", function () {
         $("#Formulas1").val($(this).val()).change();
+        $("Filter_Formulas1").val($(this).val());
     });
 
     $("#Formulas1").bind("change", function () {
@@ -310,6 +362,7 @@
 
     $("#Formulas2s").bind("change", function () {
         $("#Formulas2").val($(this).val()).change();
+        $("Filter_Formulas2").val($(this).val());
     });
 
     $("#Formulas2").bind("change", function () {
@@ -317,20 +370,24 @@
         replaceChart("chart2", formulaId);
         replaceChart("chart2s", formulaId);
         $("#Formulas2s").val($(this).val());
+        $("Filter_Formulas2").val($(this).val());
     });
 
     $("#Formulas3s").bind("change", function () {
         $("#Formulas3").val($(this).val()).change();
+        $("Filter_Formulas3").val($(this).val());
     });
 
     $("#Formulas3").bind("change", function () {
         var formulaId = $("#Formulas3").val();
         replaceChart("chart3", formulaId);
         replaceChart("chart3s", formulaId);
+        $("Filter_Formulas3").val($(this).val());
         $("#Formulas3s").val($(this).val());
     });
 
     $("#Formulas4s").bind("change", function () {
+        $("Filter_Formulas4").val($(this).val());
         $("#Formulas4").val($(this).val()).change();
     });
 
@@ -338,6 +395,7 @@
         var formulaId = $("#Formulas4").val();
         replaceChart("chart4", formulaId);
         replaceChart("chart4s", formulaId);
+        $("Filter_Formulas4").val($(this).val());
         $("#Formulas4s").val($(this).val());
     });
 
@@ -447,7 +505,7 @@
                                                 '</select>' +
                                         '</div>' +
                                     '</td>' +
-                                '</tr>' +
+                                '</tr>' +                                
                             '</tbody>' +
                         '</table>' +
                         '<div class="form-actions">' +

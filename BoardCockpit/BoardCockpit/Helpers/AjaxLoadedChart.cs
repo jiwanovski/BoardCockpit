@@ -85,11 +85,12 @@ namespace BoardCockpit.Helpers
                     // OK
                     .SetLegend(new Legend
                     {
-                        Align = HorizontalAligns.Left,
+                        Align = HorizontalAligns.Right,
                         VerticalAlign = VerticalAligns.Top,
                         Y = 20,
-                        Floating = true,
-                        BorderWidth = 0
+                        Floating = false,
+                        BorderWidth = 0,
+                        Enabled = false
                     })
                     // OK
                     .SetTooltip(new Tooltip

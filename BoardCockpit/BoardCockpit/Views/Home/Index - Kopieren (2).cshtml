@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@*<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div>*@
+
+<div class="row">
+    @*<div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>*@
+    <div class="tile double bg-lightBlue text-center" data-hint="Öffnen|Klicken Sie zum Öffnen." data-hint-position="top">
+        <h4 class="name text-bold fg-white">Eigenkapitalrentabilität</h4>
+        <div style="padding-top:8px">
+            <h2 class="name text-bold fg-white">10 %</h2>
+        </div>
+    </div>
+    <div class="tile double text-center bg-lightGreen">
+        <span class="name text-bold fg-white">Kennzahl 2</span>
+        <div class="brand bg-dark opacity">
+            <span class="text fg-white">
+                <strong>Kurzerklärung der Kennzahl</strong>
+            </span>
+        </div>
+    </div>
+    <div class="tile double text-center bg-orange">
+        <span class="name text-bold fg-white">Kennzahl 3</span>
+        <div class="brand bg-dark opacity">
+            <span class="text fg-white">
+                <strong>Kurzerklärung der Kennzahl</strong>
+            </span>
+        </div>
+    </div>
+    <div class="tile double text-center bg-lightRed">
+        <span class="name text-bold fg-white">Kennzahl 4</span>
+        <div class="brand bg-dark opacity">
+            <span class="text fg-white">
+                <strong>Kurzerklärung der Kennzahl</strong>
+            </span>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("Index", "Home")) {
+<div class="form-group">
+    <div class="col-md-10">
+        @Html.DropDownList("Formulas")
+    </div>
+</div>
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+}
+<div class="row">
+    <div class="span12">
+        <div class="panel" data-role="panel">
+            <div class="panel-header bg-lightBlue fg-white">
+                Grafik 1
+            </div>
+            <div class="panel-content">
+                @(ViewBag.Chart)
+            </div>
+        </div>
+    </div>
+</div>
+    

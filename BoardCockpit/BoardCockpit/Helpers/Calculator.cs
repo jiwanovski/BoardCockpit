@@ -42,38 +42,48 @@ namespace BoardCockpit.Helpers
             {
                 if (element != " ")
                 {
-                    if ((i % 2) == 0)
+                    //if ((i % 2) == 0)
+                    if ((element == ")") || (element == "(") || (element == "+") || (element == "-") || (element == "*") || (element == "/"))
                     {
                         calcFormula += element;
                     }
                     else
                     {
-                        if (element.StartsWith("is"))
-                        {
-                            if (isFinancialDatas.Where(y => y.XbrlName == element).Count() > 0)
+
+                        int n;
+                        decimal m;
+                        bool isNumeric = int.TryParse(element, out n);
+
+                        bool isNumeric2 = decimal.TryParse(element, out m);
+                        if (isNumeric || isNumeric2) { 
+                            calcFormula += element;} else {
+                            if (element.StartsWith("is"))
                             {
-                                List<FinancialData> test = isFinancialDatas.Where(y => y.XbrlName == element).ToList();
-                                FinancialData data = isFinancialDatas.Where(y => y.XbrlName == element).Single();
-                                calcFormula += "(" + data.Value + ")";
+                                if (isFinancialDatas.Where(y => y.XbrlName.ToUpper() == element.ToUpper()).Count() > 0)
+                                {
+                                    List<FinancialData> test = isFinancialDatas.Where(y => y.XbrlName.ToUpper() == element.ToUpper()).ToList();
+                                    FinancialData data = isFinancialDatas.Where(y => y.XbrlName.ToUpper() == element.ToUpper()).First();
+                                    calcFormula += "(" + data.Value + ")";
+                                }
+                                else
+                                {
+                                    resolvedFormula = false;
+                                }
                             }
-                            else
+                            if (element.StartsWith("bs"))                        
                             {
-                                resolvedFormula = false;
+                                if (bsFinancialDatas.Where(y => y.XbrlName.ToUpper() == element.ToUpper()).Count() > 0)
+                                {
+                                    List<FinancialData> test = bsFinancialDatas.Where(y => y.XbrlName.ToUpper() == element.ToUpper()).ToList();
+                                    FinancialData data = bsFinancialDatas.Where(y => y.XbrlName.ToUpper() == element.ToUpper()).First();
+                                    calcFormula += "(" + data.Value + ")";
+                                }
+                                else
+                                {
+                                    resolvedFormula = false;
+                                }
                             }
                         }
-                        else
-                        {
-                            if (bsFinancialDatas.Where(y => y.XbrlName == element).Count() > 0)
-                            {
-                                List<FinancialData> test = bsFinancialDatas.Where(y => y.XbrlName == element).ToList();
-                                FinancialData data = bsFinancialDatas.Where(y => y.XbrlName == element).Single();
-                                calcFormula += "(" + data.Value + ")";
-                            }
-                            else
-                            {
-                                resolvedFormula = false;
-                            }
-                        }                        
                     }
                 }
                 i += 1;

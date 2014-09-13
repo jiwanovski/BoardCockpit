@@ -13,6 +13,16 @@
     var fromYear = 2008;
     allVisits = [];
 
+    @*$("#" + @ViewBag.ChartName).bind("load", function () {
+        var legend = @{ @ViewBag.ChartName@.legend; }
+        legend.group.hide();
+        legend.box.hide();
+        legend.display = false;
+        alert("Drin");
+    });*@
+
+
+
     //$.getJSON("GetPeriod", null, function (data) {
     //    arr = JSON.parse(data);
     //    alert(arr[0])
@@ -48,23 +58,46 @@
     //$.getJSON("GetCompanies", function (data2) {
 
     //$.each(data2, function (key2, val2 ) {
-    
+
     @for(int i = 0; i < Model.Companies.Count(); i ++)
     {
-        @:$.getJSON("GetAjaxLoadedChartData", { companyID: @Model.Companies.ElementAt(i).CompanyID, formulaID: @ViewBag.FormulaID, fromYear: @Model.Filter.FromYear, toYear: @Model.Filter.ToYear, fromSize: @Model.Filter.FromSizeClass, toSize: @Model.Filter.ToSizeClass, industryNo: @Model.Filter.IndustryNo },function (data) {
-            @:$.each(data, function (key, val) {
-                            @:var point = [];
-                            @:point.push(val.Year);
-                            @:point.push(val.Value);
-                            @:chartData2.push(point);
-                        @:});
+        @:$.getJSON("GetAjaxLoadedChartData", { companyID: @Model.Companies.ElementAt(i).CompanyID, formulaID: @ViewBag.FormulaID, fromYear: @Model.Filter.FromYear, toYear: @Model.Filter.ToYear },function (data) {
+
+                    @:$.each(data, function (key, val) {
+                                                            @:var point = [];
+                                                            @:point.push(val.Year);
+                                                            @:point.push(val.Value);
+                                                            @:chartData2.push(point);
+                                                        @:});
 
             @:if (chartData2.length > 0) {
-                            @ViewBag.ChartName@:.addSeries({ name: '@Model.Companies.ElementAt(i).Name', data: chartData2 });
-                        @:}
+                  if (Model.Companies.ElementAt(i).CompanyID == Model.Company.CompanyID)
+                  {
+                      @: var newSeries = new Highcharts.Series();
+                      @: newSeries.name = '@Model.Companies.ElementAt(i).Name';
+                      @: newSeries.data = chartData2;
+                      @: newSeries.marker = {symbol: "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAeCAYAAACmPacqAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuM4zml1AAAAL7SURBVFhH7ZfLS1RRHMfvPKqhB0xlRYhQEdWmUoh2SYt2JbWoNmHROnpQbYKsZZHUoqUYtEhBWhU9SA0iKgbDGXWMIsXoJWn/RJ/vOffK7XZ0Xlcj6Asf5p7f6/zm3HPPnfFqVAK2w1HYKsPfUiaRSFyDafgM49jOQ8p4F1DrmbwXJpPJ5HM4By9hBNtd/FkbNr/SbWlmwjGYSKVSdxivMR7Pq2fcTUND+F4w3mHNRpthj08jJKEmpZnoIhPptrzj+oxs1jWjDPY2yBNTYHwMtnE9Bd/gq8B2RMHVahVF7sMPJnrNCuz17S4l8B8g7g3otvXBR64LIU77sRWrkWKjoE3aw7jemo2y2DphHG4xXmbNRluY9CEMwbDfRNXN6Kk4ySST8IECVxlnjMeqCfswfME3Irh+il37I9BybO348lB1MyrSAdMkDrDsLdi0eSV9tuJTk9HlL2DL499vIq0wJ1thIIiBspvZRMEcaMM9YRw+zJZguw0/KTgaKh6lSOwlCD81O7H3+v7HjOc8JPWNDzGRdrz2wE3GK4zHqgGbNuN3ikX3gAvdtnvkrbXpRnXYOuTnc5BxeMVnpL1wnQDdFm2444zD32ofvk8w4ftdk7vQmfOK/F22jJGOiFPwFrTX2rAtsi57mvaDTtN+xk3WbKSuL+BTk+/BNWFJyB+hzglT0Vc6nW7Gp1NbD0EXpqzHRTvoW3diqDORViuxdcMUCcWgcA0UqaXHf6ktb6RTuwufVvusDBvgIIRPU52a+kZ6bCu5LaXQKmjzNthpjDI0dJjP4LXyu0jQQTbmKBYX2iflSc2QEOeKRLnsT1Va/2ozffDAR++hHLjiosTazCC0EqpNr/MoYB25PZFYF/E1g1+/5maTjv1SqxrryugNPptWk//HCzTCgjaj14YrLyDWZq74oS79b2Y2xd7MDRLmsxn9syhbu0nQWeIqJGppJkfMRhtanvR3o4XEZ5FCAdU+TY/wN9uwyqV/CIsdzPV/Wj/IXDki/OsxIs/7BS74kXy6IZWzAAAAAElFTkSuQmCC)" };
+                      @ViewBag.ChartName@:.addSeries(newSeries);
+
+                  } else {
+                    @ViewBag.ChartName@:.addSeries({ name: '@Model.Companies.ElementAt(i).Name', data: chartData2 });
+                              }
+            @:}
                     @:chartData2 = [];
-                @:});
+                    @:});
+                                                                    }
+    @*$(document).ready(function() {
+
+        @{
+            @: var test123 = @ViewBag.ChartName;
+            @: var legend = test123.legend;
+            @: legend.group.hide();
+            @: legend.box.hide();
+            @: legend.display = false;
+            @ViewBag.ChartName@:.legend.group.hide();
         }
-    
+
+    })*@
+
 </script>
 

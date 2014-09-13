@@ -68,39 +68,66 @@ namespace BoardCockpit.Controllers
         }
         // GET: Dashboard
         public ActionResult Dashboard()
-        {            
-            int firstYear = db.ContextContainers.Min(n => n.Year);
-            int lastYear = db.ContextContainers.Max(n => n.Year);
-            int smallestSize = db.Companies.Min(n => n.SizeClass);
-            int biggestSize = db.Companies.Max(n => n.SizeClass);
-
-            FilterCriteria filter = new FilterCriteria(firstYear, lastYear, smallestSize, biggestSize);
-
-            var viewModel = GetViewModel(filter);
-            
-            List<Formula> formulas = db.Formulas.ToList();
-            List<SelectListItem> items = new List<SelectListItem>();
-            //int i = 0;
-            foreach (Formula item in formulas)
+        {
+            try
             {
-                items.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.FormulaID.ToString()
-                });
+                int firstYear = db.ContextContainers.Min(n => n.Year);
+                int lastYear = db.ContextContainers.Max(n => n.Year);
+                int smallestSize = db.Companies.Min(n => n.SizeClass);
+                int biggestSize = db.Companies.Max(n => n.SizeClass);
 
+                FilterCriteria filter = new FilterCriteria(firstYear, lastYear, smallestSize, biggestSize);
+                
+                var viewModel = GetViewModel(filter);
+                viewModel.TileKPIs = GetTileKPIs(); 
+                //List<Formula> formulas = db.Formulas.ToList();
+                //List<SelectListItem> items = new List<SelectListItem>();
+                //int i = 0;
+                //foreach (Formula item in formulas)
+                //{
+                //    items.Add(new SelectListItem
+                //    {
+                //        Text = item.Name,
+                //        Value = item.FormulaID.ToString()
+                //    });
+
+                //}
+                //ViewBag.Formulas1 = items;
+                //ViewBag.Formulas2 = items;
+                //ViewBag.Formulas3 = items;
+                //ViewBag.Formulas4 = items;
+                viewModel.Formulas1 = new SelectList(db.Formulas, "FormulaID", "Name");
+                viewModel.Formulas2 = new SelectList(db.Formulas, "FormulaID", "Name");
+                viewModel.Formulas3 = new SelectList(db.Formulas, "FormulaID", "Name");
+                viewModel.Formulas4 = new SelectList(db.Formulas, "FormulaID", "Name");
+                ViewBag.IndustryID = new SelectList(viewModel.Industries, "IndustryID", "Name");
+
+                Highcharts chart = new Highcharts("chart");
+                return View(viewModel);
             }
-            ViewBag.Formulas1 = items;
-            ViewBag.Formulas2 = items;
-            ViewBag.Formulas3 = items;
-            ViewBag.Formulas4 = items;
-            ViewBag.IndustryID = new SelectList(viewModel.Industries, "IndustryID", "Name");
-
-            Highcharts chart = new Highcharts("chart");
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
             //ViewBag.Chart = AjaxLoadedChart();
-            return View(viewModel);
+            return View();
         }
 
+        private List<CalculatedKPI> GetTileKPIs()
+        {
+            Company company;
+            List<CalculatedKPI> calcKPIs = new List<Models.CalculatedKPI>();
+
+            if (db.GeneralSetting.Count() > 0) {
+                company = db.GeneralSetting.First().Company;
+                List<ContextContainer> contextContainer = company.ContextContainers.ToList();
+                contextContainer.OrderBy(i => i.Year);
+                calcKPIs = contextContainer.First().CalculatedKPIs.ToList();
+            }
+            return calcKPIs;
+        }
         private DashboardData GetViewModel(FilterCriteria filter)
         {
             var viewModel = new DashboardData();
@@ -213,7 +240,7 @@ namespace BoardCockpit.Controllers
                             Opposite = true
                         };
                     yAxis.Add(selectedYAxes);
-                    yAxis.Add(selectedYAxes);
+                    yAxis.Add(relatedYAxes);
 
                     chart.YAxisSeries = yAxis;                    
                     break;
@@ -227,6 +254,7 @@ namespace BoardCockpit.Controllers
             chart.Categories = categories;
             chart.DataSeries = series;
             chart.ChartName = chartName;
+            chart.Title = " ";
 
             ViewBag.FormulaID = formulaID;
             ViewBag.ChartName = chartName;
@@ -410,13 +438,13 @@ namespace BoardCockpit.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAjaxLoadedChartData(string formulaID, string companyID, int fromYear, int toYear, int fromSize, int toSize, int industryNo)//(int formulaID, int companyID)
+        public JsonResult GetAjaxLoadedChartData(string formulaID, string companyID, string fromYear, string toYear)//, string fromSize, string toSize, string industryNo)//(int formulaID, int companyID)
         {
             List<AjaxLoadedChartData> chartDatas = new List<AjaxLoadedChartData>();
             Company company = db.Companies.Find(Convert.ToInt32(companyID));
             List<ContextContainer> contextContainers = company.ContextContainers
-                                                                .Where(n => n.Year >= fromYear)
-                                                                .Where(n => n.Year <= toYear).ToList();
+                                                                .Where(n => n.Year >= Convert.ToInt16(fromYear))
+                                                                .Where(n => n.Year <= Convert.ToInt16(toYear)).ToList();
             
             foreach (ContextContainer item in contextContainers)
 	        {
@@ -490,7 +518,7 @@ namespace BoardCockpit.Controllers
                 //calcKPI = item.CalculatedKPIs.Where(n => n.FormulaDetail.FormulaID == Convert.ToInt32(formulaID)).First();
             //    chartDatas2.Add(new AjaxLoadedChartData { Year = i, Value = 10 });
             //}
-            chartDatas.Add(new Series {
+            chartDatas.Add(new Series {                
                                         Name = selectedFormula.Name, 
                                         Color = ColorTranslator.FromHtml("#4572A7"), 
                                         Type = ChartTypes.Column, 

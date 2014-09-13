@@ -66,16 +66,16 @@ namespace BoardCockpit.Helpers
                     {
                         Formatter = "function() { return ''+ this.x +': '+ this.y + (this.series.name == 'Rainfall' ? ' mm' : '°C'); }"
                     })
-                    .SetLegend(new Legend
-                    {
-                        Layout = Layouts.Vertical,
-                        Align = HorizontalAligns.Left,
-                        X = 120,
-                        VerticalAlign = VerticalAligns.Top,
-                        Y = 100,
-                        Floating = true,
-                        BackgroundColor = new BackColorOrGradient(ColorTranslator.FromHtml("#FFFFFF"))
-                    })
+                    //.SetLegend(new Legend
+                    //{
+                    //    Layout = Layouts.Vertical,
+                    //    Align = HorizontalAligns.Left,
+                    //    X = 120,
+                    //    VerticalAlign = VerticalAligns.Top,
+                    //    Y = 100,
+                    //    Floating = true,
+                    //    BackgroundColor = new BackColorOrGradient(ColorTranslator.FromHtml("#FFFFFF"))
+                    //})
                     .SetSeries(DataSeries.ToArray());
 
                 return chart; 

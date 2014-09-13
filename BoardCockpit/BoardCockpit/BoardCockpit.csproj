@@ -266,6 +266,7 @@
     <Content Include="Images\findHosting.png" />
     <Content Include="Images\Formula INSERT Skript.sql" />
     <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\home.png" />
     <Content Include="Images\Industry INSERT Skript.sql" />
     <Content Include="Images\NuGetGallery.png" />
     <Content Include="Images\orderedList0.png" />
@@ -583,6 +584,8 @@
     <Content Include="Views\Dashboard\AjaxLoadedChart.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
     <Content Include="Views\Dashboard\DualAxesLineAndColumnChart.cshtml" />
+    <Content Include="Views\Home\Index - Kopieren %282%29.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

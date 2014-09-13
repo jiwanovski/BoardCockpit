@@ -43,6 +43,12 @@ namespace BoardCockpit.Helpers
 
         //    return Enums.ResourceManager.GetString(key) ?? enumValue.ToString();
         //}
+        public static IHtmlString DisplayEnumFor<TModel>(this HtmlHelper<TModel> html, Expression<Func<TModel, int>> ex, Type enumType)
+        {
+            var value = (int)ModelMetadata.FromLambdaExpression(ex, html.ViewData).Model;
+            string enumValue = Enum.GetName(enumType, value);
+            return new HtmlString(html.Encode(enumValue));
+        }
 
         public static SelectList ToSelectList<T>(this T enumeration)
         {
