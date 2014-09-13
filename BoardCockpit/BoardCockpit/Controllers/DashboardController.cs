@@ -45,6 +45,8 @@ namespace BoardCockpit.Controllers
             filter.IndustryNo = industryNo;
 
             var viewModel = GetViewModel(filter);
+            viewModel.TileKPIs = GetTileKPIs();
+            viewModel.AverageValues = AverageValues(viewModel.TileKPIs.ToList(), filter);
 
             List<Formula> formulas = db.Formulas.ToList();
             List<SelectListItem> items = new List<SelectListItem>();
@@ -79,7 +81,8 @@ namespace BoardCockpit.Controllers
                 FilterCriteria filter = new FilterCriteria(firstYear, lastYear, smallestSize, biggestSize);
                 
                 var viewModel = GetViewModel(filter);
-                viewModel.TileKPIs = GetTileKPIs(); 
+                viewModel.TileKPIs = GetTileKPIs();
+                viewModel.AverageValues = AverageValues(viewModel.TileKPIs.ToList(), filter);
                 //List<Formula> formulas = db.Formulas.ToList();
                 //List<SelectListItem> items = new List<SelectListItem>();
                 //int i = 0;
@@ -128,6 +131,37 @@ namespace BoardCockpit.Controllers
             }
             return calcKPIs;
         }
+
+        private List<decimal> AverageValues(List<Models.CalculatedKPI> kips, FilterCriteria filter) {
+            List<decimal> test = new List<decimal>();
+            List<CalculatedKPI> htest;
+            foreach (CalculatedKPI item in kips)
+            {
+                if (filter.IndustryNo != 0) {
+                    Industry industry = db.Industries.Where(n => n.IndustryKey == filter.IndustryNo).First();
+                    htest = db.CalculatedKPIs.Include(i => i.ContextContainer)
+                                                    .Where(i => i.ContextContainer.CompanyID != item.ContextContainer.CompanyID)
+                                                    .Where(i => i.ContextContainer.Company.SizeClass >= filter.FromSizeClass)
+                                                    .Where(i => i.ContextContainer.Company.SizeClass <= filter.ToSizeClass)
+                                                    //.Where(i => i.ContextContainer.Company.Industies.Contains(industry))
+                                                    .Where(i => i.ContextContainer.Year == item.ContextContainer.Year)
+                                                    .Where(i => i.FormulaDetailID == item.FormulaDetailID).ToList();
+                } else { 
+                    htest = db.CalculatedKPIs.Include(i => i.ContextContainer)
+                                                    .Where(i => i.ContextContainer.CompanyID != item.ContextContainer.CompanyID)
+                                                    .Where(i => i.ContextContainer.Company.SizeClass >= filter.FromSizeClass)
+                                                    .Where(i => i.ContextContainer.Company.SizeClass <= filter.ToSizeClass)
+                                                    .Where(i => i.ContextContainer.Year == item.ContextContainer.Year)
+                                                    .Where(i => i.FormulaDetailID == item.FormulaDetailID).ToList();
+                };
+                decimal newDec = htest.Average(i => i.Value);
+                newDec = decimal.Round(newDec, 2);
+                test.Add(newDec);
+            }
+
+            return test;
+        }
+
         private DashboardData GetViewModel(FilterCriteria filter)
         {
             var viewModel = new DashboardData();

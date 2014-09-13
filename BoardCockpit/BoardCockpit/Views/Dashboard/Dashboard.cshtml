@@ -11,10 +11,11 @@
     <div class="span3">
         <div class="tile double text-center bg-lightBlue" >
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Description</h4>
-            <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
+            <div>
+                <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
+                <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(0) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
                 <div class="display-field">
-                    
+
                 </div>
             </div>
         </div>
@@ -24,8 +25,9 @@
     <div class="span3">
         <div class="tile double text-center bg-lightGreen">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Description</h4>
-            <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
+            <div>
+                <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
+                <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(1) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
@@ -34,8 +36,9 @@
     <div class="span3">
         <div class="tile double text-center bg-orange">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Description</h4>
-            <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
+            <div>
+                <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
+                <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(2) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
@@ -44,8 +47,9 @@
     <div class="span3">
         <div class="tile double text-center bg-lightRed">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Description</h4>
-            <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
+            <div>
+                <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
+                <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(3) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
@@ -57,8 +61,9 @@
     <div class="span3">
         <div class="tile text-center bg-lightBlue span12">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Description</h4>
-            <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
+            <div>
+                <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
+                <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(0) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
@@ -67,8 +72,9 @@
     <div class="span3">
         <div class="tile text-center bg-lightGreen span12">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Description</h4>
-            <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
+            <div>
+                <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
+                <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(1) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
@@ -77,8 +83,9 @@
     <div class="span3">
         <div class="tile text-center bg-orange span12">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Description</h4>
-            <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
+            <div>
+                <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
+                <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(2) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
@@ -87,8 +94,9 @@
     <div class="span3">
         <div class="tile text-center bg-lightRed span12">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Description</h4>
-            <div style="padding-top:8px">
-                <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
+            <div>
+                <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
+                <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(3) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
             </div>
         </div>
     </div>
@@ -101,29 +109,33 @@
         <div class="carousel" data-role="carousel" id="carouselPhone">
             @{if (@Model.TileKPIs.Count() >= 1) {
             <div class="slide">                
-                <div class="tile double text-center bg-lightBlue" style="padding-top:8px">
-                    <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
+                <div class="tile double text-center bg-lightBlue">
+                    <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
+                    <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(0) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
                 </div>                
             </div>
             }}
 @{if (@Model.TileKPIs.Count() >= 2) {
             <div class="slide">                
-                <div class="tile double text-center bg-lightGreen" style="padding-top:8px">
-                    <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
+                <div class="tile double text-center bg-lightGreen">
+                    <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
+                    <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(1) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
                 </div>                
             </div>
 }}
 @{if (@Model.TileKPIs.Count() >= 3) {
             <div class="slide">                
-                <div class="tile double text-center bg-orange" style="padding-top:8px">
-                    <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
+                <div class="tile double text-center bg-orange">
+                    <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
+                    <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(2) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
                 </div>                
             </div>
 }}
 @{if (@Model.TileKPIs.Count() >= 4) {
             <div class="slide">                
-                <div class="tile double text-center bg-lightRed" style="padding-top:8px">
-                    <h2 class="name text-bold fg-white">@Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
+                <div class="tile double text-center bg-lightRed">
+                    <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
+                    <h2 class="name text-bold fg-white">Ø @Model.AverageValues.ElementAt(3) @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
                 </div>               
             </div>
 }}

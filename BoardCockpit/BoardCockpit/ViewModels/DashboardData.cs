@@ -16,6 +16,7 @@ namespace BoardCockpit.ViewModels
         public IEnumerable<ContextContainer> ContextContainers { get; set; }
         public IEnumerable<Industry> Industries { get; set; }
         public IEnumerable<CalculatedKPI> TileKPIs { get; set; }
+        public IEnumerable<decimal> AverageValues { get; set; }
         public SelectList Formulas1 { get; set; }
         public SelectList Formulas2 { get; set; }
         public SelectList Formulas3 { get; set; }
