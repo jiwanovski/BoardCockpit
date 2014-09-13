@@ -1811,4 +1811,4 @@ INSERT INTO Industry (IndustryKey, Name) VALUES ('98200','Erbringungen von Diens
 INSERT INTO Industry (IndustryKey, Name) VALUES ('99','Exterritoriale Organisationen und Körperschaften')
 INSERT INTO Industry (IndustryKey, Name) VALUES ('990','Exterritoriale Organisationen und Körperschaften')
 INSERT INTO Industry (IndustryKey, Name) VALUES ('9900','Exterritoriale Organisationen und Körperschaften')
-INSERT INTO Industry (IndustryKey, Name) VALUES ('99000','Exterritoriale Organisationen und Körperschaften')
+INSERT INTO Industry (IndustryKey, Name) VALUES ('99000','Exterritoriale Organisationen und Körperschaften ')
