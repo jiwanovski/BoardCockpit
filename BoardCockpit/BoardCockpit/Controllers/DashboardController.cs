@@ -29,17 +29,20 @@ namespace BoardCockpit.Controllers
         List<Company> companies;
         List<DotNet.Highcharts.Options.Series> series;
         List<string> categories;
-        List<YAxis> yAxis;
-        private int fromYear;
-        private int toYear;
+        List<YAxis> yAxis;        
 
         // GET: Dashboard
         public ActionResult Dashboard()
-        {
-            var viewModel = new DashboardData();
-            viewModel.Companies = db.Companies.Include(i => i.ContextContainers).ToList();
-            viewModel.ContextContainers = db.ContextContainers.Include(i => i.CalculatedKPIs).Include(i => i.Contexts).Include(i => i.Company).ToList();
+        {            
+            int firstYear = db.ContextContainers.Min(n => n.Year);
+            int lastYear = db.ContextContainers.Max(n => n.Year);
+            int smallestSize = db.Companies.Min(n => n.SizeClass);
+            int biggestSize = db.Companies.Max(n => n.SizeClass);
 
+            FilterCriteria filter = new FilterCriteria(firstYear, lastYear, smallestSize, biggestSize);
+
+            var viewModel = GetViewModel(filter);
+            
             List<Formula> formulas = db.Formulas.ToList();
             List<SelectListItem> items = new List<SelectListItem>();
             //int i = 0;
@@ -56,29 +59,84 @@ namespace BoardCockpit.Controllers
             ViewBag.Formulas2 = items;
             ViewBag.Formulas3 = items;
             ViewBag.Formulas4 = items;
-            ViewBag.FromPeriod = "2008";
-            ViewBag.ToPeriod = "2009";
+            ViewBag.IndustryID = new SelectList(viewModel.Industries, "IndustryID", "Name");
 
             Highcharts chart = new Highcharts("chart");
             //ViewBag.Chart = AjaxLoadedChart();
             return View(viewModel);
         }
 
-        public ActionResult GetChartPartialView(string chartName, string formulaID)
+        private DashboardData GetViewModel(FilterCriteria filter)
         {
-            string viewName;
-            int formulaID2 = Convert.ToInt16(formulaID);
             var viewModel = new DashboardData();
+            int ownCompanyID = db.GeneralSetting.First().CompanyID;
+            viewModel.Company = db.Companies.Find(ownCompanyID);
+            viewModel.Filter = filter;
             viewModel.Companies = db.Companies.Include(i => i.ContextContainers).ToList();
             viewModel.ContextContainers = db.ContextContainers.Include(i => i.CalculatedKPIs).Include(i => i.Contexts).Include(i => i.Company).ToList();
+            viewModel.Industries = db.Industries.Include(i => i.Companies).ToList();
+            viewModel.Industries = viewModel.Industries.Where(i => i.NoOfCompanies > 0);
+            if ((filter.FromYear != null) && (filter.ToYear != null))
+            {
+                viewModel.ContextContainers = viewModel.ContextContainers
+                                                            .Where(n => n.Year >= filter.FromYear)
+                                                            .Where(n => n.Year <= filter.ToYear);
+            }
 
-            companies = db.Companies.Include(n => n.ContextContainers).ToList();
-            var data = from company in companies
+            // TODO !!!JIW CHANGE URGENT!!!
+            if (filter.IndustryNo != null)
+            {
+                Industry industry = db.Industries.Find(filter.IndustryNo);
+                viewModel.Companies = viewModel.Companies.Where(n => n.Industies.Contains(industry));
+            }
+
+            if ((filter.FromSizeClass != null) && (filter.ToSizeClass != null))
+            {
+                viewModel.Companies = viewModel.Companies
+                                                    .Where(n => n.SizeClass >= filter.FromSizeClass)
+                                                    .Where(n => n.SizeClass <= filter.ToSizeClass);
+            }
+
+            return viewModel;
+        } 
+
+        public ActionResult GetChartPartialView(string chartName, string formulaID, string fromYear, string toYear, string fromSize, string toSize, string industryNo)
+        {
+            if (formulaID == null)
+                return null;
+
+            string viewName;
+            int formulaID2 = Convert.ToInt16(formulaID);
+            Formula formula = db.Formulas.Find(formulaID2);
+
+            FilterCriteria filter = new FilterCriteria();
+            if (!String.IsNullOrEmpty(fromYear))
+            {
+                filter.FromYear = Convert.ToInt16(fromYear);
+            }
+            if (!String.IsNullOrEmpty(toYear))
+            {
+                filter.ToYear = Convert.ToInt16(toYear);
+            }
+            if (!String.IsNullOrEmpty(fromSize))
+            {
+                filter.FromSizeClass = Convert.ToInt16(fromSize);
+            }
+            if (!String.IsNullOrEmpty(toSize))
+            {
+                filter.ToSizeClass = Convert.ToInt16(toSize);
+            }
+            if (!String.IsNullOrEmpty(industryNo))
+            {
+                filter.IndustryNo = Convert.ToInt16(industryNo);
+            }
+
+            var viewModel = GetViewModel(filter);
+                                    
+            var data = from company in viewModel.Companies
                        select company.CompanyID;
             ViewBag.Companies = data.ToArray();
-            
-            Formula formula = db.Formulas.Find(formulaID2);
-            
+                                    
             switch (formula.ChartType) 
             {
                 case ChartType.AjaxLoadedDataClickablePoints:
@@ -114,7 +172,7 @@ namespace BoardCockpit.Controllers
                             },
                             Title = new YAxisTitle
                                 {
-                                    Text = relatedFormula.Name,
+                                    Text = formula.LinkedFormula.Name,
                                     Style = "color: '#4572A7'"
                                 },
                             Opposite = true
@@ -286,8 +344,8 @@ namespace BoardCockpit.Controllers
 
         public EmptyResult SetPeriod(string _fromYear, string _toYear)
         {
-            fromYear = Convert.ToInt32(_fromYear);
-            toYear = Convert.ToInt32(_toYear);
+            //fromYear = Convert.ToInt32(_fromYear);
+            //toYear = Convert.ToInt32(_toYear);
             //contextContailers = db.ContextContainers
             //                        .Where(n => n.Year >= fromYear)
             //                        .Where(n => n.Year <= toYear).ToList();

@@ -10,8 +10,12 @@ namespace BoardCockpit.Models
     {
         public int IndustryID { get; set; }
 
+        public int IndustryKey { get; set; }
+
         [Display(Name = "Name", ResourceType = typeof(Resources.Model))]
         public string Name { get; set; }
+
+        public virtual int NoOfCompanies { get { return Companies.Count; } }
 
         public virtual ICollection<Company> Companies { get; set; }
     }

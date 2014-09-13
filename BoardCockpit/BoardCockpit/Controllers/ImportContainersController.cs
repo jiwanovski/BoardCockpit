@@ -235,6 +235,7 @@ namespace BoardCockpit.Controllers
 
                 //    //if (System.IO.File.Exists(x.FullPath)) System.IO.File.Delete(x.FullPath);
                 //});
+                List<Industry> industries = db.Industries.Include(n => n.Companies).ToList();
 
                 List<ImportNode> nodes = new List<ImportNode>();
                 foreach (ViewDataUploadFileResult file in statuses2)
@@ -297,7 +298,7 @@ namespace BoardCockpit.Controllers
                     if (db.Companies.Where(i => i.CompanyIDXbrl == importXBRL.Company.CompanyID).Count() > 0)
                         company2 = db.Companies.Where(i => i.CompanyIDXbrl == importXBRL.Company.CompanyID).Single();
 
-                    Company company = importXBRL.DbCompanyUpdate(company2, ref companyExists);
+                    Company company = importXBRL.DbCompanyUpdate(company2, ref companyExists, industries);
 
                     // ----- REPORT -------
                     if (db.Reports.Where(i => i.ReportIDXbrl == importXBRL.Report.ReportID).Count() > 0)

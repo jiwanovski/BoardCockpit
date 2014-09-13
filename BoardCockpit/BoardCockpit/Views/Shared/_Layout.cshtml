@@ -126,100 +126,87 @@
     
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-        <script>
-            var $img = $('<i class="child-opener-image icon-search icon-filter"></i>');
-            function showFilter() {
-                $.Dialog({
-                    overlay: true,
-                    shadow: true,
-                    flat: true,
-                    draggable: true,
-                    icon: $img,
-                    title: 'Filter',
-                    content: '',
-                    padding: 10,
-                    onShow: function (_dialog) {
-                        var content =
-                            //'<form class="user-input no-phone">' +                                
-                            //    '<table>' +
-                            //        '<tbody>' +
-                            //            '<tr>' +
-                            //                '<td>Zeitraum</td>' +
-                            //                '<td>' +
-                            //                    '<div class="input-control text size3 block" data-role="input-control">' +
-                            //                        '<input type="text" name="fromPeriod">' +
-                            //                            '<button class="btn-clear"></button>' +
-                            //                    '</div>' +
-                            //                '</td>' +
-                            //                '<td>bis</td>' +
-                            //                '<td>' +
-                            //                    '<div class="input-control text size3 block" data-role="input-control">' +
-                            //                        '<input type="text" name="toPeriod">' +
-                            //                            '<button class="btn-clear"></button>' +
-                            //                    '</div>' +
-                            //                '</td>' +
-                            //            '</tr>' +                                        
-                            //            '<tr>' +
-                            //                '<td>Branche</td>' +
-                            //                '<td colspan="3">' +                                            
-                            //                    '<div class="input-control text size3 block" data-role="input-control">' +
-                            //                        '<input type="text" name="fromPeriod">' +
-                            //                            '<button class="btn-clear"></button>' +
-                            //                    '</div>' +
-                            //                '</td>' +                                        
-                            //            '</tr>' +                                        
-                            //        '</tbody>' +
-                            //    '</table>' +
-                            //    '<div class="form-actions">' +
-                            //        '<button class="button success">Anwenden</button>&nbsp;' +
-                            //        '<button class="button" type="button" onclick="$.Dialog.close()">Abbrechen</button> ' +
-                            //    '</div>' +                               
-                            //'</form>' +
-                            //class="user-input no-large no-desktop no-tablet no-tablet-portrait on-phone"
-                            '<form>' +
-                                '<table>' +
-                                    '<tbody>' +                                        
-                                        '<tr>' +
-                                            '<td>Zeitraum</td>' +
-                                            '<td>' +
-                                                '<div class="input-control text size3 block" data-role="input-control">' +
-                                                '<input type="text" name="fromPeriod" value="@ViewBag.FromPeriod">' +
+        @*<script>
+        var $img = $('<i class="child-opener-image icon-search icon-filter"></i>');
+        function showFilter() {
+            $.Dialog({
+                overlay: true,
+                shadow: true,
+                flat: true,
+                draggable: true,
+                icon: $img,
+                title: 'Filter',
+                content: '',
+                padding: 10,
+                onShow: function (_dialog) {
+                    var content =
+                        '<form>' +
+                            '<table>' +
+                                '<tbody>' +
+                                    '<tr>' +
+                                        '<td colspan="2"><strong>Zeitraum</strong></td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>Von</td>' +
+                                        '<td>' +
+                                            '<div class="input-control text size3 block" data-role="input-control">' +
+                                                '<input type="text" name="fromPeriod" value="@Model.Filter.FromYear">' +
                                                 '<button class="btn-clear"></button>' +
                                             '</div>' +
-                                        '</tr>' +
-                                        '<tr>' +
-                                            '<td>bis</td>' +
-                                            '<td>' +
-                                                '<div class="input-control text size3 block" data-role="input-control">' +
-                                                    '<input type="text" name="toPeriod" value="@ViewBag.ToPeriod">' +
-                                                        '<button class="btn-clear"></button>' +
-                                                '</div>' +
-                                            '</td>' +
-                                        '</tr>' +                                        
-                                        '<tr>' +
-                                            '<td>Branche</td>' +
-                                            '<td>' +
-                                                '<div class="input-control text size3 block" data-role="input-control">' +
-                                                    '<input type="text" name="industry" value="">' +
-                                                        '<button class="btn-clear"></button>' +
-                                                '</div>' +
-                                            '</td>' +
-                                        '</tr>' +
-                                    '</tbody>' +
-                                '</table>' +
+                                        '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>bis</td>' +
+                                        '<td>' +
+                                            '<div class="input-control text size3 block" data-role="input-control">' +
+                                                '<input type="text" name="toPeriod" value="@Model.Filter.ToYear">' +
+                                                '<button class="btn-clear"></button>' +
+                                            '</div>' +
+                                        '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td colspan="2"><strong>Firmengröße</strong></td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>Von</td>' +
+                                        '<td>' +
+                                            '<div class="input-control text size3 block" data-role="input-control">' +
+                                                '<input type="text" name="fromSizeClass" value="@Model.Filter.FromSizeClass">' +
+                                                '<button class="btn-clear"></button>' +
+                                            '</div>' +
+                                        '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>bis</td>' +
+                                        '<td>' +
+                                            '<div class="input-control text size3 block" data-role="input-control">' +
+                                                '<input type="text" name="toPeriod" value="@Model.Filter.ToSizeClass">' +
+                                                '<button class="btn-clear"></button>' +
+                                            '</div>' +
+                                        '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td><strong>Branche</strong></td>' +
+                                        '<td>' +
+                                            '<div class="input-control select size3 block" data-role="input-control">' +
+                                                '@Html.DropDownList("IndustryID", String.Empty)' +
+                                            '</div>' +
+                                        '</td>' +
+                                    '</tr>' +
+                                '</tbody>' +
+                            '</table>' +
+                            '<div class="form-actions">' +
+                                '<button class="button success">Anwenden</button>&nbsp;' +
+                                '<button class="button" type="button" onclick="$.Dialog.close()">Abbrechen</button> ' +
+                            '</div>' +
+                        '</form>'
 
-                                '<div class="form-actions">' +
-                                    '<button class="button success">Anwenden</button>&nbsp;' +
-                                    '<button class="button" type="button" onclick="$.Dialog.close()">Abbrechen</button> ' +
-                                '</div>' +
-                            '</form>'
-
-                        $.Dialog.title("Filter")
-                        $.Dialog.content(content)
-                    }
-                })
-            }
-        </script>
+                    $.Dialog.title("Filter")
+                    $.Dialog.content(content)
+                }
+            })
+        }
+    </script>*@
 
 </body>
 </html>

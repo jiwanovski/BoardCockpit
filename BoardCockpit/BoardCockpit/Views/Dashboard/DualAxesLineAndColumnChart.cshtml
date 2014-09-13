@@ -22,7 +22,7 @@
     });*@
 
 
-    $.getJSON("GetDualAxesLineAndColumnChartData", {companyID: "7", formulaID: @ViewBag.FormulaID, fromYear: "2008", toYear: "2009" },function (data) {
+    $.getJSON("GetDualAxesLineAndColumnChartData", {companyID: @Model.Company.CompanyID, formulaID: @ViewBag.FormulaID, fromYear: "2008", toYear: "2009" },function (data) {
         var gType;
         $.each(data, function (key, val) {
             //alert(val);

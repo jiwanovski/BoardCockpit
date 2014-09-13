@@ -71,7 +71,7 @@ namespace BoardCockpit.Helpers
             }
         }
 
-        public BoardCockpit.Models.Company DbCompanyUpdate(BoardCockpit.Models.Company existingCompany, ref bool companyExists)
+        public BoardCockpit.Models.Company DbCompanyUpdate(BoardCockpit.Models.Company existingCompany, ref bool companyExists, List<BoardCockpit.Models.Industry> Industries)
         {            
             // ----- COMPANY -------             
             BoardCockpit.Models.Company company;
@@ -108,8 +108,12 @@ namespace BoardCockpit.Helpers
 
             foreach (JeffFerguson.Gepsio.Industry industry in Company.Industires)
             {
-                BoardCockpit.Models.Industry industry2 = new BoardCockpit.Models.Industry { IndustryID = industry.ID };
-                industry2.Companies = new List<BoardCockpit.Models.Company>();
+                BoardCockpit.Models.Industry industry2 = Industries.Where(n => n.IndustryKey == industry.ID).First();//new BoardCockpit.Models.Industry { IndustryID = industry.ID };
+
+                if (industry2.Companies == null) { 
+                    industry2.Companies = new List<BoardCockpit.Models.Company>();
+                }
+                
                 industry2.Companies.Add(company);
 
                 company.Industies.Add(industry2);

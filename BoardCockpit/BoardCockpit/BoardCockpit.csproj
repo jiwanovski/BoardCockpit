@@ -191,6 +191,7 @@
     <Compile Include="Helpers\Calculator.cs" />
     <Compile Include="Helpers\DualAxesLineAndColumnChart.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\FilterCriteria.cs" />
     <Compile Include="Helpers\GeneralChartInformation.cs" />
     <Compile Include="Helpers\IChart.cs" />
     <Compile Include="Helpers\ImportXBRL.cs" />
