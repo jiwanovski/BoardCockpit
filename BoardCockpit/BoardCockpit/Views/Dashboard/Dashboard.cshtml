@@ -307,7 +307,7 @@
             ({
                 url: "/Dashboard/GetChartPartialView",
                 type: "GET",
-                data: { chartName: chartName, formulaID: formulaId }
+                data: { chartName: chartName, formulaID: formulaId, fromYear: @Model.Filter.FromYear, toYear: @Model.Filter.ToYear, fromSize: @Model.Filter.FromSizeClass, toSize: @Model.Filter.ToSizeClass, industryNo: @Model.Filter.IndustryNo }
             }).done(function (partialViewResult) {
                 $("#div" + chartName).html(partialViewResult);
             });

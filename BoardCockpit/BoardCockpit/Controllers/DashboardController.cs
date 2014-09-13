@@ -410,13 +410,13 @@ namespace BoardCockpit.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAjaxLoadedChartData(string formulaID, string companyID, string fromYear, string toYear)//(int formulaID, int companyID)
+        public JsonResult GetAjaxLoadedChartData(string formulaID, string companyID, int fromYear, int toYear, int fromSize, int toSize, int industryNo)//(int formulaID, int companyID)
         {
             List<AjaxLoadedChartData> chartDatas = new List<AjaxLoadedChartData>();
             Company company = db.Companies.Find(Convert.ToInt32(companyID));
             List<ContextContainer> contextContainers = company.ContextContainers
-                                                                .Where(n => n.Year >= Convert.ToInt32(fromYear))
-                                                                .Where(n => n.Year <= Convert.ToInt32(toYear)).ToList();
+                                                                .Where(n => n.Year >= fromYear)
+                                                                .Where(n => n.Year <= toYear).ToList();
             
             foreach (ContextContainer item in contextContainers)
 	        {
@@ -443,17 +443,17 @@ namespace BoardCockpit.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);    
         }
 
-        public JsonResult GetDualAxesLineAndColumnChartData(string companyID, string formulaID, string fromYear, string toYear)//(int formulaID, int companyID)
+        public JsonResult GetDualAxesLineAndColumnChartData(string companyID, string formulaID, int fromYear, int toYear, int fromSize, int toSize, int industryNo)//(int formulaID, int companyID)
         {
             List<Series> chartDatas = new List<Series>();
             int companyId2 = Convert.ToInt16(companyID);
-            int fromYear2 = Convert.ToInt16(fromYear);
-            int toYear2 = Convert.ToInt16(toYear);
+            //int fromYear2 = Convert.ToInt16(fromYear);
+            //int toYear2 = Convert.ToInt16(toYear);
 
             List<ContextContainer> contextContainers = db.ContextContainers
                                                                 .Where(n => n.CompanyID == companyId2)
-                                                                .Where(n => n.Year >= fromYear2)
-                                                                .Where(n => n.Year <= toYear2).ToList();
+                                                                .Where(n => n.Year >= fromYear)
+                                                                .Where(n => n.Year <= toYear).ToList();
 
             Formula selectedFormula = db.Formulas.Find(Convert.ToInt16(formulaID));
             Formula relatedFormula = selectedFormula.LinkedFormula;

@@ -22,39 +22,39 @@
     });*@
 
 
-    $.getJSON("GetDualAxesLineAndColumnChartData", {companyID: @Model.Company.CompanyID, formulaID: @ViewBag.FormulaID, fromYear: "2008", toYear: "2009" },function (data) {
+    $.getJSON("GetDualAxesLineAndColumnChartData", {companyID: @Model.Company.CompanyID, formulaID: @ViewBag.FormulaID, fromYear: @Model.Filter.FromYear, toYear: @Model.Filter.ToYear, fromSize: @Model.Filter.FromSizeClass, toSize: @Model.Filter.ToSizeClass, industryNo: @Model.Filter.IndustryNo },function (data) {
         var gType;
         $.each(data, function (key, val) {
             //alert(val);
             @{
-            @:  
-            @:  var chartData2 = [];
-            @:  if (val.Type == 4)
-            @:  {
-            @:      gType = 'column';
-            @:  }
-            @:  if (val.Type == 1)
-            @:  {
-            @:      gType = 'spline';
-            @:  }
-            @:  var arr = val.Data;
-            @:  $.each(arr, function (key2, val2) {
-            @:      var arr2 = val2;
-            @:      if (arr2 != null) {
-            @:          $.each(arr2, function (key3, val3) {                
-            @:              var point = [];
-            @:              point.push(val3.Year);
-            @:              point.push(val3.Value);
-            @:              chartData2.push(point);
-            @:          });
-            @:      };
-            @:  });              
-            @: if (val.YAxis == null) {            
-                @ViewBag.ChartName@:.addSeries({ name: val.Name, data: chartData2, color: val.color, type: gType});            
-            @: } else {
-                @ViewBag.ChartName@:.addSeries({ name: val.Name, data: chartData2, color: val.color, type: gType, yAxis: parseInt(val.YAxis) });
-            @:}
-            }
+            @:
+                                                            @:  var chartData2 = [];
+                                                            @:  if (val.Type == 4)
+                                                                            @:  {
+                                                                            @:      gType = 'column';
+                                                                            @:  }
+                                                            @:  if (val.Type == 1)
+                                                                            @:  {
+                                                                            @:      gType = 'spline';
+                                                                            @:  }
+                                                            @:  var arr = val.Data;
+                                                            @:  $.each(arr, function (key2, val2) {
+                                                                            @:      var arr2 = val2;
+                                                                            @:      if (arr2 != null) {
+                                                                                            @:          $.each(arr2, function (key3, val3) {
+                                                                                                            @:              var point = [];
+                                                                                                            @:              point.push(val3.Year);
+                                                                                                            @:              point.push(val3.Value);
+                                                                                                            @:              chartData2.push(point);
+                                                                                                            @:          });
+                                                                                            @:      };
+                                                                            @:  });
+                                                            @: if (val.YAxis == null) {
+                                                                                @ViewBag.ChartName@:.addSeries({ name: val.Name, data: chartData2, color: val.color, type: gType});
+                                                                            @: } else {
+                                                                                @ViewBag.ChartName@:.addSeries({ name: val.Name, data: chartData2, color: val.color, type: gType, yAxis: parseInt(val.YAxis) });
+                                                                            @:}
+                                                            }
 
         });
     });
