@@ -8,7 +8,9 @@
 
     @*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>*@
-
+    <link rel="stylesheet" href="dist/ladda-themeless.min.css">
+    <script src="dist/spin.min.js"></script>
+    <script src="dist/ladda.min.js"></script>
     <!-- Bootstrap styles -->
     @*<link rel="stylesheet" href="~/Content/bootstrap.min.css">*@
     <link rel="stylesheet" href="~/Content/metro/metro-bootstrap.css">
@@ -29,6 +31,8 @@
             }
         </style>*@
         <div class="hide">
+
+
             @{String parameter = Request.QueryString["status"];
                 if (parameter == "edit")
                 {
@@ -62,8 +66,16 @@
                      }, 1000)
                     </script>
 
+                } 
+                <script> $(function() {
+	            $('#form-submit').click(function(e){
+	 	            e.preventDefault();
+	 	            var l = Ladda.create(this);
+	 	            l.start();
+	            });
+                });
+                </script>
                 }
-            }
         </div>
         <header>
             <div class="navigation-bar light fixed-top">
