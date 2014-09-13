@@ -37,7 +37,9 @@ namespace BoardCockpit.Controllers
             int lastYear = Convert.ToInt16(toYear);
             int smallestSize = Convert.ToInt16(fromSizeClass);
             int biggestSize = Convert.ToInt16(toSizeClass);
-            int industryNo = Convert.ToInt16(industryID);
+            int industryNo = 0;
+            if (industryID != "")
+                industryNo = Convert.ToInt16(industryID);
 
             FilterCriteria filter = new FilterCriteria(firstYear, lastYear, smallestSize, biggestSize);
             filter.IndustryNo = industryNo;

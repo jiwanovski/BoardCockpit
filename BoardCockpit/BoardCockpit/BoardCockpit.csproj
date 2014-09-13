@@ -264,7 +264,9 @@
     <Content Include="Images\bullet.png" />
     <Content Include="Images\facebook.png" />
     <Content Include="Images\findHosting.png" />
+    <Content Include="Images\Formula INSERT Skript.sql" />
     <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\Industry INSERT Skript.sql" />
     <Content Include="Images\NuGetGallery.png" />
     <Content Include="Images\orderedList0.png" />
     <Content Include="Images\orderedList1.png" />
