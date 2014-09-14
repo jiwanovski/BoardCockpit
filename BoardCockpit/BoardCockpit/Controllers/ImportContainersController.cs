@@ -258,7 +258,8 @@ namespace BoardCockpit.Controllers
                     JeffFerguson.Gepsio.XbrlDocument xbrlDoc = importXBRL.XbrlDocument;
                     JeffFerguson.Gepsio.XbrlSchema xbrlSchema = xbrlDoc.XbrlFragments.First().Schemas.First();
                     string schemeDirectoryName = Path.GetDirectoryName(xbrlSchema.Path);
-                    Taxonomy taxonomy = db.Taxonomies.Where(i => i.Path == schemeDirectoryName).First();
+                    Taxonomy taxonomy = db.Taxonomies.First();
+                    //Taxonomy taxonomy = db.Taxonomies.Where(i => i.Path == schemeDirectoryName).First();
                         //Where(i => i.Path == xbrlSchema.Path).First();
 
                     import.TaxonomyID = taxonomy.TaxonomyID;

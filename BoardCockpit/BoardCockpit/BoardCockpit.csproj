@@ -353,6 +353,10 @@
     <Content Include="Content\metro\less\variables\wizard.less" />
     <None Include="Properties\PublishProfiles\boardcockpit - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\boardcockpit - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\dashboardXBRL - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\dashboardXBRL - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\dashboardXBRL - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\dashboardXBRL - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Highcharts\highcharts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -132,21 +132,62 @@ namespace BoardCockpit.Controllers
             return calcKPIs;
         }
 
-        private List<decimal> AverageValues(List<Models.CalculatedKPI> kips, FilterCriteria filter) {
+        private List<decimal> AverageValues(List<Models.CalculatedKPI> kips, FilterCriteria filter)
+        {
             List<decimal> test = new List<decimal>();
-            List<CalculatedKPI> htest;
+            List<CalculatedKPI> htest = new List<Models.CalculatedKPI>();
+            List<ContextContainer> contextContainers = new List<Models.ContextContainer>();
+
+            if (filter.IndustryNo != 0)
+            {
+
+            }
+
             foreach (CalculatedKPI item in kips)
             {
-                if (filter.IndustryNo != 0) {
+                if (filter.IndustryNo != 0)
+                {
+                    //Industry industry = db.Industries.Where(n => n.IndustryKey == filter.IndustryNo).First();
+                    //List<Company> companies = db.Companies.Include(i => i.Industies).ToList();
+                    //companies = companies.Where(i => i.Industies.Contains(industry))
+                    //                        .Where(i => i.SizeClass >= filter.FromSizeClass)
+                    //                        .Where(i => i.SizeClass <= filter.ToSizeClass)
+                    //                        .Where(i => i.CompanyID != item.ContextContainer.CompanyID).ToList();
+
+                    //htest = db.CalculatedKPIs.Include(i => i.ContextContainer)
+                    //                                .Where(i => i.ContextContainer.CompanyID != item.ContextContainer.CompanyID)
+                    //                                .Where(i => i.ContextContainer.Company.SizeClass >= filter.FromSizeClass)
+                    //                                .Where(i => i.ContextContainer.Company.SizeClass <= filter.ToSizeClass)
+                    //                                //.Where(i => i.ContextContainer.Company.Industies.Contains(industry))
+                    //                                .Where(i => i.ContextContainer.Year == item.ContextContainer.Year)
+                    //                                .Where(i => i.FormulaDetailID == item.FormulaDetailID).ToList();
                     Industry industry = db.Industries.Where(n => n.IndustryKey == filter.IndustryNo).First();
-                    htest = db.CalculatedKPIs.Include(i => i.ContextContainer)
-                                                    .Where(i => i.ContextContainer.CompanyID != item.ContextContainer.CompanyID)
-                                                    .Where(i => i.ContextContainer.Company.SizeClass >= filter.FromSizeClass)
-                                                    .Where(i => i.ContextContainer.Company.SizeClass <= filter.ToSizeClass)
-                                                    //.Where(i => i.ContextContainer.Company.Industies.Contains(industry))
-                                                    .Where(i => i.ContextContainer.Year == item.ContextContainer.Year)
-                                                    .Where(i => i.FormulaDetailID == item.FormulaDetailID).ToList();
-                } else { 
+                    List<Company> companies = db.Companies.Include(i => i.Industies).ToList();
+                    companies = companies.Where(i => i.Industies.Contains(industry))
+                                            .Where(i => i.SizeClass >= filter.FromSizeClass)
+                                            .Where(i => i.SizeClass <= filter.ToSizeClass)
+                                            .ToList();
+
+                    foreach (Company item2 in companies)
+                    {
+                        if (item2.ContextContainers.Where(i => i.Year == filter.ToYear).Count() > 0)
+                        {
+                            ContextContainer contextContainer = item2.ContextContainers.Where(i => i.Year == filter.ToYear).First();
+                            contextContainers.Add(contextContainer);
+                        }
+                    }
+
+                    foreach (ContextContainer item2 in contextContainers)
+                    {
+                        List<CalculatedKPI> kpis = new List<CalculatedKPI>();
+                        if (item2.CalculatedKPIs.Where(i => i.FormulaDetail.FormulaID == item.FormulaDetail.FormulaID).Count() > 0)
+                        {
+                            htest.Add(item2.CalculatedKPIs.Where(i => i.FormulaDetail.FormulaID == item.FormulaDetail.FormulaID).First());
+                        }
+                    }
+                }
+                else
+                {
                     htest = db.CalculatedKPIs.Include(i => i.ContextContainer)
                                                     .Where(i => i.ContextContainer.CompanyID != item.ContextContainer.CompanyID)
                                                     .Where(i => i.ContextContainer.Company.SizeClass >= filter.FromSizeClass)
@@ -154,9 +195,12 @@ namespace BoardCockpit.Controllers
                                                     .Where(i => i.ContextContainer.Year == item.ContextContainer.Year)
                                                     .Where(i => i.FormulaDetailID == item.FormulaDetailID).ToList();
                 };
-                decimal newDec = htest.Average(i => i.Value);
-                newDec = decimal.Round(newDec, 2);
-                test.Add(newDec);
+                if (htest.Count > 0)
+                {
+                    decimal newDec = htest.Average(i => i.Value);
+                    newDec = decimal.Round(newDec, 2);
+                    test.Add(newDec);
+                }
             }
 
             return test;
@@ -556,7 +600,6 @@ namespace BoardCockpit.Controllers
                                         Name = selectedFormula.Name, 
                                         Color = ColorTranslator.FromHtml("#4572A7"), 
                                         Type = ChartTypes.Column, 
-                                        YAxis = "1",
                                         Data = new Data( selectedChartDatas.OrderBy(n => n.Year).ToArray() )//49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6 })//selectedFormulaValues.ToArray() ) chartDatas2.OrderBy(i => i.Year).ToArray() )
                                       });
             chartDatas.Add(new Series
@@ -564,6 +607,7 @@ namespace BoardCockpit.Controllers
                                         Name = relatedFormula.Name,
                                         Color = ColorTranslator.FromHtml("#89A54E"),
                                         Type = ChartTypes.Spline,
+                                        YAxis = "1",
                                         Data = new Data( relatedChartDatas.OrderBy(n => n.Year).ToArray() )//7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2 })//relatedFormulaValues.ToArray()) chartDatas2.OrderBy(i => i.Year).ToArray())
                                     });            
 
