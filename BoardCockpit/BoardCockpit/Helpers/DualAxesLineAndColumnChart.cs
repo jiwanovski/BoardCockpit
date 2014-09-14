@@ -64,7 +64,7 @@ namespace BoardCockpit.Helpers
                     .SetYAxis(YAxisSeries.ToArray())
                     .SetTooltip(new Tooltip
                     {
-                        Formatter = "function() { return ''+ this.x +': '+ this.y + (this.series.name == 'Rainfall' ? ' mm' : '°C'); }"
+                        Formatter = "function() { return ''+ this.x +': '+ this.y; }"
                     })
                     //.SetLegend(new Legend
                     //{

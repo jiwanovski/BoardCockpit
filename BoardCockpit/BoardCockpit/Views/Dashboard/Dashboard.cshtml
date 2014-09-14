@@ -9,7 +9,7 @@
     @*<div class="span12">*@
     @{if (@Model.TileKPIs.Count() >= 1) {
     <div class="span3">
-        <div class="tile double text-center bg-lightBlue" >
+        <div class="tile double text-center bg-lightBlue" data-hint="Erläuterung|@Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.ToolTipDescription">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Description</h4>
             <div>
                 <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
@@ -23,7 +23,7 @@
     }}
     @{if (@Model.TileKPIs.Count() >= 2) {
     <div class="span3">
-        <div class="tile double text-center bg-lightGreen">
+        <div class="tile double text-center bg-lightGreen" data-hint="Erläuterung|@Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.ToolTipDescription">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Description</h4>
             <div>
                 <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
@@ -34,7 +34,7 @@
     }}
     @{if (@Model.TileKPIs.Count() >= 3) {
     <div class="span3">
-        <div class="tile double text-center bg-orange">
+        <div class="tile double text-center bg-orange" data-hint="Erläuterung|@Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.ToolTipDescription">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Description</h4>
             <div>
                 <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
@@ -45,7 +45,7 @@
     }}
     @{if (@Model.TileKPIs.Count() >= 4) {
     <div class="span3">
-        <div class="tile double text-center bg-lightRed">
+        <div class="tile double text-center bg-lightRed" data-hint="Erläuterung|@Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.ToolTipDescription">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Description</h4>
             <div>
                 <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
@@ -59,7 +59,7 @@
 <div class="row on-tablet no-phone no-large no-desktop">
 @{if (@Model.TileKPIs.Count() >= 1) {
     <div class="span3">
-        <div class="tile text-center bg-lightBlue span12">
+        <div class="tile text-center bg-lightBlue span12" data-hint="Erläuterung|@Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.ToolTipDescription">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Description</h4>
             <div>
                 <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(0).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(0).FormulaDetail.Formula.Unit)</h2>
@@ -70,7 +70,7 @@
 }}
 @{if (@Model.TileKPIs.Count() >= 2) {
     <div class="span3">
-        <div class="tile text-center bg-lightGreen span12">
+        <div class="tile text-center bg-lightGreen span12" data-hint="Erläuterung|@Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.ToolTipDescription">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Description</h4>
             <div>
                 <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(1).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(1).FormulaDetail.Formula.Unit)</h2>
@@ -81,7 +81,7 @@
 }}
 @{if (@Model.TileKPIs.Count() >= 3) {
     <div class="span3">
-        <div class="tile text-center bg-orange span12">
+        <div class="tile text-center bg-orange span12" data-hint="Erläuterung|@Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.ToolTipDescription">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Description</h4>
             <div>
                 <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(2).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(2).FormulaDetail.Formula.Unit)</h2>
@@ -92,7 +92,7 @@
 }}
 @{if (@Model.TileKPIs.Count() >= 4) {
     <div class="span3">
-        <div class="tile text-center bg-lightRed span12">
+        <div class="tile text-center bg-lightRed span12" data-hint="Erläuterung|@Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.ToolTipDescription">
             <h4 class="text fg-white">@Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Description</h4>
             <div>
                 <h2 class="name text-bold fg-white"><i class="icon-home"></i> @Model.TileKPIs.ElementAt(3).Value @Html.DisplayFor(model => Model.TileKPIs.ElementAt(3).FormulaDetail.Formula.Unit)</h2>
@@ -162,15 +162,15 @@
         <div class="span12">
             <div class="span6">
                 <div class="panel" data-role="panel">
-                    <div class="panel-header bg-lightBlue fg-white">
-                        Grafik 1                        
+                    <div class="panel-header bg-lightBlue fg-white Graph_1_Box">
+                        <span class="Graph_1_Label">DSO</span>                        
                     </div>
                     <div class="panel-content">
                         <div class="input-control select">
                             @Html.DropDownList("Formulas1", null, new { @id = "Formulas1" })
                         </div>
                         <div class="divchart1" id="divchart1">
-                            @Html.Action("GetChartPartialView", new { chartName = "chart" })
+                            @Html.Action("GetChartPartialView", new { chartName = "chart1", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })                            
                         </div>
                             @*@(ViewBag.Chart)*@
                         </div>
@@ -178,15 +178,15 @@
             </div>
             <div class="span6">
                 <div class="panel" data-role="panel">
-                    <div class="panel-header bg-lightBlue fg-white">
-                        Grafik 2
+                    <div class="panel-header bg-lightBlue fg-white Graph_2_Box">
+                        <span class="Graph_2_Label">Grafik 2</span>
                     </div>
                     <div class="panel-content">
                         <div class="input-control select">
                             @Html.DropDownList("Formulas2", null, new { @id = "Formulas2" })
                         </div>
                         <div class="divchart2" id="divchart2">
-                            @Html.Action("GetChartPartialView", new { chartName = "chart2" })
+                            @Html.Action("GetChartPartialView", new { chartName = "chart2", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                         </div>
                             @*@(ViewBag.Chart)*@
                         </div>
@@ -197,30 +197,30 @@
     <div class="row">
         <div class="span6">
             <div class="panel" data-role="panel">
-                <div class="panel-header bg-lightBlue fg-white">
-                    Grafik 3
+                <div class="panel-header bg-lightBlue fg-white Graph_3_Box">
+                    <span class="Graph_3_Label">Grafik 3</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
                         @Html.DropDownList("Formulas3", null, new { @id = "Formulas3" })
                     </div>
                     <div class="divchart3" id="divchart3">
-                        @(ViewBag.Chart)
+                        @Html.Action("GetChartPartialView", new { chartName = "chart3", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
         </div>
         <div class="span6">
             <div class="panel" data-role="panel">
-                <div class="panel-header bg-lightBlue fg-white">
-                    Grafik 4
+                <div class="panel-header bg-lightBlue fg-white Graph_4_Box">
+                    <span class="Graph_4_Label">Grafik 4</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
                         @Html.DropDownList("Formulas4", null, new { @id = "Formulas4" })
                     </div>
                     <div class="divchart4" id="divchart4">
-                        @(ViewBag.Chart)
+                        @Html.Action("GetChartPartialView", new { chartName = "chart4", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
@@ -232,8 +232,8 @@
         <div class="span12">
 
             <div class="panel" data-role="panel">
-                <div class="panel-header bg-lightBlue fg-white">
-                    Grafik 1
+                <div class="panel-header bg-lightBlue fg-white Graph_1s_Box">
+                    <span class="Graph_1s_Label">Grafik 1</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
@@ -241,7 +241,7 @@
                     </div>
                     <div class="divchart1s" id="divchart1s">
                         @*@(ViewBag.Chart)*@
-                        @Html.Action("GetChartPartialView", new { chartName = "chart" })
+                        @Html.Action("GetChartPartialView", new { chartName = "chart1s", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
@@ -250,15 +250,15 @@
     <div class="row">
         <div class="span12">
             <div class="panel" data-role="panel">
-                <div class="panel-header bg-lightBlue fg-white">
-                    Grafik 2
+                <div class="panel-header bg-lightBlue fg-white Graph_2s_Box">
+                    <span class="Graph_2s_Label">Grafik 2</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
                         @Html.DropDownList("Formulas2", null, new { @id = "Formulas2s" })
                     </div>
                     <div class="divchart2s" id="divchart2s">
-                        @(ViewBag.Chart)
+                        @Html.Action("GetChartPartialView", new { chartName = "chart2s", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
@@ -268,15 +268,15 @@
     <div class="row">
         <div class="span12">
             <div class="panel" data-role="panel">
-                <div class="panel-header bg-lightBlue fg-white">
-                    Grafik 3
+                <div class="panel-header bg-lightBlue fg-white Graph_3s_Box">
+                    <span class="Graph_3s_Label">Grafik 3</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
                         @Html.DropDownList("Formulas3", null, new { @id = "Formulas3s" })
                     </div>
                     <div class="divchart3s" id="divchart3s">
-                        @(ViewBag.Chart)
+                        @Html.Action("GetChartPartialView", new { chartName = "chart3s", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
@@ -285,15 +285,15 @@
     <div class="row">
         <div class="span12">
             <div class="panel" data-role="panel">
-                <div class="panel-header bg-lightBlue fg-white">
-                    Grafik 4
+                <div class="panel-header bg-lightBlue fg-white Graph_4s_Box">
+                    <span class="Graph_4s_Label">Grafik 4</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
                         @Html.DropDownList("Formulas4", null, new { @id = "Formulas4s" })
                     </div>
                     <div class="divchart4s" id="divchart4s">
-                        @(ViewBag.Chart)
+                        @Html.Action("GetChartPartialView", new { chartName = "chart4s", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
@@ -363,6 +363,9 @@
     $("#Formulas1s").bind("change", function () {
         $("#Formulas1").val($(this).val()).change();
         $("Filter_Formulas1").val($(this).val());
+        var dropDown = $(this).context;        
+        $(".Graph_1s_Box span").html(dropDown.options[dropDown.selectedIndex].text);
+        $(".Graph_1_Box span").html(dropDown.options[dropDown.selectedIndex].text);
     });
 
     $("#Formulas1").bind("change", function () {
@@ -370,11 +373,17 @@
         replaceChart("chart1", formulaId);
         replaceChart("chart1s", formulaId);
         $("#Formulas1s").val($(this).val());
+        var dropDown = $(this).context;        
+        $(".Graph_1_Box span").html(dropDown.options[dropDown.selectedIndex].text);
+        $(".Graph_1s_Box span").html(dropDown.options[dropDown.selectedIndex].text);
     });
 
     $("#Formulas2s").bind("change", function () {
         $("#Formulas2").val($(this).val()).change();
         $("Filter_Formulas2").val($(this).val());
+        var dropDown = $(this).context;        
+        $(".Graph_2s_Box span").html(dropDown.options[dropDown.selectedIndex].text);
+        $(".Graph_2_Box span").html(dropDown.options[dropDown.selectedIndex].text);
     });
 
     $("#Formulas2").bind("change", function () {
@@ -383,11 +392,17 @@
         replaceChart("chart2s", formulaId);
         $("#Formulas2s").val($(this).val());
         $("Filter_Formulas2").val($(this).val());
+        var dropDown = $(this).context;        
+        $(".Graph_2_Box span").html(dropDown.options[dropDown.selectedIndex].text);
+        $(".Graph_2s_Box span").html(dropDown.options[dropDown.selectedIndex].text);
     });
 
     $("#Formulas3s").bind("change", function () {
         $("#Formulas3").val($(this).val()).change();
         $("Filter_Formulas3").val($(this).val());
+        var dropDown = $(this).context;        
+        $(".Graph_3s_Box span").html(dropDown.options[dropDown.selectedIndex].text);
+        $(".Graph_3_Box span").html(dropDown.options[dropDown.selectedIndex].text);
     });
 
     $("#Formulas3").bind("change", function () {
@@ -396,11 +411,17 @@
         replaceChart("chart3s", formulaId);
         $("Filter_Formulas3").val($(this).val());
         $("#Formulas3s").val($(this).val());
+        var dropDown = $(this).context;        
+        $(".Graph_3_Box span").html(dropDown.options[dropDown.selectedIndex].text);
+        $(".Graph_3s_Box span").html(dropDown.options[dropDown.selectedIndex].text);
     });
 
     $("#Formulas4s").bind("change", function () {
         $("Filter_Formulas4").val($(this).val());
         $("#Formulas4").val($(this).val()).change();
+        var dropDown = $(this).context;        
+        $(".Graph_4s_Box span").html(dropDown.options[dropDown.selectedIndex].text);
+        $(".Graph_4_Box span").html(dropDown.options[dropDown.selectedIndex].text);
     });
 
     $("#Formulas4").bind("change", function () {
@@ -409,6 +430,9 @@
         replaceChart("chart4s", formulaId);
         $("Filter_Formulas4").val($(this).val());
         $("#Formulas4s").val($(this).val());
+        var dropDown = $(this).context;        
+        $(".Graph_4_Box span").html(dropDown.options[dropDown.selectedIndex].text);
+        $(".Graph_4s_Box span").html(dropDown.options[dropDown.selectedIndex].text);
     });
 
     @*$("divGraph1").load('@Url.Action("AjaxLoadedChart", "Dashboard", new { chartName: "chart1", formulaID: formulaId })');*@

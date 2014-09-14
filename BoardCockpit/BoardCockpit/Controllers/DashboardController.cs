@@ -60,10 +60,10 @@ namespace BoardCockpit.Controllers
                 });
 
             }
-            ViewBag.Formulas1 = items;
-            ViewBag.Formulas2 = items;
-            ViewBag.Formulas3 = items;
-            ViewBag.Formulas4 = items;
+            viewModel.Formulas1 = new SelectList(db.Formulas, "FormulaID", "Name", 3);
+            viewModel.Formulas2 = new SelectList(db.Formulas, "FormulaID", "Name");
+            viewModel.Formulas3 = new SelectList(db.Formulas, "FormulaID", "Name");
+            viewModel.Formulas4 = new SelectList(db.Formulas, "FormulaID", "Name");
             ViewBag.IndustryID = new SelectList(viewModel.Industries, "IndustryID", "Name",industryNo);
 
             return View("Dashboard", viewModel);
@@ -99,7 +99,7 @@ namespace BoardCockpit.Controllers
                 //ViewBag.Formulas2 = items;
                 //ViewBag.Formulas3 = items;
                 //ViewBag.Formulas4 = items;
-                viewModel.Formulas1 = new SelectList(db.Formulas, "FormulaID", "Name");
+                viewModel.Formulas1 = new SelectList(db.Formulas, "FormulaID", "Name",3);
                 viewModel.Formulas2 = new SelectList(db.Formulas, "FormulaID", "Name");
                 viewModel.Formulas3 = new SelectList(db.Formulas, "FormulaID", "Name");
                 viewModel.Formulas4 = new SelectList(db.Formulas, "FormulaID", "Name");
@@ -323,8 +323,9 @@ namespace BoardCockpit.Controllers
 
             categories = new List<string>();
             series = new List<Series>();
-            chart.Categories = categories;
-            chart.DataSeries = series;
+            chart.Categories = categories;//GetCategoriesFromFilterYear(filter);
+            if (chart.DataSeries == null)
+                chart.DataSeries = series;
             chart.ChartName = chartName;
             chart.Title = " ";
 
@@ -335,7 +336,19 @@ namespace BoardCockpit.Controllers
             return PartialView(viewName, viewModel);           
         }
 
-        public List<Series> GetAjaxLoadedDataSeries(DashboardData dashboardData, FilterCriteria filter, int formulaID)
+        private List<string> GetCategoriesFromFilterYear(FilterCriteria filter) 
+        {
+            List<string> categories = new List<string>();
+
+            for (int i = filter.FromYear; i <= filter.ToYear; i++)
+            {
+                categories.Add(i.ToString());
+            }
+
+            return categories;
+        }
+
+        private List<Series> GetAjaxLoadedDataSeries(DashboardData dashboardData, FilterCriteria filter, int formulaID)
         {
             List<Series> dataSeries = new List<Series>();
             List<ContextContainer> contextContainers;
@@ -346,18 +359,45 @@ namespace BoardCockpit.Controllers
             foreach (Company company in companies)
             {
                 List<AjaxLoadedChartData> chartDatas = new List<AjaxLoadedChartData>();
+                List<object> chartDatas2 = new List<object>();
                 contextContainers = company.ContextContainers.Where(n => n.Year >= filter.FromYear)
                                                              .Where(n => n.Year <= filter.ToYear).ToList();
-
+                //object[,] chartDatas3 = new object[contextContainers.Count,2];
+                
+                bool companyHasValue = false;
+                contextContainers.OrderByDescending(j => j.Year);
                 foreach (ContextContainer contextContainer in contextContainers)
-                {
+                {                    
                     if (contextContainer.CalculatedKPIs.Where(n => n.FormulaDetail.FormulaID == formulaID).Count() > 0)
                     {
                         calcKPI = contextContainer.CalculatedKPIs.Where(n => n.FormulaDetail.FormulaID == formulaID).First();
                         chartDatas.Add(new AjaxLoadedChartData { Year = contextContainer.Year, Value = calcKPI.Value });
-                    }
+                        chartDatas2.Add(calcKPI.Value);
+                        
+                        companyHasValue = true;
+                        
+                    }                    
                 }
-                dataSeries.Add(new Series { Name = company.Name, Data = new Data(chartDatas.ToArray()) });
+                int i = 0;
+                object[,] chartDatas3 = new object[chartDatas.Count, 2];
+                foreach (AjaxLoadedChartData item in chartDatas)
+                {
+                    chartDatas3[i, 0] = item.Year;
+                    chartDatas3[i, 1] = item.Value;
+                    i += 1;
+                }
+                if (company.CompanyID == dashboardData.Company.CompanyID) { 
+                PlotOptionsSeries marker = new PlotOptionsSeries();
+                marker.Marker = new PlotOptionsSeriesMarker();
+                marker.Marker.Symbol = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAeCAYAAACmPacqAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuM4zml1AAAAL7SURBVFhH7ZfLS1RRHMfvPKqhB0xlRYhQEdWmUoh2SYt2JbWoNmHROnpQbYKsZZHUoqUYtEhBWhU9SA0iKgbDGXWMIsXoJWn/RJ/vOffK7XZ0Xlcj6Asf5p7f6/zm3HPPnfFqVAK2w1HYKsPfUiaRSFyDafgM49jOQ8p4F1DrmbwXJpPJ5HM4By9hBNtd/FkbNr/SbWlmwjGYSKVSdxivMR7Pq2fcTUND+F4w3mHNRpthj08jJKEmpZnoIhPptrzj+oxs1jWjDPY2yBNTYHwMtnE9Bd/gq8B2RMHVahVF7sMPJnrNCuz17S4l8B8g7g3otvXBR64LIU77sRWrkWKjoE3aw7jemo2y2DphHG4xXmbNRluY9CEMwbDfRNXN6Kk4ySST8IECVxlnjMeqCfswfME3Irh+il37I9BybO348lB1MyrSAdMkDrDsLdi0eSV9tuJTk9HlL2DL499vIq0wJ1thIIiBspvZRMEcaMM9YRw+zJZguw0/KTgaKh6lSOwlCD81O7H3+v7HjOc8JPWNDzGRdrz2wE3GK4zHqgGbNuN3ikX3gAvdtnvkrbXpRnXYOuTnc5BxeMVnpL1wnQDdFm2444zD32ofvk8w4ftdk7vQmfOK/F22jJGOiFPwFrTX2rAtsi57mvaDTtN+xk3WbKSuL+BTk+/BNWFJyB+hzglT0Vc6nW7Gp1NbD0EXpqzHRTvoW3diqDORViuxdcMUCcWgcA0UqaXHf6ktb6RTuwufVvusDBvgIIRPU52a+kZ6bCu5LaXQKmjzNthpjDI0dJjP4LXyu0jQQTbmKBYX2iflSc2QEOeKRLnsT1Va/2ozffDAR++hHLjiosTazCC0EqpNr/MoYB25PZFYF/E1g1+/5maTjv1SqxrryugNPptWk//HCzTCgjaj14YrLyDWZq74oS79b2Y2xd7MDRLmsxn9syhbu0nQWeIqJGppJkfMRhtanvR3o4XEZ5FCAdU+TY/wN9uwyqV/CIsdzPV/Wj/IXDki/OsxIs/7BS74kXy6IZWzAAAAAElFTkSuQmCC)";
+                if (companyHasValue)
+                    dataSeries.Add(new Series { Name = company.Name, Data = new Data(chartDatas3), PlotOptionsSeries = marker });
+                }
+                else
+                {
+                    if (companyHasValue)
+                        dataSeries.Add(new Series { Name = company.Name, Data = new Data(chartDatas3) });
+                }
             }
             
             return dataSeries;
@@ -402,8 +442,8 @@ namespace BoardCockpit.Controllers
             //years.Add("2009");
             chart.Categories = years;
             List<DotNet.Highcharts.Options.Series> test = new List<DotNet.Highcharts.Options.Series>();
-            //test.Add(new DotNet.Highcharts.Options.Series { Name = "Test" });
-            chart.DataSeries = new List<DotNet.Highcharts.Options.Series>(); //test;
+            //marker.Add(new DotNet.Highcharts.Options.Series { Name = "Test" });
+            chart.DataSeries = new List<DotNet.Highcharts.Options.Series>(); //marker;
             chart.ChartName = chartName;
             ViewBag.Graph = chart.Chart;
             //ViewBag.Graph = chart.GetChart(chartName);

@@ -154,7 +154,7 @@ namespace BoardCockpit.Helpers
                         JeffFerguson.Gepsio.Fact fact2 = (JeffFerguson.Gepsio.Fact)fact;
                         
                         
-                        //string test = (tuple.thisFactNode).Attributes.First().Value;
+                        //string marker = (tuple.thisFactNode).Attributes.First().Value;
                         node = new ImportNode()
                         {
                             ImportID = import.ImportID,
