@@ -66,7 +66,7 @@ namespace BoardCockpit.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FormulaDetailID,FormulaExpression,FormulaID")] FormulaDetail formulaDetail, string[] selectedTaxonomies)
+        public ActionResult Create([Bind(Include = "FormulaDetailID,FormulaExpression,FormulaID")] FormulaDetail formulaDetail, string[] selectedTaxonomy)
         {
             ViewBag.Sidebar = true;
             ViewBag.ActiveSidebar = "Formulas";
@@ -82,7 +82,7 @@ namespace BoardCockpit.Controllers
                     try
                     {
                         formulaDetail.Taxonomies = new List<Taxonomy>();
-                        UpdateFormulaDetailTaxonomies(selectedTaxonomies, formulaDetail);
+                        UpdateFormulaDetailTaxonomies(selectedTaxonomy, formulaDetail);
 
                         db.Entry(formulaDetail).State = EntityState.Modified;
                         db.SaveChanges();
