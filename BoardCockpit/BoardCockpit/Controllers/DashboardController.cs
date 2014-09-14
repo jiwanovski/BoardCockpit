@@ -71,8 +71,8 @@ namespace BoardCockpit.Controllers
         // GET: Dashboard
         public ActionResult Dashboard()
         {
-            try
-            {
+            //try
+            //{
                 int firstYear = db.ContextContainers.Min(n => n.Year);
                 int lastYear = db.ContextContainers.Max(n => n.Year);
                 int smallestSize = db.Companies.Min(n => n.SizeClass);
@@ -107,12 +107,12 @@ namespace BoardCockpit.Controllers
 
                 Highcharts chart = new Highcharts("chart");
                 return View(viewModel);
-            }
-            catch (Exception)
-            {
+            //}
+            //catch (Exception)
+            //{
                 
-                throw;
-            }
+            //    throw;
+            //}
             
             //ViewBag.Chart = AjaxLoadedChart();
             return View();
@@ -134,18 +134,53 @@ namespace BoardCockpit.Controllers
 
         private List<decimal> AverageValues(List<Models.CalculatedKPI> kips, FilterCriteria filter) {
             List<decimal> test = new List<decimal>();
-            List<CalculatedKPI> htest;
+            List<CalculatedKPI> htest = new List<Models.CalculatedKPI>();
+            List<ContextContainer> contextContainers = new List<Models.ContextContainer>();
+
+            if (filter.IndustryNo != 0)
+            {
+                
+            }
+
             foreach (CalculatedKPI item in kips)
             {
                 if (filter.IndustryNo != 0) {
+                    //Industry industry = db.Industries.Where(n => n.IndustryKey == filter.IndustryNo).First();
+                    //List<Company> companies = db.Companies.Include(i => i.Industies).ToList();
+                    //companies = companies.Where(i => i.Industies.Contains(industry))
+                    //                        .Where(i => i.SizeClass >= filter.FromSizeClass)
+                    //                        .Where(i => i.SizeClass <= filter.ToSizeClass)
+                    //                        .Where(i => i.CompanyID != item.ContextContainer.CompanyID).ToList();
+                                
+                    //htest = db.CalculatedKPIs.Include(i => i.ContextContainer)
+                    //                                .Where(i => i.ContextContainer.CompanyID != item.ContextContainer.CompanyID)
+                    //                                .Where(i => i.ContextContainer.Company.SizeClass >= filter.FromSizeClass)
+                    //                                .Where(i => i.ContextContainer.Company.SizeClass <= filter.ToSizeClass)
+                    //                                //.Where(i => i.ContextContainer.Company.Industies.Contains(industry))
+                    //                                .Where(i => i.ContextContainer.Year == item.ContextContainer.Year)
+                    //                                .Where(i => i.FormulaDetailID == item.FormulaDetailID).ToList();
                     Industry industry = db.Industries.Where(n => n.IndustryKey == filter.IndustryNo).First();
-                    htest = db.CalculatedKPIs.Include(i => i.ContextContainer)
-                                                    .Where(i => i.ContextContainer.CompanyID != item.ContextContainer.CompanyID)
-                                                    .Where(i => i.ContextContainer.Company.SizeClass >= filter.FromSizeClass)
-                                                    .Where(i => i.ContextContainer.Company.SizeClass <= filter.ToSizeClass)
-                                                    //.Where(i => i.ContextContainer.Company.Industies.Contains(industry))
-                                                    .Where(i => i.ContextContainer.Year == item.ContextContainer.Year)
-                                                    .Where(i => i.FormulaDetailID == item.FormulaDetailID).ToList();
+                    List<Company> companies = db.Companies.Include(i => i.Industies).ToList();
+                    companies = companies.Where(i => i.Industies.Contains(industry))
+                                            .Where(i => i.SizeClass >= filter.FromSizeClass)
+                                            .Where(i => i.SizeClass <= filter.ToSizeClass)
+                                            .ToList();
+
+                    foreach (Company item2 in companies)
+                    {
+                        if (item2.ContextContainers.Where(i => i.Year == filter.ToYear).Count() > 0) { 
+                        ContextContainer contextContainer = item2.ContextContainers.Where(i => i.Year == filter.ToYear).First();
+                        contextContainers.Add(contextContainer);
+                        }
+                    }
+
+                    foreach (ContextContainer item2 in contextContainers)
+                    {
+                        List<CalculatedKPI> kpis = new List<CalculatedKPI>();
+                        if (item2.CalculatedKPIs.Where(i => i.FormulaDetail.FormulaID == item.FormulaDetail.FormulaID).Count() > 0) {
+                            htest.Add(item2.CalculatedKPIs.Where(i => i.FormulaDetail.FormulaID == item.FormulaDetail.FormulaID).First());
+                        }
+                    }
                 } else { 
                     htest = db.CalculatedKPIs.Include(i => i.ContextContainer)
                                                     .Where(i => i.ContextContainer.CompanyID != item.ContextContainer.CompanyID)
@@ -154,9 +189,11 @@ namespace BoardCockpit.Controllers
                                                     .Where(i => i.ContextContainer.Year == item.ContextContainer.Year)
                                                     .Where(i => i.FormulaDetailID == item.FormulaDetailID).ToList();
                 };
-                decimal newDec = htest.Average(i => i.Value);
-                newDec = decimal.Round(newDec, 2);
-                test.Add(newDec);
+                if (htest.Count > 0) { 
+                    decimal newDec = htest.Average(i => i.Value);
+                    newDec = decimal.Round(newDec, 2);
+                    test.Add(newDec);
+                }
             }
 
             return test;
@@ -238,6 +275,7 @@ namespace BoardCockpit.Controllers
                 case ChartType.AjaxLoadedDataClickablePoints:
                     chart = new Helpers.AjaxLoadedChart();
                     viewName = "AjaxLoadedChart";
+                    chart.DataSeries = GetAjaxLoadedDataSeries(viewModel, filter, formulaID2);
                     break;
                 case ChartType.DualAxesLineAndColumn:
                     chart = new Helpers.DualAxesLineAndColumnChart();
@@ -297,6 +335,34 @@ namespace BoardCockpit.Controllers
             return PartialView(viewName, viewModel);           
         }
 
+        public List<Series> GetAjaxLoadedDataSeries(DashboardData dashboardData, FilterCriteria filter, int formulaID)
+        {
+            List<Series> dataSeries = new List<Series>();
+            List<ContextContainer> contextContainers;
+            CalculatedKPI calcKPI;
+
+            List<Company> companies = dashboardData.Companies;
+
+            foreach (Company company in companies)
+            {
+                List<AjaxLoadedChartData> chartDatas = new List<AjaxLoadedChartData>();
+                contextContainers = company.ContextContainers.Where(n => n.Year >= filter.FromYear)
+                                                             .Where(n => n.Year <= filter.ToYear).ToList();
+
+                foreach (ContextContainer contextContainer in contextContainers)
+                {
+                    if (contextContainer.CalculatedKPIs.Where(n => n.FormulaDetail.FormulaID == formulaID).Count() > 0)
+                    {
+                        calcKPI = contextContainer.CalculatedKPIs.Where(n => n.FormulaDetail.FormulaID == formulaID).First();
+                        chartDatas.Add(new AjaxLoadedChartData { Year = contextContainer.Year, Value = calcKPI.Value });
+                    }
+                }
+                dataSeries.Add(new Series { Name = company.Name, Data = new Data(chartDatas.ToArray()) });
+            }
+            
+            return dataSeries;
+        }
+
         public ActionResult AjaxLoadedChart(string chartName, string formulaID)
         //public Highcharts AjaxLoadedChart()
         {
@@ -347,8 +413,8 @@ namespace BoardCockpit.Controllers
 
         public ActionResult DualAxesLineAndColumnChart(string chartName, string formulaID)
         {
-            formulaID = "1";
-            chartName = "graph2";
+            //formulaID = "1";
+            //chartName = "graph2";
             IChart chart;
             List<Formula> formulas = db.Formulas.ToList();
             List<SelectListItem> items = new List<SelectListItem>();
@@ -555,8 +621,7 @@ namespace BoardCockpit.Controllers
             chartDatas.Add(new Series {                
                                         Name = selectedFormula.Name, 
                                         Color = ColorTranslator.FromHtml("#4572A7"), 
-                                        Type = ChartTypes.Column, 
-                                        YAxis = "1",
+                                        Type = ChartTypes.Column,                                        
                                         Data = new Data( selectedChartDatas.OrderBy(n => n.Year).ToArray() )//49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6 })//selectedFormulaValues.ToArray() ) chartDatas2.OrderBy(i => i.Year).ToArray() )
                                       });
             chartDatas.Add(new Series
@@ -564,6 +629,7 @@ namespace BoardCockpit.Controllers
                                         Name = relatedFormula.Name,
                                         Color = ColorTranslator.FromHtml("#89A54E"),
                                         Type = ChartTypes.Spline,
+                                        YAxis = "1",
                                         Data = new Data( relatedChartDatas.OrderBy(n => n.Year).ToArray() )//7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2 })//relatedFormulaValues.ToArray()) chartDatas2.OrderBy(i => i.Year).ToArray())
                                     });            
 
