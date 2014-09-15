@@ -103,16 +103,7 @@ namespace BoardCockpit.Helpers
                     {
                         Series = new PlotOptionsSeries
                         {
-                            Cursor = Cursors.Pointer,
-                            Point = new PlotOptionsSeriesPoint
-                            {
-                                Events = new PlotOptionsSeriesPointEvents
-                                {
-                                    Click = @"function() {
-                                        alert(Highcharts.dateFormat('%A, %b %e, %Y', this.x) +': '+ this.y +' visits');
-                                    }"
-                                }
-                            },
+                            Cursor = Cursors.Pointer,                            
                             Marker = new PlotOptionsSeriesMarker { LineWidth = 1 }
                         }
                     })
