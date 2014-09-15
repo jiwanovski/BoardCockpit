@@ -60,10 +60,10 @@ namespace BoardCockpit.Controllers
                 });
 
             }
-            viewModel.Formulas1 = new SelectList(db.Formulas, "FormulaID", "Name", 3);
-            viewModel.Formulas2 = new SelectList(db.Formulas, "FormulaID", "Name");
-            viewModel.Formulas3 = new SelectList(db.Formulas, "FormulaID", "Name");
-            viewModel.Formulas4 = new SelectList(db.Formulas, "FormulaID", "Name");
+            viewModel.Formulas1 = new SelectList(db.Formulas, "FormulaID", "Name", 12);
+            viewModel.Formulas2 = new SelectList(db.Formulas, "FormulaID", "Name", 11);
+            viewModel.Formulas3 = new SelectList(db.Formulas, "FormulaID", "Name", 1);
+            viewModel.Formulas4 = new SelectList(db.Formulas, "FormulaID", "Name", 14);
             ViewBag.IndustryID = new SelectList(viewModel.Industries, "IndustryID", "Name",industryNo);
 
             return View("Dashboard", viewModel);
@@ -99,10 +99,10 @@ namespace BoardCockpit.Controllers
                 //ViewBag.Formulas2 = items;
                 //ViewBag.Formulas3 = items;
                 //ViewBag.Formulas4 = items;
-                viewModel.Formulas1 = new SelectList(db.Formulas, "FormulaID", "Name",3);
-                viewModel.Formulas2 = new SelectList(db.Formulas, "FormulaID", "Name");
-                viewModel.Formulas3 = new SelectList(db.Formulas, "FormulaID", "Name");
-                viewModel.Formulas4 = new SelectList(db.Formulas, "FormulaID", "Name");
+                viewModel.Formulas1 = new SelectList(db.Formulas, "FormulaID", "Name",12);
+                viewModel.Formulas2 = new SelectList(db.Formulas, "FormulaID", "Name", 11);
+                viewModel.Formulas3 = new SelectList(db.Formulas, "FormulaID", "Name", 1);
+                viewModel.Formulas4 = new SelectList(db.Formulas, "FormulaID", "Name", 14);
                 ViewBag.IndustryID = new SelectList(viewModel.Industries, "IndustryID", "Name");
 
                 Highcharts chart = new Highcharts("chart");

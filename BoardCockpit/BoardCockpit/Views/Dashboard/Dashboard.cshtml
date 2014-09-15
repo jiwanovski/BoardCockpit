@@ -167,14 +167,14 @@
             <div class="span6">
                 <div class="panel" data-role="panel">
                     <div class="panel-header bg-lightBlue fg-white Graph_1_Box">
-                        <span class="Graph_1_Label">DSO</span>                        
+                        <span class="Graph_1_Label">EBITDA</span>                        
                     </div>
                     <div class="panel-content">
                         <div class="input-control select">
                             @Html.DropDownList("Formulas1", null, new { @id = "Formulas1" })
                         </div>
                         <div class="divchart1" id="divchart1">
-                            @Html.Action("GetChartPartialView", new { chartName = "chart1", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })                            
+                            @Html.Action("GetChartPartialView", new { chartName = "chart1", formulaId = "12", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })                            
                         </div>
                             @*@(ViewBag.Chart)*@
                         </div>
@@ -183,14 +183,14 @@
             <div class="span6">
                 <div class="panel" data-role="panel">
                     <div class="panel-header bg-lightBlue fg-white Graph_2_Box">
-                        <span class="Graph_2_Label">Grafik 2</span>
+                        <span class="Graph_2_Label">EVA</span>
                     </div>
                     <div class="panel-content">
                         <div class="input-control select">
                             @Html.DropDownList("Formulas2", null, new { @id = "Formulas2" })
                         </div>
                         <div class="divchart2" id="divchart2">
-                            @Html.Action("GetChartPartialView", new { chartName = "chart2", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
+                            @Html.Action("GetChartPartialView", new { chartName = "chart2", formulaId = "11", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                         </div>
                             @*@(ViewBag.Chart)*@
                         </div>
@@ -202,14 +202,14 @@
         <div class="span6">
             <div class="panel" data-role="panel">
                 <div class="panel-header bg-lightBlue fg-white Graph_3_Box">
-                    <span class="Graph_3_Label">Grafik 3</span>
+                    <span class="Graph_3_Label">EK-Quote</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
                         @Html.DropDownList("Formulas3", null, new { @id = "Formulas3" })
                     </div>
                     <div class="divchart3" id="divchart3">
-                        @Html.Action("GetChartPartialView", new { chartName = "chart3", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
+                        @Html.Action("GetChartPartialView", new { chartName = "chart3", formulaId = "1", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
@@ -217,14 +217,14 @@
         <div class="span6">
             <div class="panel" data-role="panel">
                 <div class="panel-header bg-lightBlue fg-white Graph_4_Box">
-                    <span class="Graph_4_Label">Grafik 4</span>
+                    <span class="Graph_4_Label">EBIT</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
                         @Html.DropDownList("Formulas4", null, new { @id = "Formulas4" })
                     </div>
                     <div class="divchart4" id="divchart4">
-                        @Html.Action("GetChartPartialView", new { chartName = "chart4", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
+                        @Html.Action("GetChartPartialView", new { chartName = "chart4", formulaId = "14", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
@@ -237,7 +237,7 @@
 
             <div class="panel" data-role="panel">
                 <div class="panel-header bg-lightBlue fg-white Graph_1s_Box">
-                    <span class="Graph_1s_Label">Grafik 1</span>
+                    <span class="Graph_1s_Label">EBITDA</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
@@ -245,7 +245,7 @@
                     </div>
                     <div class="divchart1s" id="divchart1s">
                         @*@(ViewBag.Chart)*@
-                        @Html.Action("GetChartPartialView", new { chartName = "chart1s", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
+                        @Html.Action("GetChartPartialView", new { chartName = "chart1s", formulaId = "12", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
@@ -255,14 +255,14 @@
         <div class="span12">
             <div class="panel" data-role="panel">
                 <div class="panel-header bg-lightBlue fg-white Graph_2s_Box">
-                    <span class="Graph_2s_Label">Grafik 2</span>
+                    <span class="Graph_2s_Label">EVA</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
                         @Html.DropDownList("Formulas2", null, new { @id = "Formulas2s" })
                     </div>
                     <div class="divchart2s" id="divchart2s">
-                        @Html.Action("GetChartPartialView", new { chartName = "chart2s", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
+                        @Html.Action("GetChartPartialView", new { chartName = "chart2s", formulaId = "11", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
@@ -273,14 +273,14 @@
         <div class="span12">
             <div class="panel" data-role="panel">
                 <div class="panel-header bg-lightBlue fg-white Graph_3s_Box">
-                    <span class="Graph_3s_Label">Grafik 3</span>
+                    <span class="Graph_3s_Label">EK-Quote</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
                         @Html.DropDownList("Formulas3", null, new { @id = "Formulas3s" })
                     </div>
                     <div class="divchart3s" id="divchart3s">
-                        @Html.Action("GetChartPartialView", new { chartName = "chart3s", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
+                        @Html.Action("GetChartPartialView", new { chartName = "chart3s", formulaId = "1", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
@@ -290,14 +290,14 @@
         <div class="span12">
             <div class="panel" data-role="panel">
                 <div class="panel-header bg-lightBlue fg-white Graph_4s_Box">
-                    <span class="Graph_4s_Label">Grafik 4</span>
+                    <span class="Graph_4s_Label">EBIT</span>
                 </div>
                 <div class="panel-content">
                     <div class="input-control select">
                         @Html.DropDownList("Formulas4", null, new { @id = "Formulas4s" })
                     </div>
                     <div class="divchart4s" id="divchart4s">
-                        @Html.Action("GetChartPartialView", new { chartName = "chart4s", formulaId = "3", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
+                        @Html.Action("GetChartPartialView", new { chartName = "chart4s", formulaId = "14", fromYear = @Model.Filter.FromYear, toYear = @Model.Filter.ToYear, fromSize = @Model.Filter.FromSizeClass, toSize = @Model.Filter.ToSizeClass, industryNo = @Model.Filter.IndustryNo })
                     </div>
                 </div>
             </div>
